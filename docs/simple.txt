@@ -1,0 +1,139 @@
+~|===||~ SIMPLE: CRUEL WORLDS ~||===|~
+
+=-=-= Character / Fighter / Party Member
+== Stats
+== Equipment
+== Skills
+ - Gained from runes socketed into a runestone and can be modified with guidestone.
+	-- Rune: Gives bonuses/abilities when socketed (materia in ff7 / gems in poe)
+		--- Skill: grant user the skill
+		--- Support: modify skills linked with this rune on runestone
+		--- Bonus: give character stats if bonus rune requirement is satisfied (e.g. must be connected to 2 red runes
+	-- Runestone: base with sockets (ff10-2 garment grid)
+	-- Guidestone: overlay for Runestone, gives bonuses to runes that overlap with markings. Can be rotated?
+== Tree
+== Strat
+
+
+
+=-=-= Stats
+== Meta
+* ATB
+* XP
+
+== Resources
+* HP
+* MP
+
+== Weapon
+* Wep Power
+* Spell Mul
+* Base Act Spd
+* Base Crit
+
+== Armour
+* HP
+* Arm
+* S Arm
+
+== Core
+* STR
+* DEF
+* MAG
+* RES
+* DEX - misc attack stat
+* WIL - misc spell stat
+* SPD - affects action spd and attack spd
+* CSPD - affects cast spd
+
+== Elemental (RESIST / DAMAGE)
+* FIRE
+* BOLT
+* COLD
+* DARK
+* HOLY
+* PHYS
+
+== Ailment
+
+- Scalers
+	* Poison
+	* Slow (25% reduced speed, multiplies with other slowing effects)
+	* Blunt (less atk dmg)
+	* Foggy (less mag dmg)
+	* Berserk
+	* Wounded (healing has reduced effect)
+	
+- Binary
+	* Disarm
+	* Silence
+	* Stop
+	* Pocket (can't use item)
+
+== Bonuses
+* Attack speed
+* Cast speed
+* Crit chance (attack/spell/all)
+* Crit dmg (attack/spell/all)
+
+=-=-= Equipment
+== Slots
+
+ooxxx
+ooxxx
+
+* Onhand
+	- max 1
+	- focus on wep power/spell mul
+* Offhand
+	- max 1
+* Body
+	- max 1
+* Trinket
+	- max 1
+* Accessory (head, gloves, boots, belt. exclusive)
+	- max 0-3
+* Ring
+	- max 0-3
+	
+	
+	
+=-=-= Classes
+* 4 Party members
+* 8 Classes. 3 Mastery classes per Class.
+* When forming party. All classes + planned mastery classes must be committed to.
+* Skill points can be endlessly
+
+== Classes
+* KNI / Knight (tough, melee, 
+	- 1. Leader (team buffs) -- Summon?
+	- 2. Hero (selfish)
+	- 3. Darknight  -- Summon?
+* RAN / Ranger
+	- 1. Bow Master
+	- 2. Duelist
+	- 3. Survival
+* MAG / Magician
+	- 1. Elemental
+	- 2. Arcane (phys/dark/light)
+	- 3. ???  -- Summon?
+* CLE / Cleric
+	- 1. Purifying Flames/Light
+	- 2. Cold/Dark
+	- 3. Bolt/Phys
+* ROG / Rogue
+	- 1. Assassin (crit)
+	- 2. Poisons (many DoT)
+	- 3. Trapper
+* TRI / Trickster
+	- 1. Spellblade (spells + blades alternating)
+	- 2. Ninja (more duely)
+	- 3. Magical implements (items, spell leaning
+* BRU / Brute
+	- 1. Barbarian (less gear more rage/blood/leech/1h)
+	- 2. Siegebreaker (heavy gear frontline 2H or big shield)
+	- 3. Explosive Casting (fire/bolt)
+* FOO / Fool
+	- 1. Enlightened (monk)
+	- 2. Delirius (cultist) -- Summon?
+	- 3. Blighted
