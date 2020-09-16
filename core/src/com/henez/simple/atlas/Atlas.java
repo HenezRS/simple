@@ -18,6 +18,6 @@ public class Atlas {
     }
 
     public static TextureRegion getImgTiles(ImgTiles img) {
-        return textureRegionTiles[img.y][img.x];
+        return textureRegionTiles[img.getY()][img.getX()];
     }
 }

@@ -12,11 +12,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static com.henez.simple.global.Global.GAME_PACKAGE_NAME;
+import static com.henez.simple.global.Global.PATH_EXTERNAL;
+import static com.henez.simple.global.Global.PATH_LOCAL;
 
 public class Screenshotter {
-    public static String pathExternal = String.format("\\Dropbox\\Java Projects\\LIBGDX Projects\\%s\\docs\\", GAME_PACKAGE_NAME);
-    public static String pathLocal = "bin/";
-
     private Screenshotter() {
 
     }
@@ -24,7 +23,7 @@ public class Screenshotter {
     public static void saveScreenshot() {
         Gson gson = new Gson();
         ScreenshotterSaver screenshotterSaver;
-        FileHandle fileHandle = Gdx.files.local(pathLocal + "gameData.json");
+        FileHandle fileHandle = Gdx.files.local(PATH_LOCAL + "gameData.json");
 
         if (fileHandle.exists()) {
             screenshotterSaver = gson.fromJson(fileHandle.readString(), ScreenshotterSaver.class);
@@ -47,7 +46,7 @@ public class Screenshotter {
 
         Pixmap pixmap = new Pixmap(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), Pixmap.Format.RGBA8888);
         BufferUtils.copy(pixels, 0, pixmap.getPixels(), pixels.length);
-        PixmapIO.writePNG(Gdx.files.external(pathExternal + "screenshots\\" + screenshotterSaver.getDateAsFolderName() + "\\" + GAME_PACKAGE_NAME + "_" + screenshotterSaver.getDateToday() + "_" + screenshotterSaver
+        PixmapIO.writePNG(Gdx.files.external(PATH_EXTERNAL + "screenshots\\" + screenshotterSaver.getDateAsFolderName() + "\\" + GAME_PACKAGE_NAME + "_" + screenshotterSaver.getDateToday() + "_" + screenshotterSaver
                                   .getDailyScreenshotCount() + ".png"),
                           pixmap);
         pixmap.dispose();

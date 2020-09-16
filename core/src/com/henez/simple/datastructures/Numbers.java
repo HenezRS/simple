@@ -22,7 +22,7 @@ public class Numbers {
     }
 
     public static boolean flip() {
-        return random.nextInt(1) == 1;
+        return random.nextInt(2) == 1;
     }
 
     public static float floor(float in) {
@@ -31,8 +31,8 @@ public class Numbers {
     }
 
     public static int clamp(int value, int min, int max) {
-        int v = value > max ? max : value;
-        return v < min ? min : v;
+        int v = Math.min(value, max);
+        return Math.max(v, min);
     }
 
     public static int round(float value) {

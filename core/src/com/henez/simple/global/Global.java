@@ -4,6 +4,10 @@ import com.badlogic.gdx.graphics.Pixmap;
 
 public class Global {
     public static String GAME_PACKAGE_NAME = "simple";
+    public static String PATH_EXTERNAL = String.format("\\Dropbox\\Java Projects\\LIBGDX Projects\\%s\\docs\\", GAME_PACKAGE_NAME);
+    public static String PATH_LOCAL = "bin/";
+    public static String PATH_MAPS = "maps/";
+
     public static final int FLOOR_TILE_MAX_W = 100;
     public static final int FLOOR_TILE_MAX_H = 57;
     public static final Pixmap.Format PIXMAP_FORMAT = Pixmap.Format.RGB888;

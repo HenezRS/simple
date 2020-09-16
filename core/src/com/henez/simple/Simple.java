@@ -8,6 +8,8 @@ import com.henez.simple.atlas.ImgTiles;
 import com.henez.simple.debug.DebugDrawer;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.input.In;
+import com.henez.simple.map.Map;
+import com.henez.simple.map.MapDataReader;
 import com.henez.simple.misc.Framerate;
 import com.henez.simple.misc.screenshotter.Screenshotter;
 import com.henez.simple.renderer.Batcher;
@@ -20,11 +22,21 @@ class Simple {
     private In in;
     private DebugDrawer debugDrawer;
     private Framerate framerate;
+    private Map map;
+    private MapDataReader mapDataReader;
 
     Simple() {
         in = new In();
         debugDrawer = new DebugDrawer();
         framerate = new Framerate();
+        map = new Map();
+        mapDataReader = new MapDataReader();
+
+        init();
+    }
+
+    private void init() {
+        mapDataReader.read();
     }
 
     public void input() {
@@ -42,7 +54,7 @@ class Simple {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        batch.draw(Atlas.getImgTiles(ImgTiles.GRASS), 16, 16);
+        //batch.draw(Atlas.getImgTiles(ImgTiles.GRASS), 16, 16);
         batch.end();
 
         shape.begin(ShapeRenderer.ShapeType.Filled);
