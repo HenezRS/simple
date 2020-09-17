@@ -3,13 +3,12 @@ package com.henez.simple;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.henez.simple.atlas.Atlas;
-import com.henez.simple.atlas.ImgTiles;
 import com.henez.simple.debug.DebugDrawer;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.input.In;
-import com.henez.simple.map.Map;
-import com.henez.simple.map.MapDataReader;
+import com.henez.simple.map.gamemap.GameMap;
+import com.henez.simple.map.gamemap.impl.TestMap;
+import com.henez.simple.map.mapdata.MapDataReader;
 import com.henez.simple.misc.Framerate;
 import com.henez.simple.misc.screenshotter.Screenshotter;
 import com.henez.simple.renderer.Batcher;
@@ -22,21 +21,19 @@ class Simple {
     private In in;
     private DebugDrawer debugDrawer;
     private Framerate framerate;
-    private Map map;
+    private GameMap gameMap;
     private MapDataReader mapDataReader;
 
     Simple() {
         in = new In();
         debugDrawer = new DebugDrawer();
         framerate = new Framerate();
-        map = new Map();
-        mapDataReader = new MapDataReader();
+        gameMap = new TestMap();
 
         init();
     }
 
     private void init() {
-        mapDataReader.read();
     }
 
     public void input() {
