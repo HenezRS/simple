@@ -2,8 +2,11 @@ package com.henez.simple.enums.tiles;
 
 import lombok.Getter;
 
+import java.util.Arrays;
+
 @Getter
 public enum TileGroup {
+    error(-1,-1,TileType.none),
     none(0,0,TileType.none),
     floor(0,1,TileType.floor),
     wall_1(0,2,TileType.wall),
@@ -32,5 +35,11 @@ public enum TileGroup {
         this.x = x;
         this.y = y;
         this.tileType = tileType;
+    }
+
+    public static TileGroup fromIndex(int index) {
+        int w = index%TILE_GROUP_W;
+        int h = index/TILE_GROUP_W;
+        return Arrays.stream(TileGroup.values()).filter(t -> t.x==w && t.y==h).findFirst().orElse(TileGroup.error);
     }
 }

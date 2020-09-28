@@ -22,7 +22,6 @@ class Simple {
     private DebugDrawer debugDrawer;
     private Framerate framerate;
     private GameMap gameMap;
-    private MapDataReader mapDataReader;
 
     Simple() {
         in = new In();
@@ -51,6 +50,7 @@ class Simple {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
+        gameMap.draw(batch);
         //batch.draw(Atlas.getImgTiles(ImgTiles.GRASS), 16, 16);
         batch.end();
 

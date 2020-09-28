@@ -14,6 +14,8 @@ public class MapDataReader {
     public MapData read(String mapFileName) {
         Gson gson = new Gson();
         FileHandle fileHandle = Gdx.files.local(Global.PATH_MAPS + String.format("%s.json",mapFileName));
-        return gson.fromJson(fileHandle.readString(), MapData.class);
+        MapData mapData = gson.fromJson(fileHandle.readString(), MapData.class);
+        mapData.loadTileLayers();
+        return mapData;
     }
 }

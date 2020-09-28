@@ -55,7 +55,7 @@ public class In {
 
         mouse.setPos(Gdx.input.getX() / Global.gameScale, Gdx.input.getY() / Global.gameScale);
         mouse.setPosWorld((Gdx.input.getX() / Global.gameScale) + Static.renderer.getX(), (Gdx.input.getY() / Global.gameScale) + Static.renderer.getY());
-        mouse.setPosGrid(mouse.getWx() / Global.tilePixel, mouse.getWy() / Global.tilePixel);
+        mouse.setPosGrid(mouse.getWx() / Global.tilePixelSize, mouse.getWy() / Global.tilePixelSize);
     }
 
     private void set(Key key, int code) {

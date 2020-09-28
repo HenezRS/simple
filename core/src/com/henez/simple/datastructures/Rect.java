@@ -12,8 +12,8 @@ public class Rect extends Rectangle {
     public Rect(int x, int y) {
         this.x = x;
         this.y = y;
-        width = Global.tilePixel;
-        height = Global.tilePixel;
+        width = Global.tilePixelSize;
+        height = Global.tilePixelSize;
         snap();
     }
 

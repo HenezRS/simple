@@ -19,7 +19,7 @@ public class Global {
     public static int cameraPixelHH = cameraPixelH / 2;
     public static int windowPixelW = cameraPixelW * gameScale;
     public static int windowPixelH = cameraPixelH * gameScale;
-    public static int tilePixel = 16;
+    public static int tilePixelSize = 16;
     public static int tilePixel2 = 8;
     public static int tilePixelW = 16;
     public static int tilePixelH = 16;
@@ -32,4 +32,7 @@ public class Global {
     public static int SEC4 = SEC / 4;
     public static int SEC5 = SEC / 5;
     public static int SEC6 = SEC / 6;
+
+    public static String LAYER_MAP = "map";
+    public static String LAYER_OBJ = "obj";
 }

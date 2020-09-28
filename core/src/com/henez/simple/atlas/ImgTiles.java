@@ -35,6 +35,7 @@ public enum ImgTiles {
     cave_bridge_2,
     stairs_down,
     stairs_up,
+    error,
     ;
 
     private final int x;
