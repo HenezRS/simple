@@ -19,12 +19,14 @@ public abstract class GameMap {
     protected Map<TileGroup, TilePool> tileGroup;
     protected GameList<Tile> tilesMap;
     protected GameList<Tile> tilesObj;
+    protected GameList<String> missingGroupByNames;
 
     public GameMap(String mapFileName) {
         this.mapData = new MapDataReader().read(mapFileName);
         this.tileGroup = new HashMap<>();
+        this.missingGroupByNames = new GameList<>();
         tileGroup.put(TileGroup.error,new TilePool(ImgTiles.error));
-        tileGroup.put(TileGroup.none,new TilePool(ImgTiles.none));
+        tileGroup.put(TileGroup.none,new TilePool(ImgTiles.none).dontDraw());
         loadTileGroups();
         loadTilesFromMapData();
     }
@@ -36,24 +38,38 @@ public abstract class GameMap {
         tilesObj = new GameList<>();
         for(int j=0; j<mapData.getHeight(); ++j) {
             for(int i=0; i<mapData.getWidth(); ++i) {
-                tilesMap.add(new Tile(i,j,getRandomTileFromGroup(mapData.getTileIndex(i,j, Global.LAYER_MAP))));
-                tilesObj.add(new Tile(i,j,getRandomTileFromGroup(mapData.getTileIndex(i,j, Global.LAYER_OBJ))));
+                TilePool tilePool = getTilePoolForIndex(mapData.getTileIndex(i,j, Global.LAYER_MAP));
+                tilesMap.add(new Tile(i,j,tilePool));
+
+                tilePool = getTilePoolForIndex(mapData.getTileIndex(i,j, Global.LAYER_OBJ));
+                tilesObj.add(new Tile(i,j,tilePool));
             }
         }
     }
 
     public void draw(Batcher batch) {
         tilesMap.forEach(tile -> {
-            batch.draw(tile.getTex(),tile.getX(),tile.getY());
+            if(tile.isDrawable()) {
+                batch.draw(tile.getTex(), tile.getX(), tile.getY(), tile.getRotation());
+            }
+        });
+        tilesObj.forEach(tile -> {
+            if(tile.isDrawable()) {
+                batch.draw(tile.getTex(), tile.getX(), tile.getY(), tile.getRotation());
+            }
         });
     }
 
-    private ImgTiles getRandomTileFromGroup(int index) {
+    private TilePool getTilePoolForIndex(int index) {
         TileGroup group = TileGroup.fromIndex(index);
         if(!tileGroup.containsKey(group)) {
-            System.out.printf("No tiles for tileGroup '%s'%n",group.name());
+            if(!missingGroupByNames.contains(group.name())) {
+                System.out.printf("No tiles for tileGroup '%s'%n", group.name());
+                missingGroupByNames.add(group.name());
+            }
             group = TileGroup.error;
         }
-        return tileGroup.get(group).getRandom();
+
+        return tileGroup.get(group);
     }
 }

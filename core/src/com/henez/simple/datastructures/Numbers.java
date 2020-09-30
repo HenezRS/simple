@@ -21,6 +21,10 @@ public class Numbers {
         return (min + ((random.nextFloat() + 0.0001f) * (max - min)));
     }
 
+    public static boolean rollPercent(float percent) {
+        return nextFloatBetween(0,1)<=percent;
+    }
+
     public static boolean flip() {
         return random.nextInt(2) == 1;
     }

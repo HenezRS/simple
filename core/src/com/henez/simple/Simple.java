@@ -33,10 +33,23 @@ class Simple {
     }
 
     private void init() {
+        Static.renderer.moveCameraG(30,0);
     }
 
     public void input() {
         in.capture();
+        if(In.right.isHeld()) {
+            Static.renderer.moveCamera(3,0);
+        }
+        if(In.left.isHeld()) {
+            Static.renderer.moveCamera(-3,0);
+        }
+        if(In.up.isHeld()) {
+            Static.renderer.moveCamera(0,-3);
+        }
+        if(In.down.isHeld()) {
+            Static.renderer.moveCamera(0,3);
+        }
     }
 
     public void update() {

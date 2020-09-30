@@ -21,4 +21,8 @@ public class GameList<T> extends ArrayList<T> {
     public T first() {
         return get(0);
     }
+
+    public T last() {
+        return get(size() - 1);
+    }
 }

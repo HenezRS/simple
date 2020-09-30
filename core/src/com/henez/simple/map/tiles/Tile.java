@@ -6,6 +6,8 @@ import com.henez.simple.atlas.ImgTiles;
 import com.henez.simple.global.Global;
 import lombok.Getter;
 
+import java.util.Optional;
+
 @Getter
 public class Tile {
 
@@ -13,13 +15,19 @@ public class Tile {
     private int y;
     private int gx;
     private int gy;
+    private float rotation = 0f;
     private TextureRegion tex;
+    private boolean drawable = true;
 
-    public Tile(int gx, int gy, ImgTiles img) {
+    public Tile(int gx, int gy, TilePool tilePool) {
         this.gx = gx;
         this.gy = gy;
         this.x = gx* Global.tilePixelSize;
         this.y = gy* Global.tilePixelSize;
-        this.tex = Atlas.getImgTiles(img);
+        drawable = tilePool.isDrawable();
+        rotation = tilePool.getRotation();
+        if(drawable) {
+            this.tex = Atlas.getImgTiles(tilePool.getRandom());
+        }
     }
 }

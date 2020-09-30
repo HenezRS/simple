@@ -68,6 +68,12 @@ public class Renderer {
         update();
     }
 
+    public void moveCameraG(float gx, float gy) {
+        camera.position.x += gx*Global.tilePixelSize;
+        camera.position.y += gy*Global.tilePixelSize;
+        update();
+    }
+
     public void moveCameraInverse(float x, float y) {
         camera.position.x -= x;
         camera.position.y -= y;
