@@ -6,13 +6,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.henez.simple.debug.DebugDrawer;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.input.In;
-import com.henez.simple.map.gamemap.GameMap;
-import com.henez.simple.map.gamemap.impl.TestMap;
-import com.henez.simple.map.mapdata.MapDataReader;
 import com.henez.simple.misc.Framerate;
 import com.henez.simple.misc.screenshotter.Screenshotter;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.Shaper;
+import com.henez.simple.world.World;
 
 class Simple {
 
@@ -21,39 +19,28 @@ class Simple {
     private In in;
     private DebugDrawer debugDrawer;
     private Framerate framerate;
-    private GameMap gameMap;
+    private World world;
 
     Simple() {
         in = new In();
         debugDrawer = new DebugDrawer();
         framerate = new Framerate();
-        gameMap = new TestMap();
+        world = new World();
 
         init();
     }
 
     private void init() {
-        Static.renderer.moveCameraG(30,0);
     }
 
     public void input() {
         in.capture();
-        if(In.right.isHeld()) {
-            Static.renderer.moveCamera(3,0);
-        }
-        if(In.left.isHeld()) {
-            Static.renderer.moveCamera(-3,0);
-        }
-        if(In.up.isHeld()) {
-            Static.renderer.moveCamera(0,-3);
-        }
-        if(In.down.isHeld()) {
-            Static.renderer.moveCamera(0,3);
-        }
     }
 
     public void update() {
         framerate.update();
+        world.update();
+        Static.renderer.positionCameraOnMapObject(world.getPlayer());
     }
 
     public void draw() {
@@ -63,8 +50,8 @@ class Simple {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        gameMap.draw(batch);
-        //batch.draw(Atlas.getImgTiles(ImgTiles.GRASS), 16, 16);
+        batch.draw(world.getCurrentMap().getMapTex(), 0, 0);
+        world.getDrawables().forEach(batch::draw);
         batch.end();
 
         shape.begin(ShapeRenderer.ShapeType.Filled);

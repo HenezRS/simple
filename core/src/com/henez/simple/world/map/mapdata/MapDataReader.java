@@ -1,11 +1,9 @@
-package com.henez.simple.map.mapdata;
+package com.henez.simple.world.map.mapdata;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.google.gson.Gson;
 import com.henez.simple.global.Global;
-import com.henez.simple.map.mapdata.MapData;
-import com.henez.simple.misc.screenshotter.ScreenshotterSaver;
 
 public class MapDataReader {
     public MapDataReader() {

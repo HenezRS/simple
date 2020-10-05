@@ -3,6 +3,7 @@ package com.henez.simple.renderer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.henez.simple.global.Global;
+import com.henez.simple.world.MapObject;
 
 public class Renderer {
 
@@ -58,9 +59,9 @@ public class Renderer {
         update();
     }
 
-    /*public void positionCameraOnActor(Actor actor) {
-        positionCamera(actor.getX() + Global.tilePixel2 - Global.cameraPixelWW, actor.getY() + Global.tilePixel2 - Global.cameraPixelHH);
-    }*/
+    public void positionCameraOnMapObject(MapObject mapObject) {
+        positionCamera(mapObject.getX() + Global.tilePixel2 - Global.cameraPixelWW, mapObject.getY() + Global.tilePixel2 - Global.cameraPixelHH);
+    }
 
     public void moveCamera(float x, float y) {
         camera.position.x += x;
@@ -69,8 +70,8 @@ public class Renderer {
     }
 
     public void moveCameraG(float gx, float gy) {
-        camera.position.x += gx*Global.tilePixelSize;
-        camera.position.y += gy*Global.tilePixelSize;
+        camera.position.x += gx * Global.tilePixelSize;
+        camera.position.y += gy * Global.tilePixelSize;
         update();
     }
 

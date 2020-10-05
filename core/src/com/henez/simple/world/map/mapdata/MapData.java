@@ -1,4 +1,4 @@
-package com.henez.simple.map.mapdata;
+package com.henez.simple.world.map.mapdata;
 
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.global.Global;

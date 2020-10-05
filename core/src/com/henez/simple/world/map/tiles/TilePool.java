@@ -1,4 +1,4 @@
-package com.henez.simple.map.tiles;
+package com.henez.simple.world.map.tiles;
 
 import com.henez.simple.atlas.ImgTiles;
 import com.henez.simple.datastructures.GameList;

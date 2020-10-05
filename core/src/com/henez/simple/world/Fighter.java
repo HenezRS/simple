@@ -1,0 +1,62 @@
+package com.henez.simple.world;
+
+import com.henez.simple.enums.Animation;
+import com.henez.simple.enums.Facing;
+import com.henez.simple.global.Global;
+import com.henez.simple.sprite.BatchDrawable;
+import com.henez.simple.sprite.Sprite;
+import com.henez.simple.world.actions.Movement;
+
+public class Fighter extends MapObject {
+    protected Movement movement;
+    protected Facing facing2;
+
+    public Fighter(int gx, int gy, Sprite sprite) {
+        super(gx, gy, sprite);
+        facing2 = Facing.RIGHT;
+        movement = new Movement();
+    }
+
+    @Override
+    public void update() {
+        if (movement.update()) {
+            move(movement.addMoveX(), movement.addMoveY());
+            if (!movement.isMoving()) {
+                completeMove();
+            }
+        }
+        sprite.update();
+    }
+
+    @Override
+    public BatchDrawable getDrawable() {
+        return new BatchDrawable(x, y, sprite.getTex(), facing2);
+    }
+
+    public boolean canMove(Facing facing) {
+        return true;
+    }
+
+    public void move(float x, float y) {
+        this.x += x;
+        this.y += y;
+    }
+
+    protected void snapToGrid() {
+        gx = (int) x / Global.tilePixelSize;
+        gy = (int) y / Global.tilePixelSize;
+    }
+
+    public void beginMove(Facing facing) {
+        sprite.setAnimationAndContinue(Animation.move);
+        movement.begin(facing);
+        if (facing == Facing.LEFT || facing == Facing.RIGHT) {
+            facing2 = facing;
+        }
+    }
+
+    public void completeMove() {
+        sprite.setAnimationAndContinue(Animation.idle);
+        snapToGrid();
+    }
+}

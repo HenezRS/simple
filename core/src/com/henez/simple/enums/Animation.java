@@ -1,9 +1,10 @@
 package com.henez.simple.enums;
 
 public enum Animation {
-    none("NONE"),
-    idle("IDLE"),
-    move("MOVE"),
+    none("none"),
+    _default("default"),
+    idle("idle"),
+    move("move"),
     ;
 
     public final String name;

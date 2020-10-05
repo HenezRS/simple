@@ -1,12 +1,9 @@
-package com.henez.simple.map.tiles;
+package com.henez.simple.world.map.tiles;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.atlas.Atlas;
-import com.henez.simple.atlas.ImgTiles;
 import com.henez.simple.global.Global;
 import lombok.Getter;
-
-import java.util.Optional;
 
 @Getter
 public class Tile {
@@ -27,7 +24,7 @@ public class Tile {
         drawable = tilePool.isDrawable();
         rotation = tilePool.getRotation();
         if(drawable) {
-            this.tex = Atlas.getImgTiles(tilePool.getRandom());
+            this.tex = Atlas.toTex(tilePool.getRandom());
         }
     }
 }
