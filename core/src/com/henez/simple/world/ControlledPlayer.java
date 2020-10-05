@@ -4,6 +4,7 @@ import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.input.In;
 import com.henez.simple.sprite.Sprite;
+import com.henez.simple.world.map.gamemap.GameMap;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,12 +21,12 @@ public class ControlledPlayer extends Fighter {
     }
 
     @Override
-    public void update() {
-        super.update();
+    public void update(GameMap map) {
+        super.update(map);
 
         if (!movement.isMoving()) {
             pollInputMovement().ifPresent(facing -> {
-                if (canMove(facing)) {
+                if (canMove(facing, map)) {
                     beginMoveParty(facing);
                 }
             });

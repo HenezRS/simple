@@ -13,7 +13,6 @@ public class TestMap extends GameMap {
 
     @Override
     protected void loadTileGroups() {
-        tileGroup.put(TileGroup.back, new TilePool(ImgTiles.none));
         tileGroup.put(TileGroup.floor, new TilePool(ImgTiles.floor));
         tileGroup.put(TileGroup.wall_1, new TilePool(ImgTiles.cave_wall_1, ImgTiles.cave_wall_2, ImgTiles.cave_wall_3, ImgTiles.cave_wall_4, ImgTiles.cave_wall_5, ImgTiles.cave_wall_6));
         tileGroup.put(TileGroup.wall_2, new TilePool(ImgTiles.cave_background_wall_1));

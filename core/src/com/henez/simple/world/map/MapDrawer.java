@@ -13,7 +13,7 @@ public class MapDrawer {
     public MapDrawer() {
     }
 
-    public TextureRegion draw(int width, int height, Color backColor, GameList<Tile> tilesMap, GameList<Tile> tilesObj) {
+    public TextureRegion draw(int width, int height, Color backColor, GameList<Tile> tilesMap, GameList<Tile> tilesDeco) {
         int w = width * Global.tilePixelSize;
         int h = height * Global.tilePixelSize;
 
@@ -23,7 +23,7 @@ public class MapDrawer {
 
         Texture map = new Texture(w, h, Pixmap.Format.RGB888);
         tilesMap.forEach(tile -> drawTile(pixmapMap, tile));
-        tilesObj.forEach(tile -> drawTile(pixmapMap, tile));
+        tilesDeco.forEach(tile -> drawTile(pixmapMap, tile));
 
         map.draw(pixmapMap, 0, 0);
         pixmapMap.dispose();

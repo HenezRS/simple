@@ -35,4 +35,5 @@ public class Global {
 
     public static String LAYER_MAP = "map";
     public static String LAYER_OBJ = "obj";
+    public static String LAYER_DECO = "deco";
 }

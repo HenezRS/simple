@@ -6,8 +6,8 @@ import java.util.Arrays;
 
 @Getter
 public enum TileType {
-    empty(0, false),
-    none(1, false),
+    empty(0, true),
+    back(1, false),
     floor(2, true),
     wall(3, false),
     ground(4, true),
@@ -27,6 +27,6 @@ public enum TileType {
     }
 
     public static TileType fromIndex(int index) {
-        return Arrays.stream(TileType.values()).filter(t -> t.index==index).findFirst().orElse(TileType.empty);
+        return Arrays.stream(TileType.values()).filter(t -> t.index == index).findFirst().orElse(TileType.empty);
     }
 }

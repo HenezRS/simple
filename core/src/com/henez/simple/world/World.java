@@ -28,19 +28,22 @@ public class World {
         objects = new GameList<>();
 
         int depth = 0;
-        player = defaultPlayerController(depth++);
+        int startGx = currentMap.getStartGx();
+        int startGy = currentMap.getStartGy();
+
+        player = defaultPlayerController(startGx, startGy, depth++);
         playerParty = new GameList<>();
         playerParty.add(player);
-        playerParty.add(defaultPlayer(depth++));
-        playerParty.add(defaultPlayer(depth++));
-        playerParty.add(defaultPlayer(depth));
+        playerParty.add(defaultPlayer(startGx, startGy, depth++));
+        playerParty.add(defaultPlayer(startGx, startGy, depth++));
+        playerParty.add(defaultPlayer(startGx, startGy, depth));
         player.setParty(playerParty);
 
         addToWorld(playerParty);
     }
 
     public void update() {
-        objects.forEach(MapObject::update);
+        objects.forEach(obj -> obj.update(currentMap));
     }
 
     public GameList<BatchDrawable> getDrawables() {
@@ -61,16 +64,16 @@ public class World {
         objects.sort(Comparator.comparing(MapObject::getDepth).reversed());
     }
 
-    private ControlledPlayer defaultPlayerController(int depth) {
-        ControlledPlayer player = new ControlledPlayer(50, 15, new Sprite(), depth);
+    private ControlledPlayer defaultPlayerController(int startGx, int startGy, int depth) {
+        ControlledPlayer player = new ControlledPlayer(startGx, startGy, new Sprite(), depth);
         player.giveAnimation(Animation.idle, new SpriteAnimation(Global.SEC2, Atlas.toTex(ImgActors.knight_idle_0), Atlas.toTex(ImgActors.knight_idle_1)));
         player.giveAnimation(Animation.move, new SpriteAnimation(Global.SEC2, 3.0f, Atlas.toTex(ImgActors.knight_idle_0), Atlas.toTex(ImgActors.knight_idle_1)));
         player.getSprite().setCurrent(Animation.idle);
         return player;
     }
 
-    private Fighter defaultPlayer(int depth) {
-        Fighter player = new Fighter(50, 15, new Sprite(), depth);
+    private Fighter defaultPlayer(int startGx, int startGy, int depth) {
+        Fighter player = new Fighter(startGx, startGy, new Sprite(), depth);
         player.giveAnimation(Animation.idle, new SpriteAnimation(Global.SEC2, Atlas.toTex(ImgActors.knight_idle_0), Atlas.toTex(ImgActors.knight_idle_1)));
         player.giveAnimation(Animation.move, new SpriteAnimation(Global.SEC2, 3.0f, Atlas.toTex(ImgActors.knight_idle_0), Atlas.toTex(ImgActors.knight_idle_1)));
         player.getSprite().setCurrent(Animation.idle);

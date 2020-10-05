@@ -5,6 +5,7 @@ import com.henez.simple.global.Global;
 import com.henez.simple.sprite.BatchDrawable;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.sprite.SpriteAnimation;
+import com.henez.simple.world.map.gamemap.GameMap;
 import lombok.Getter;
 
 @Getter
@@ -25,7 +26,7 @@ public class MapObject {
         this.depth = depth;
     }
 
-    public void update() {
+    public void update(GameMap map) {
         sprite.update();
     }
 

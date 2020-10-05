@@ -6,6 +6,7 @@ import com.henez.simple.global.Global;
 import com.henez.simple.sprite.BatchDrawable;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.world.actions.Movement;
+import com.henez.simple.world.map.gamemap.GameMap;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,7 +24,7 @@ public class Fighter extends MapObject {
     }
 
     @Override
-    public void update() {
+    public void update(GameMap map) {
         if (movement.update()) {
             move(movement.addMoveX(), movement.addMoveY());
             if (!movement.isMoving()) {
@@ -38,8 +39,8 @@ public class Fighter extends MapObject {
         return new BatchDrawable(x, y, sprite.getTex(), facing2);
     }
 
-    public boolean canMove(Facing facing) {
-        return true;
+    public boolean canMove(Facing facing, GameMap map) {
+        return map.getTileDetail(gx + facing.tx, gy + facing.ty).isWalkable();
     }
 
     public void move(float x, float y) {
