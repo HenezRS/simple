@@ -6,13 +6,18 @@ import com.henez.simple.global.Global;
 import com.henez.simple.sprite.BatchDrawable;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.world.actions.Movement;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Fighter extends MapObject {
     protected Movement movement;
     protected Facing facing2;
+    protected Facing lastMoveDir;
 
-    public Fighter(int gx, int gy, Sprite sprite) {
-        super(gx, gy, sprite);
+    public Fighter(int gx, int gy, Sprite sprite, int depth) {
+        super(gx, gy, sprite, depth);
         facing2 = Facing.RIGHT;
         movement = new Movement();
     }
@@ -48,6 +53,10 @@ public class Fighter extends MapObject {
     }
 
     public void beginMove(Facing facing) {
+        if (facing == null) {
+            return;
+        }
+        lastMoveDir = facing;
         sprite.setAnimationAndContinue(Animation.move);
         movement.begin(facing);
         if (facing == Facing.LEFT || facing == Facing.RIGHT) {

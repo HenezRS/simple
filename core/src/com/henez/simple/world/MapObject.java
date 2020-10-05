@@ -14,13 +14,15 @@ public class MapObject {
     protected int gx;
     protected int gy;
     protected Sprite sprite;
+    protected int depth;
 
-    public MapObject(int gx, int gy, Sprite sprite) {
+    public MapObject(int gx, int gy, Sprite sprite, int depth) {
         this.gx = gx;
         this.gy = gy;
         this.x = gx * Global.tilePixelSize;
         this.y = gy * Global.tilePixelSize;
         this.sprite = sprite;
+        this.depth = depth;
     }
 
     public void update() {
