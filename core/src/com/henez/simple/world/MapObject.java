@@ -18,11 +18,15 @@ public class MapObject {
     protected int depth;
 
     public MapObject(int gx, int gy, Sprite sprite, int depth) {
+        resetPosition(gx,gy,depth);
+        this.sprite=sprite;
+    }
+
+    public void resetPosition(int gx, int gy, int depth) {
         this.gx = gx;
         this.gy = gy;
         this.x = gx * Global.tilePixelSize;
         this.y = gy * Global.tilePixelSize;
-        this.sprite = sprite;
         this.depth = depth;
     }
 

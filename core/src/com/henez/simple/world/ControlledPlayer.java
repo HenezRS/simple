@@ -24,20 +24,25 @@ public class ControlledPlayer extends Fighter {
     public void update(GameMap map) {
         super.update(map);
 
-        if (!movement.isMoving()) {
+        boolean interruptMovement = false;
+        if(moveComplete) {
+            interruptMovement = tileDetail.isExit();
+        }
+
+        if (!interruptMovement && !movement.isMoving()) {
             pollInputMovement().ifPresent(facing -> {
                 if (canMove(facing, map)) {
-                    beginMoveParty(facing);
+                    beginMoveParty(facing, map);
                 }
             });
         }
     }
 
-    private void beginMoveParty(Facing dir) {
+    private void beginMoveParty(Facing dir,GameMap map) {
         GameList<Facing> dirNext = party.stream().map(Fighter::getLastMoveDir).collect(Collectors.toCollection(GameList::new));
-        beginMove(dir);
+        beginMove(dir,map);
         for (int i = 1; i < party.size(); ++i) {
-            party.get(i).beginMove(dirNext.get(i - 1));
+            party.get(i).beginMove(dirNext.get(i - 1), map);
         }
     }
 

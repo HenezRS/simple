@@ -30,6 +30,8 @@ public abstract class GameMap {
     protected Colors backColor;
     protected int startGx = 0;
     protected int startGy = 0;
+    protected int endGx = 0;
+    protected int endGy = 0;
 
     public GameMap(String mapFileName, Colors backColor) {
         this.mapData = new MapDataReader().read(mapFileName);
@@ -67,6 +69,9 @@ public abstract class GameMap {
                 if (group == TileGroup.up) {
                     startGx = i;
                     startGy = j;
+                } else if (group == TileGroup.down) {
+                    endGx = i;
+                    endGy = j;
                 }
 
                 group = TileGroup.fromIndex(mapData.getTileIndex(i, j, Global.LAYER_OBJ));

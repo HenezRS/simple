@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class Movement {
     Facing facing;
-    float speed = 1.0f;
+    float speed = 1.0f * 8;
     float progress;
     float goal;
     boolean isMoving;

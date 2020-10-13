@@ -14,6 +14,7 @@ import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Getter
@@ -44,6 +45,21 @@ public class World {
 
     public void update() {
         objects.forEach(obj -> obj.update(currentMap));
+        if(player.isMoveComplete()) {
+            if(player.getTileDetail().isExit()) {
+                nextFloor();
+            }
+        }
+    }
+
+    private void nextFloor() {
+        clearWorld();
+        currentMap = new TestMap();
+        int startGx = currentMap.getStartGx();
+        int startGy = currentMap.getStartGy();
+        AtomicInteger depth = new AtomicInteger();
+        playerParty.forEach(player -> player.resetPosition(startGx, startGy, depth.getAndIncrement()));
+        addToWorld(playerParty);
     }
 
     public GameList<BatchDrawable> getDrawables() {
@@ -58,6 +74,10 @@ public class World {
     public void addToWorld(GameList<Fighter> objectsToAdd) {
         objects.addAll(objectsToAdd);
         orderWorldByDepth();
+    }
+
+    public void clearWorld() {
+        objects = new GameList<>();
     }
 
     private void orderWorldByDepth() {

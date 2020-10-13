@@ -7,6 +7,7 @@ import com.henez.simple.sprite.BatchDrawable;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.world.actions.Movement;
 import com.henez.simple.world.map.gamemap.GameMap;
+import com.henez.simple.world.map.tiles.TileDetail;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,8 @@ public class Fighter extends MapObject {
     protected Movement movement;
     protected Facing facing2;
     protected Facing lastMoveDir;
+    protected boolean moveComplete;
+    protected TileDetail tileDetail;
 
     public Fighter(int gx, int gy, Sprite sprite, int depth) {
         super(gx, gy, sprite, depth);
@@ -24,7 +27,14 @@ public class Fighter extends MapObject {
     }
 
     @Override
+    public void resetPosition(int gx, int gy, int depth) {
+        super.resetPosition(gx, gy, depth);
+        lastMoveDir = null;
+    }
+
+    @Override
     public void update(GameMap map) {
+        moveComplete = false;
         if (movement.update()) {
             move(movement.addMoveX(), movement.addMoveY());
             if (!movement.isMoving()) {
@@ -53,19 +63,21 @@ public class Fighter extends MapObject {
         gy = (int) y / Global.tilePixelSize;
     }
 
-    public void beginMove(Facing facing) {
+    public void beginMove(Facing facing, GameMap map) {
         if (facing == null) {
             return;
         }
         lastMoveDir = facing;
         sprite.setAnimationAndContinue(Animation.move);
         movement.begin(facing);
+        tileDetail = map.getTileDetail(gx + facing.tx, gy + facing.ty);
         if (facing == Facing.LEFT || facing == Facing.RIGHT) {
             facing2 = facing;
         }
     }
 
     public void completeMove() {
+        moveComplete = true;
         sprite.setAnimationAndContinue(Animation.idle);
         snapToGrid();
     }
