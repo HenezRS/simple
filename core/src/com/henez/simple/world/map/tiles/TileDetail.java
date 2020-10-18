@@ -27,6 +27,10 @@ public class TileDetail {
     }
 
     public boolean isExit() {
-        return tiles.stream().anyMatch(tile -> tile.getType()==TileType.down);
+        return tiles.stream().anyMatch(tile -> tile.getType() == TileType.down);
+    }
+
+    public boolean canEncounter() {
+        return walkable;
     }
 }

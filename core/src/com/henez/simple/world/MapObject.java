@@ -1,6 +1,7 @@
 package com.henez.simple.world;
 
 import com.henez.simple.enums.Animation;
+import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.global.Global;
 import com.henez.simple.sprite.BatchDrawable;
 import com.henez.simple.sprite.Sprite;
@@ -18,8 +19,8 @@ public class MapObject {
     protected int depth;
 
     public MapObject(int gx, int gy, Sprite sprite, int depth) {
-        resetPosition(gx,gy,depth);
-        this.sprite=sprite;
+        resetPosition(gx, gy, depth);
+        this.sprite = sprite;
     }
 
     public void resetPosition(int gx, int gy, int depth) {
@@ -30,7 +31,7 @@ public class MapObject {
         this.depth = depth;
     }
 
-    public void update(GameMap map) {
+    public void update(WorldState state, GameMap map) {
         sprite.update();
     }
 

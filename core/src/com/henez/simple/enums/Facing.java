@@ -16,4 +16,30 @@ public enum Facing {
         this.tx = tx;
         this.ty = ty;
     }
+
+    public Facing getNextRight() {
+        switch (dir) {
+        case 0:
+            return Facing.DOWN;
+        case 1:
+            return Facing.RIGHT;
+        case 2:
+            return Facing.UP;
+        default:
+            return Facing.LEFT;
+        }
+    }
+
+    public Facing getNextLeft() {
+        switch (dir) {
+        case 0:
+            return Facing.UP;
+        case 1:
+            return Facing.LEFT;
+        case 2:
+            return Facing.DOWN;
+        default:
+            return Facing.RIGHT;
+        }
+    }
 }

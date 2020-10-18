@@ -2,6 +2,7 @@ package com.henez.simple.world;
 
 import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.Facing;
+import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.global.Global;
 import com.henez.simple.sprite.BatchDrawable;
 import com.henez.simple.sprite.Sprite;
@@ -33,7 +34,7 @@ public class Fighter extends MapObject {
     }
 
     @Override
-    public void update(GameMap map) {
+    public void update(WorldState state, GameMap map) {
         moveComplete = false;
         if (movement.update()) {
             move(movement.addMoveX(), movement.addMoveY());
