@@ -4,11 +4,14 @@ import com.henez.simple.Static;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Colors;
+import com.henez.simple.enums.state.WorldState;
+import com.henez.simple.global.Global;
 import com.henez.simple.input.In;
 import com.henez.simple.misc.Framerate;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.Shaper;
 import com.henez.simple.text.Text;
+import com.henez.simple.world.World;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -19,8 +22,15 @@ public class DebugDrawer {
         lines = new GameList<>();
     }
 
-    public void draw(Batcher batch, Framerate framerate) {
+    public void draw(Batcher batch, World world, Framerate framerate) {
         lines.clear();
+
+        if (world.getState() == WorldState.BATTLE) {
+            lines.add(String.format("BATTLE: %ss", world.getBattleTimer().getSeconds()));
+        } else {
+            lines.add(String.format("ENC: %s steps", world.getStepsUntilEncounter()));
+        }
+
         lines.add(In.showHeld());
         lines.add(String.format("FPS: %s - Time: %s", framerate.getFrameRate(), framerate.getSecondsSinceGameStart()));
         lines.add(String.format("camera: %s,%s", Static.renderer.getX(), Static.renderer.getY()));
@@ -45,7 +55,16 @@ public class DebugDrawer {
         });
     }
 
-    public void draw(Shaper shape) {
-        shape.rect(new Rect(In.mouse.getGx() * 16, In.mouse.getGy() * 16), Colors.text_default.mul(0.75f, 0.35f));
+    public void draw(Shaper shape, World world) {
+        int ts = Global.tilePixelSize;
+        shape.rect(new Rect(In.mouse.getGx() * ts, In.mouse.getGy() * ts), Colors.text_default.mul(0.75f, 0.35f));
+
+        AtomicInteger atomicInteger = new AtomicInteger(0);
+        world.getEncounterService()
+             .getEncounterPositionsOptional()
+             .ifPresent(positions -> positions.forEach(xy -> shape.rect(new Rect(xy.getX() * ts, xy.getY() * ts),
+                                                                        Colors.red.mul(0.75f - (0.10f * atomicInteger.getAndIncrement()), 0.70f - (0.10f * atomicInteger.get())))));
+
+        shape.rectOutline(new Rect(world.getEncounterService().getEncounterX() * ts, world.getEncounterService().getEncounterY() * ts), Colors.blue.color);
     }
 }

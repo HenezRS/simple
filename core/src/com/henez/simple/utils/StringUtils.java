@@ -13,4 +13,8 @@ public class StringUtils {
     public static int fromHex(String hex) {
         return Integer.parseInt(hex, 16);
     }
+
+    public static String decimal2(float f) {
+        return String.format("%.2f", f);
+    }
 }

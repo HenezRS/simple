@@ -43,7 +43,7 @@ public class ControlledPlayer extends Fighter {
     }
 
     private boolean partyMembersAreSpread() {
-        return party.stream().anyMatch(p -> party.stream().filter(pp -> p.getGx() == pp.getGx() && p.getGy() == pp.getGy()).collect(Collectors.toCollection(GameList::new)).size() > 1);
+        return party.stream().noneMatch(p -> party.stream().filter(pp -> p.getGx() == pp.getGx() && p.getGy() == pp.getGy()).collect(Collectors.toCollection(GameList::new)).size() > 1);
     }
 
     private void beginMoveParty(Facing dir, GameMap map) {

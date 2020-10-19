@@ -6,6 +6,8 @@ import com.henez.simple.misc.XY;
 import com.henez.simple.world.map.gamemap.GameMap;
 import lombok.Getter;
 
+import java.util.Optional;
+
 @Getter
 public class EncounterService {
 
@@ -54,6 +56,10 @@ public class EncounterService {
         encounterY = gy + encounterFacing.ty;
 
         return map.getTileDetail(encounterX, encounterY).canEncounter();
+    }
+
+    public Optional<GameList<XY>> getEncounterPositionsOptional() {
+        return Optional.ofNullable(encounterPositions);
     }
 
 }

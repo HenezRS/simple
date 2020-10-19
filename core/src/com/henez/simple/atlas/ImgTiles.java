@@ -36,13 +36,17 @@ public enum ImgTiles {
     stairs_down,
     stairs_up,
     error,
+    debug_y,
+    debug_b,
+    debug_g,
+    debug_r,
     ;
 
     private final int x;
     private final int y;
 
     ImgTiles() {
-        this.x = this.ordinal()%16;
-        this.y = this.ordinal()/16;
+        this.x = this.ordinal() % 16;
+        this.y = this.ordinal() / 16;
     }
 }

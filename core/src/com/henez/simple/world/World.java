@@ -8,6 +8,7 @@ import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.global.Global;
 import com.henez.simple.input.In;
+import com.henez.simple.misc.timer.Timer;
 import com.henez.simple.sprite.BatchDrawable;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.sprite.SpriteAnimation;
@@ -16,6 +17,7 @@ import com.henez.simple.world.map.gamemap.impl.TestMap;
 import lombok.Getter;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
 @Getter
 public class World {
     private WorldState state;
+    private Timer battleTimer;
     private EncounterService encounterService;
     private GameList<MapObject> objects;
     private ControlledPlayer player;
@@ -30,10 +33,11 @@ public class World {
     private GameList<Fighter> enemyParty;
     private GameMap currentMap;
     private int stepsUntilEncounter;
-    private int stepsUntilEncounterMax = 10;
+    private int stepsUntilEncounterMax = 0;
 
     public World() {
         state = WorldState.MAP;
+        battleTimer = new Timer(Global.SEC6);
         encounterService = new EncounterService();
         currentMap = new TestMap();
         objects = new GameList<>();
@@ -72,6 +76,10 @@ public class World {
             }
         }
 
+        if (state == WorldState.BATTLE) {
+            updateBattle();
+        }
+
         player.beginMoveIfAble(currentMap);
 
         if (In.mouse.isClicked()) {
@@ -79,19 +87,29 @@ public class World {
         }
     }
 
+    private void updateBattle() {
+        if (battleTimer.update()) {
+            endEncounter();
+        }
+    }
+
     private void beginEncounter() {
         state = WorldState.BATTLE;
+        battleTimer.reset();
         stepsUntilEncounter = stepsUntilEncounterMax;
 
         AtomicInteger depth = new AtomicInteger();
         encounterService.getEncounterPositions().forEach(xy -> {
             enemyParty.add(defaultEnemy(xy.getX(), xy.getY(), depth.getAndIncrement()));
         });
+        Collections.reverse(enemyParty);
         addToWorld(enemyParty);
     }
 
     private void endEncounter() {
         state = WorldState.MAP;
+        objects.removeAll(enemyParty);
+        enemyParty = new GameList<>();
     }
 
     private void nextFloor() {

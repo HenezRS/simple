@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Colors;
+import com.henez.simple.utils.RectUtils;
 
 public class Shaper extends ShapeRenderer {
     private float last = 0;
@@ -27,13 +28,37 @@ public class Shaper extends ShapeRenderer {
         ty = 0;
     }
 
-    public void rect(Rectangle rect) {
+    public void rect(Rect rect) {
         rect(rect.x + tx, rect.y + ty, rect.width, rect.height);
     }
 
     public void rect(Rect rect, Color color) {
         setColor(color);
         rect(rect);
+    }
+
+    public void rectOutline(Rect rect) {
+        rect(RectUtils.borderRight(rect));
+        rect(RectUtils.borderUp(rect));
+        rect(RectUtils.borderLeft(rect));
+        rect(RectUtils.borderDown(rect));
+    }
+
+    public void rectOutlineFull(Rect rect) {
+        rect(RectUtils.borderRightFull(rect));
+        rect(RectUtils.borderUpFull(rect));
+        rect(RectUtils.borderLeftFull(rect));
+        rect(RectUtils.borderDownFull(rect));
+    }
+
+    public void rectOutline(Rect rect, Color color) {
+        setColor(color);
+        rectOutline(rect);
+    }
+
+    public void rectOutlineFull(Rect rect, Color color) {
+        setColor(color);
+        rectOutlineFull(rect);
     }
 
     public void bar(Rectangle rect, float percent, Color color, Color colorUnder) {
