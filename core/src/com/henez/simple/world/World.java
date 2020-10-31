@@ -8,7 +8,6 @@ import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.global.Global;
 import com.henez.simple.input.In;
-import com.henez.simple.misc.timer.Timer;
 import com.henez.simple.sprite.BatchDrawable;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.sprite.SpriteAnimation;
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 @Getter
 public class World {
     private WorldState state;
-    private Timer battleTimer;
+    private Battle battle;
     private EncounterService encounterService;
     private GameList<MapObject> objects;
     private ControlledPlayer player;
@@ -37,7 +36,6 @@ public class World {
 
     public World() {
         state = WorldState.MAP;
-        battleTimer = new Timer(Global.SEC6);
         encounterService = new EncounterService();
         currentMap = new TestMap();
         objects = new GameList<>();
@@ -88,14 +86,14 @@ public class World {
     }
 
     private void updateBattle() {
-        if (battleTimer.update()) {
+        battle.update();
+        if (battle.isEnded()) {
             endEncounter();
         }
     }
 
     private void beginEncounter() {
         state = WorldState.BATTLE;
-        battleTimer.reset();
         stepsUntilEncounter = stepsUntilEncounterMax;
 
         AtomicInteger depth = new AtomicInteger();
@@ -104,6 +102,8 @@ public class World {
         });
         Collections.reverse(enemyParty);
         addToWorld(enemyParty);
+
+        battle = new Battle(playerParty, enemyParty);
     }
 
     private void endEncounter() {

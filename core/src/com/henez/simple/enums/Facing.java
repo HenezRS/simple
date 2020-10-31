@@ -42,4 +42,21 @@ public enum Facing {
             return Facing.RIGHT;
         }
     }
+
+    public Facing getOpposite() {
+        switch (dir) {
+        case 0:
+            return Facing.LEFT;
+        case 1:
+            return Facing.DOWN;
+        case 2:
+            return Facing.RIGHT;
+        default:
+            return Facing.UP;
+        }
+    }
+
+    public static Facing byDir2(int x, int xx) {
+        return x <= xx ? Facing.RIGHT : Facing.LEFT;
+    }
 }

@@ -26,7 +26,7 @@ public class DebugDrawer {
         lines.clear();
 
         if (world.getState() == WorldState.BATTLE) {
-            lines.add(String.format("BATTLE: %ss", world.getBattleTimer().getSeconds()));
+            lines.add(String.format("BATTLE: %ss", world.getBattle().getBattleTimer().getSeconds()));
         } else {
             lines.add(String.format("ENC: %s steps", world.getStepsUntilEncounter()));
         }
@@ -41,11 +41,11 @@ public class DebugDrawer {
                                 In.mouse.getGy(),
                                 In.mouse.getX(),
                                 In.mouse.getY()));
-        /*lines.add(String.format("player: %s,%s [%s,%s]",
-                                (int) Static.world.getPlayer().getX(),
-                                (int) Static.world.getPlayer().getY(),
-                                Static.world.getPlayer().getGx(),
-                                Static.world.getPlayer().getGy()));*/
+        lines.add(String.format("player: %s,%s [%s,%s]",
+                                world.getPlayer().getX(),
+                                world.getPlayer().getY(),
+                                world.getPlayer().getGx(),
+                                world.getPlayer().getGy()));
 
         int height = lines.size() * Text.TEXT_LINE_H;
         AtomicInteger atomicInteger = new AtomicInteger(0);
