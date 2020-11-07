@@ -2,7 +2,9 @@ package com.henez.simple.misc.timer;
 
 import com.henez.simple.global.Global;
 import com.henez.simple.utils.StringUtils;
+import lombok.Getter;
 
+@Getter
 public class Timer {
     protected int tick;
     protected int delay;

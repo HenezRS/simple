@@ -47,7 +47,7 @@ public class ControlledPlayer extends Fighter {
     }
 
     private void beginMoveParty(Facing dir, GameMap map) {
-        GameList<Facing> dirNext = party.stream().map(Fighter::getLastMoveDir).collect(Collectors.toCollection(GameList::new));
+        GameList<Facing> dirNext = party.stream().map(Actor::getLastMoveDir).collect(Collectors.toCollection(GameList::new));
         beginMove(dir, map);
         for (int i = 1; i < party.size(); ++i) {
             party.get(i).beginMove(dirNext.get(i - 1), map);

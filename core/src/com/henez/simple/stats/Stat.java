@@ -31,4 +31,16 @@ public class Stat {
     public int getMax() {
         return max;
     }
+
+    public void empty() {
+        cur = 0;
+    }
+
+    public boolean isFull() {
+        return cur >= max;
+    }
+
+    public boolean isEmpty() {
+        return cur <= 0;
+    }
 }
