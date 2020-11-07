@@ -1,9 +1,10 @@
-package com.henez.simple.world;
+package com.henez.simple.world.battle;
 
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.global.Global;
 import com.henez.simple.misc.timer.Timer;
+import com.henez.simple.world.Fighter;
 import lombok.Getter;
 
 import java.util.Optional;
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 
 @Getter
 public class Battle {
+    private Timer turnTimer;
     private Timer battleTimer;
     private GameList<Fighter> playerParty;
     private GameList<Fighter> enemyParty;
@@ -21,7 +23,8 @@ public class Battle {
     private boolean ended = false;
 
     public Battle(GameList<Fighter> playerParty, GameList<Fighter> enemyParty) {
-        battleTimer = new Timer(Global.SEC * 3);
+        turnTimer = new Timer(Global.SEC);
+        battleTimer = new Timer();
         this.playerParty = playerParty;
         this.enemyParty = enemyParty;
 
@@ -34,6 +37,7 @@ public class Battle {
 
         fightersReady = new GameList<>();
 
+        fightersWaiting.forEach(Fighter::battleStart);
         setFighterFacing();
     }
 
@@ -46,19 +50,19 @@ public class Battle {
     }
 
     public void update() {
-        if (battleTimer.update()) {
-            endBattle();
-        } else {
-            tickBattle();
-        }
+        battleTimer.update();
+        tickBattle();
     }
 
     public void tickBattle() {
         if (getFighterActing().isPresent()) {
             resolveFighterActing();
         } else {
-            fightersWaiting.forEach(Fighter::battleUpdate);
-            populateFightersWaiting();
+            if (turnTimer.update()) {
+                turnTimer.reset();
+                fightersWaiting.forEach(Fighter::battleUpdate);
+                populateFightersWaiting();
+            }
         }
     }
 

@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.henez.simple.debug.DebugDrawer;
+import com.henez.simple.drawer.BattleDrawer;
 import com.henez.simple.enums.Colors;
+import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.input.In;
 import com.henez.simple.misc.Framerate;
 import com.henez.simple.misc.screenshotter.Screenshotter;
@@ -20,12 +22,14 @@ class Simple {
     private DebugDrawer debugDrawer;
     private Framerate framerate;
     private World world;
+    private BattleDrawer battleDrawer;
 
     Simple() {
         in = new In();
         debugDrawer = new DebugDrawer();
         framerate = new Framerate();
         world = new World();
+        battleDrawer = new BattleDrawer(world);
 
         init();
     }
@@ -57,6 +61,9 @@ class Simple {
         shape.begin(ShapeRenderer.ShapeType.Filled);
         Gdx.gl.glEnable(GL20.GL_BLEND);
         debugDrawer.draw(shape, world);
+        if (world.getState() == WorldState.BATTLE) {
+            battleDrawer.drawBars(shape);
+        }
         shape.end();
 
         batch.begin();

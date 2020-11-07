@@ -13,15 +13,15 @@ public class StatAtb {
 
     public StatAtb() {
         current = 0;
-        max = 100f;
+        max = 1000f;
         ready = false;
-        add = 10f;
+        add = 100f;
     }
 
     public boolean update() {
         if (!ready) {
             current += add;
-            if (current >= add) {
+            if (current >= max) {
                 ready = true;
             }
         }
@@ -37,5 +37,9 @@ public class StatAtb {
     public void reset() {
         current = Numbers.nextFloatBetween(1f, max * 0.8f);
         ready = false;
+    }
+
+    public float getPercent() {
+        return current / max;
     }
 }

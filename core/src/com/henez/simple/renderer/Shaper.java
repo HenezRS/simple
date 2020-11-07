@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Colors;
+import com.henez.simple.global.Global;
 import com.henez.simple.utils.RectUtils;
 
 public class Shaper extends ShapeRenderer {
@@ -35,6 +36,10 @@ public class Shaper extends ShapeRenderer {
     public void rect(Rect rect, Color color) {
         setColor(color);
         rect(rect);
+    }
+
+    public void rectGrid(int gx, int gy, Color color) {
+        rectOutline(new Rect(gx * Global.tilePixelSize, gy * Global.tilePixelSize, Global.tilePixelSize, Global.tilePixelSize), color);
     }
 
     public void rectOutline(Rect rect) {

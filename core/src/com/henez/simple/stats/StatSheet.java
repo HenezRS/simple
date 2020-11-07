@@ -27,7 +27,7 @@ public class StatSheet {
     }
 
     private void createStatBasic(StatName stat, StatGrade curve) {
-        stats.put(stat, new Stat(StatGrade.getMaxAtLevel(curve, level.getLevel(), 1)));
+        stats.put(stat, new Stat(StatGrade.getMaxAtLevel(curve, level.getLevel(), stat.getMul())));
     }
 
     public void resetForBattle() {
@@ -38,7 +38,7 @@ public class StatSheet {
         atb.spend();
     }
 
-    public void update() {
+    public void tickAtb() {
         atb.update();
     }
 

@@ -11,6 +11,7 @@ import com.henez.simple.input.In;
 import com.henez.simple.sprite.BatchDrawable;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.sprite.SpriteAnimation;
+import com.henez.simple.world.battle.Battle;
 import com.henez.simple.world.map.gamemap.GameMap;
 import com.henez.simple.world.map.gamemap.impl.TestMap;
 import lombok.Getter;

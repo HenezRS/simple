@@ -10,6 +10,11 @@ public class Timer {
     protected int delay;
     protected boolean done;
 
+    public Timer() {
+        this.delay = 0;
+        reset();
+    }
+
     public Timer(int delay) {
         this.delay = delay;
         reset();
@@ -23,7 +28,7 @@ public class Timer {
     public boolean update() {
         if (!done) {
             tick++;
-            done = tick >= delay;
+            done = tick >= delay && delay > 0;
         }
         return done;
     }

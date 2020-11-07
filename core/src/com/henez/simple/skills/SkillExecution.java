@@ -9,12 +9,14 @@ import lombok.Setter;
 @Setter
 public class SkillExecution {
     Timer skill;
+    boolean started = false;
 
     public SkillExecution() {
-        skill = new Timer(Global.SEC * 3);
+        skill = new Timer(Global.SEC);
     }
 
     public void begin() {
+        started = true;
         skill.reset();
     }
 
@@ -24,5 +26,13 @@ public class SkillExecution {
 
     public boolean isDone() {
         return skill.isDone();
+    }
+
+    public void finish() {
+        started = false;
+    }
+
+    public boolean isExecuting() {
+        return started;
     }
 }

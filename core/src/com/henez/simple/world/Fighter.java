@@ -3,13 +3,16 @@ package com.henez.simple.world;
 import com.henez.simple.skills.SkillExecution;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.stats.StatSheet;
+import lombok.Getter;
 
+@Getter
 public class Fighter extends Actor {
     protected StatSheet statSheet;
     protected SkillExecution skillExecution;
 
     public Fighter(int gx, int gy, Sprite sprite, int depth) {
         super(gx, gy, sprite, depth);
+        statSheet = new StatSheet();
         skillExecution = new SkillExecution();
     }
 
@@ -18,7 +21,7 @@ public class Fighter extends Actor {
     }
 
     public void battleUpdate() {
-        statSheet.update();
+        statSheet.tickAtb();
     }
 
     public void skillBegin() {
@@ -27,6 +30,9 @@ public class Fighter extends Actor {
 
     public boolean skillUpdate() {
         skillExecution.update();
+        if (skillExecution.isDone()) {
+            skillExecution.finish();
+        }
         return skillExecution.isDone();
     }
 
