@@ -1,6 +1,7 @@
 package com.henez.simple.stats;
 
 import com.henez.simple.enums.StatName;
+import com.henez.simple.stats.damage.Damage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,5 +45,13 @@ public class StatSheet {
 
     public boolean readyToAct() {
         return atb.isReady();
+    }
+
+    public void applyDamage(Damage damage) {
+        stats.get(StatName.HP).deduct(damage.getDmgFinal());
+    }
+
+    public boolean isDead() {
+        return stats.get(StatName.HP).isEmpty();
     }
 }

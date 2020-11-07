@@ -20,6 +20,10 @@ public class Stat {
         cur = Numbers.clamp(cur + amount, 0, max);
     }
 
+    public void deduct(int amount) {
+        cur = Numbers.clamp(cur - amount, 0, max);
+    }
+
     public void restoreAll() {
         cur = max;
     }

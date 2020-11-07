@@ -10,11 +10,13 @@ public class Atlas {
     private static TextureRegion[][] texTiles;
     private static TextureRegion[][] texActors;
     private static TextureRegion[][] texEnemies;
+    private static TextureRegion[][] texEffects;
 
     public static void load() {
         texTiles = loadTilesFromFile("png/tiles.png");
         texActors = loadTilesFromFile("png/actors.png");
         texEnemies = loadTilesFromFile("png/enemies.png");
+        texEffects = loadTilesFromFile("png/effects.png");
 
     }
 
@@ -28,6 +30,10 @@ public class Atlas {
 
     public static TextureRegion toTex(ImgEnemies img) {
         return texEnemies[img.getY()][img.getX()];
+    }
+
+    public static TextureRegion toTex(ImgEffects img) {
+        return texEffects[img.getY()][img.getX()];
     }
 
     private static TextureRegion[][] loadTilesFromFile(String path) {

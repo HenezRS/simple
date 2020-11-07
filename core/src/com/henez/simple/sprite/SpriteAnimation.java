@@ -2,9 +2,11 @@ package com.henez.simple.sprite;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.datastructures.GameList;
+import lombok.Getter;
 
 import java.util.Arrays;
 
+@Getter
 public class SpriteAnimation {
     private GameList<TextureRegion> texs;
     private float tick;
@@ -12,6 +14,7 @@ public class SpriteAnimation {
     private float speed;
     private int currentFrame;
     private int frameCount;
+    private boolean done = false;
 
     public SpriteAnimation(float delay, TextureRegion... textureRegions) {
         init(delay, 1.0f, textureRegions);
@@ -19,6 +22,10 @@ public class SpriteAnimation {
 
     public SpriteAnimation(float delay, float speed, TextureRegion... textureRegions) {
         init(delay, speed, textureRegions);
+    }
+
+    public SpriteAnimation(AnimationAtlas animationAtlas) {
+        init(animationAtlas.getDelay(), animationAtlas.getSpeed(), animationAtlas.getTextureRegions());
     }
 
     private void init(float delay, float speed, TextureRegion... textureRegions) {
@@ -31,6 +38,7 @@ public class SpriteAnimation {
     }
 
     public void update() {
+        done = false;
         tick += speed;
         if (tick >= delay) {
             tick -= delay;
@@ -42,6 +50,7 @@ public class SpriteAnimation {
         currentFrame++;
         if (currentFrame >= frameCount) {
             currentFrame = 0;
+            done = true;
         }
     }
 

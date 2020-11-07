@@ -3,12 +3,14 @@ package com.henez.simple.world;
 import com.henez.simple.skills.SkillExecution;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.stats.StatSheet;
+import com.henez.simple.stats.damage.Damage;
 import lombok.Getter;
 
 @Getter
 public class Fighter extends Actor {
     protected StatSheet statSheet;
     protected SkillExecution skillExecution;
+    protected boolean dead;
 
     public Fighter(int gx, int gy, Sprite sprite, int depth) {
         super(gx, gy, sprite, depth);
@@ -42,5 +44,10 @@ public class Fighter extends Actor {
 
     public void turnEnd() {
         statSheet.turnEnd();
+    }
+
+    public void applyDamage(Damage damage) {
+        statSheet.applyDamage(damage);
+        dead = statSheet.isDead();
     }
 }
