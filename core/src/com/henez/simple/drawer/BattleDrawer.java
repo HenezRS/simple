@@ -3,6 +3,7 @@ package com.henez.simple.drawer;
 import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.global.Global;
+import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.Shaper;
 import com.henez.simple.world.Fighter;
 import com.henez.simple.world.World;
@@ -16,8 +17,12 @@ public class BattleDrawer {
         this.world = world;
     }
 
+    public void drawBattle(Batcher batch) {
+        world.getBattle().getBattleMembers().getFighterActing().ifPresent(f -> f.getSkillExecution().draw(batch));
+    }
+
     public void drawBars(Shaper shape) {
-        List<Fighter> fighters = world.getBattle().getFighters();
+        List<Fighter> fighters = world.getBattle().getBattleMembers().getFighters();
         fighters.forEach(f -> {
             if (f.getSkillExecution().isExecuting()) {
                 shape.rectGrid(f.getGx(), f.getGy(), Colors.red.color);

@@ -153,6 +153,7 @@ public class World {
         player.giveAnimation(Animation.move, new SpriteAnimation(Global.SEC2, 3.0f, Atlas.toTex(ImgActors.knight_idle_0), Atlas.toTex(ImgActors.knight_idle_1)));
         player.giveAnimation(Animation.attack, new SpriteAnimation(Global.SEC2, Atlas.toTex(ImgActors.knight_attack_0), Atlas.toTex(ImgActors.knight_attack_1)));
         player.getSprite().setCurrent(Animation.idle);
+        player.setIsPlayer();
         return player;
     }
 
@@ -161,6 +162,7 @@ public class World {
         player.giveAnimation(Animation.idle, new SpriteAnimation(Global.SEC2, Atlas.toTex(ImgActors.knight_idle_0), Atlas.toTex(ImgActors.knight_idle_1)));
         player.giveAnimation(Animation.move, new SpriteAnimation(Global.SEC2, 3.0f, Atlas.toTex(ImgActors.knight_idle_0), Atlas.toTex(ImgActors.knight_idle_1)));
         player.getSprite().setCurrent(Animation.idle);
+        player.setIsPlayer();
         return player;
     }
 

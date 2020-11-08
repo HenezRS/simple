@@ -56,6 +56,9 @@ class Simple {
         batch.begin();
         batch.draw(world.getCurrentMap().getMapTex(), 0, 0);
         world.getDrawables().forEach(batch::draw);
+        if (world.getState() == WorldState.BATTLE) {
+            battleDrawer.drawBattle(batch);
+        }
         batch.end();
 
         shape.begin(ShapeRenderer.ShapeType.Filled);

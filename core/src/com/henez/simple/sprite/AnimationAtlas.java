@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 public enum AnimationAtlas {
-    SLASH(1.0f, ImgEffects.slash_0.asTex(), ImgEffects.slash_1.asTex(), ImgEffects.slash_2.asTex(), ImgEffects.slash_3.asTex(), ImgEffects.slash_4.asTex(), ImgEffects.slash_5.asTex()),
+    SLASH(16.0f, ImgEffects.slash_0.asTex(), ImgEffects.slash_1.asTex(), ImgEffects.slash_2.asTex(), ImgEffects.slash_3.asTex(), ImgEffects.slash_4.asTex(), ImgEffects.slash_5.asTex()),
     ;
 
     private float delay;
