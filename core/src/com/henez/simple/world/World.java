@@ -8,7 +8,8 @@ import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.global.Global;
 import com.henez.simple.input.In;
-import com.henez.simple.sprite.BatchDrawable;
+import com.henez.simple.renderer.Batcher;
+import com.henez.simple.sprite.AnimationAtlas;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.sprite.SpriteAnimation;
 import com.henez.simple.world.battle.Battle;
@@ -20,7 +21,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Getter
 public class World {
@@ -125,8 +125,8 @@ public class World {
         playerParty.forEach(player -> player.resetPosition(gx, gy, depth.getAndIncrement()));
     }
 
-    public GameList<BatchDrawable> getDrawables() {
-        return objects.stream().map(MapObject::getDrawable).collect(Collectors.toCollection(GameList::new));
+    public void draw(Batcher batch) {
+        objects.forEach(o -> o.draw(batch));
     }
 
     public void addToWorld(MapObject... objectsToAdd) {
@@ -161,6 +161,7 @@ public class World {
         Fighter player = new Fighter(startGx, startGy, new Sprite(), depth);
         player.giveAnimation(Animation.idle, new SpriteAnimation(Global.SEC2, Atlas.toTex(ImgActors.knight_idle_0), Atlas.toTex(ImgActors.knight_idle_1)));
         player.giveAnimation(Animation.move, new SpriteAnimation(Global.SEC2, 3.0f, Atlas.toTex(ImgActors.knight_idle_0), Atlas.toTex(ImgActors.knight_idle_1)));
+        player.giveAnimation(Animation.attack, new SpriteAnimation(AnimationAtlas.KNIGHT_ATTACK));
         player.getSprite().setCurrent(Animation.idle);
         player.setIsPlayer();
         return player;

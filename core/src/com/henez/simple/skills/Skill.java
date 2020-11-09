@@ -13,6 +13,7 @@ public abstract class Skill {
     protected Fighter target;
     protected GameList<Fighter> targets;
     protected boolean done = false;
+    protected int state = 0;
 
     public Skill(SkillName skillName, SkillTarget skillTarget) {
         this.skillName = skillName;
@@ -26,4 +27,12 @@ public abstract class Skill {
     public abstract boolean update();
 
     public abstract void draw(Batcher batch);
+
+    protected void nextState() {
+        state++;
+    }
+
+    protected void finish() {
+        done = true;
+    }
 }

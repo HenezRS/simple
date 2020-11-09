@@ -17,6 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class DebugDrawer {
     private GameList<String> lines;
+    private int ts = Global.tilePixelSize;
 
     public DebugDrawer() {
         lines = new GameList<>();
@@ -55,10 +56,16 @@ public class DebugDrawer {
         });
     }
 
-    public void draw(Shaper shape, World world) {
-        int ts = Global.tilePixelSize;
-        shape.rect(new Rect(In.mouse.getGx() * ts, In.mouse.getGy() * ts), Colors.text_default.mul(0.75f, 0.35f));
+    public void drawShapes(Shaper shape, World world) {
+        //drawMouseSquare(shape);
+        //drawEncounterSquares(shape, world);
+    }
 
+    private void drawMouseSquare(Shaper shape) {
+        shape.rect(new Rect(In.mouse.getGx() * ts, In.mouse.getGy() * ts), Colors.text_default.mul(0.75f, 0.35f));
+    }
+
+    private void drawEncounterSquares(Shaper shape, World world) {
         AtomicInteger atomicInteger = new AtomicInteger(0);
         world.getEncounterService()
              .getEncounterPositionsOptional()

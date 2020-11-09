@@ -55,7 +55,7 @@ class Simple {
 
         batch.begin();
         batch.draw(world.getCurrentMap().getMapTex(), 0, 0);
-        world.getDrawables().forEach(batch::draw);
+        world.draw(batch);
         if (world.getState() == WorldState.BATTLE) {
             battleDrawer.drawBattle(batch);
         }
@@ -63,7 +63,7 @@ class Simple {
 
         shape.begin(ShapeRenderer.ShapeType.Filled);
         Gdx.gl.glEnable(GL20.GL_BLEND);
-        debugDrawer.draw(shape, world);
+        debugDrawer.drawShapes(shape, world);
         if (world.getState() == WorldState.BATTLE) {
             battleDrawer.drawBars(shape);
         }

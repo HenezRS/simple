@@ -4,6 +4,7 @@ import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.global.Global;
+import com.henez.simple.renderer.Batcher;
 import com.henez.simple.sprite.BatchDrawable;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.world.actions.Movement;
@@ -46,8 +47,8 @@ public class Actor extends MapObject {
     }
 
     @Override
-    public BatchDrawable getDrawable() {
-        return new BatchDrawable(x, y, sprite.getTex(), facing2);
+    public void draw(Batcher batch) {
+        batch.draw(new BatchDrawable(x, y, sprite.getTex(), facing2));
     }
 
     public boolean canMove(Facing facing, GameMap map) {

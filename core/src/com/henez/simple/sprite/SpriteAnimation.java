@@ -15,6 +15,9 @@ public class SpriteAnimation {
     private int currentFrame;
     private int frameCount;
     private boolean done = false;
+    private int keyFrame = 0;
+    private boolean keyFrameDone = false;
+    private boolean keyFrameDoneThisFrame = false;
 
     public SpriteAnimation(float delay, TextureRegion... textureRegions) {
         init(delay, 1.0f, textureRegions);
@@ -26,6 +29,7 @@ public class SpriteAnimation {
 
     public SpriteAnimation(AnimationAtlas animationAtlas) {
         init(animationAtlas.getDelay(), animationAtlas.getSpeed(), animationAtlas.getTextureRegions());
+        keyFrame = animationAtlas.getKeyFrame();
     }
 
     private void init(float delay, float speed, TextureRegion... textureRegions) {
@@ -39,6 +43,7 @@ public class SpriteAnimation {
 
     public void update() {
         done = false;
+        keyFrameDoneThisFrame = false;
         tick += speed;
         if (tick >= delay) {
             tick -= delay;
@@ -52,11 +57,18 @@ public class SpriteAnimation {
             currentFrame = 0;
             done = true;
         }
+
+        if (currentFrame >= keyFrame && !keyFrameDone) {
+            keyFrameDone = true;
+            keyFrameDoneThisFrame = true;
+        }
     }
 
     public void reset() {
         currentFrame = 0;
         tick = 0;
+        done = false;
+        keyFrameDone = false;
     }
 
     public void sync(SpriteAnimation spriteAnimation) {

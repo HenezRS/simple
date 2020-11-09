@@ -25,10 +25,10 @@ public class BattleDrawer {
         List<Fighter> fighters = world.getBattle().getBattleMembers().getFighters();
         fighters.forEach(f -> {
             if (f.getSkillExecution().isExecuting()) {
-                shape.rectGrid(f.getGx(), f.getGy(), Colors.red.color);
+                shape.bar(new Rect(f.getX(), f.getY(), Global.tilePixelSize, 1), 1.0f, Colors.red.color, Colors.black.color);
+            } else {
+                shape.bar(new Rect(f.getX(), f.getY(), Global.tilePixelSize, 1), f.getStatSheet().getAtb().getPercent(), Colors.text_default.color, Colors.black.withAlpha(0.5f));
             }
-            shape.bar(new Rect(f.getX(), f.getY(), Global.tilePixelSize, 1), f.getStatSheet().getAtb().getPercent(), Colors.text_default.color, Colors.black.color);
-            System.out.println(f.getStatSheet().getAtb().getPercent());
         });
     }
 }

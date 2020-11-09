@@ -3,6 +3,7 @@ package com.henez.simple.world;
 import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.global.Global;
+import com.henez.simple.renderer.Batcher;
 import com.henez.simple.sprite.BatchDrawable;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.sprite.SpriteAnimation;
@@ -35,8 +36,8 @@ public class MapObject {
         sprite.update();
     }
 
-    public BatchDrawable getDrawable() {
-        return new BatchDrawable(x, y, sprite.getTex());
+    public void draw(Batcher batch) {
+        batch.draw(new BatchDrawable(x, y, sprite.getTex()));
     }
 
     public void giveAnimation(Animation animation, SpriteAnimation spriteAnimation) {

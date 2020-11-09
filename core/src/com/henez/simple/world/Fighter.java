@@ -1,5 +1,7 @@
 package com.henez.simple.world;
 
+import com.henez.simple.enums.Animation;
+import com.henez.simple.renderer.Batcher;
 import com.henez.simple.skills.SkillExecution;
 import com.henez.simple.skills.SkillName;
 import com.henez.simple.skills.SkillTarget;
@@ -21,6 +23,13 @@ public class Fighter extends Actor {
         skillExecution = new SkillExecution();
     }
 
+    @Override
+    public void draw(Batcher batch) {
+        if (!dead) {
+            super.draw(batch);
+        }
+    }
+
     public void battleStart() {
         statSheet.resetForBattle();
     }
@@ -39,6 +48,10 @@ public class Fighter extends Actor {
             skillExecution.finish();
         }
         return skillExecution.isDone();
+    }
+
+    public void resetSpriteState() {
+        sprite.setAnimationAndReset(Animation.idle);
     }
 
     public boolean readyToAct() {
