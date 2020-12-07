@@ -1,5 +1,7 @@
 package com.henez.simple.datastructures;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Random;
 
 public class Numbers {
@@ -22,7 +24,7 @@ public class Numbers {
     }
 
     public static boolean rollPercent(float percent) {
-        return nextFloatBetween(0,1)<=percent;
+        return nextFloatBetween(0, 1) <= percent;
     }
 
     public static boolean flip() {
@@ -41,5 +43,11 @@ public class Numbers {
 
     public static int round(float value) {
         return Math.round(value);
+    }
+
+    public static float percent(float left, float right) {
+        BigDecimal bd = new BigDecimal(Float.toString(left / right));
+        bd = bd.setScale(2, RoundingMode.CEILING);
+        return bd.floatValue();
     }
 }

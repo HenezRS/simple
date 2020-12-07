@@ -3,7 +3,7 @@ package com.henez.simple.world.battle;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.global.Global;
 import com.henez.simple.misc.timer.Timer;
-import com.henez.simple.world.Fighter;
+import com.henez.simple.world.mapobjects.Fighter;
 import lombok.Getter;
 
 @Getter

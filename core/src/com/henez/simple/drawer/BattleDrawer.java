@@ -3,8 +3,8 @@ package com.henez.simple.drawer;
 import com.henez.simple.Static;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.Shaper;
-import com.henez.simple.world.Fighter;
 import com.henez.simple.world.World;
+import com.henez.simple.world.mapobjects.Fighter;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -26,12 +26,7 @@ public class BattleDrawer {
         List<Fighter> fighters = world.getBattle().getBattleMembers().getPlayerParty();
         AtomicInteger padding = new AtomicInteger();
         fighters.forEach(f -> {
-            /*if (f.getSkillExecution().isExecuting()) {
-                shape.bar(new Rect(f.getX(), f.getY(), Global.tilePixelSize, 1), 1.0f, Colors.red.color, Colors.black.color);
-            } else {
-                shape.bar(new Rect(f.getX(), f.getY(), Global.tilePixelSize, 1), f.getStatSheet().getAtb().getPercent(), Colors.text_default.color, Colors.black.withAlpha(0.5f));
-            }*/
-            fighterPanelDrawer.drawBatch(batch, Static.renderer.getX() + 302, Static.renderer.getY() + 32 + (34 * padding.getAndIncrement()), f);
+            fighterPanelDrawer.drawBatch(batch, Static.renderer.getX() + 302, Static.renderer.getY() + 32 + (64 * padding.getAndIncrement()), f);
         });
     }
 
@@ -44,7 +39,7 @@ public class BattleDrawer {
             } else {
                 shape.bar(new Rect(f.getX(), f.getY(), Global.tilePixelSize, 1), f.getStatSheet().getAtb().getPercent(), Colors.text_default.color, Colors.black.withAlpha(0.5f));
             }*/
-            fighterPanelDrawer.drawShape(shape, Static.renderer.getX() + 302, Static.renderer.getY() + 32 + (34 * padding.getAndIncrement()), f);
+            fighterPanelDrawer.drawShape(shape, Static.renderer.getX() + 302, Static.renderer.getY() + 32 + (64 * padding.getAndIncrement()), f);
         });
     }
 }

@@ -47,4 +47,8 @@ public class Stat {
     public boolean isEmpty() {
         return cur <= 0;
     }
+
+    public float getPercent() {
+        return Numbers.percent(cur, max);
+    }
 }

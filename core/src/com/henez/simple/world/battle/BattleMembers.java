@@ -2,9 +2,8 @@ package com.henez.simple.world.battle;
 
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.Facing;
-import com.henez.simple.skills.SkillName;
 import com.henez.simple.skills.SkillTargetBuilder;
-import com.henez.simple.world.Fighter;
+import com.henez.simple.world.mapobjects.Fighter;
 import lombok.Getter;
 
 import java.util.Optional;
@@ -43,9 +42,12 @@ public class BattleMembers {
     }
 
     public void updateMembers() {
-        populateFightersReady();
-        populateFightersActing();
-        processFighterActing();
+        do {
+            populateFightersReady();
+            populateFighterActing();
+            processFighterActing();
+        }
+        while (getFighterActing().isEmpty() && !fightersReady.isEmpty());
     }
 
     public void tickFightersWaiting() {
@@ -56,12 +58,16 @@ public class BattleMembers {
         fightersReady = fightersWaiting.stream().filter(Fighter::readyToAct).collect(Collectors.toCollection(GameList::new));
     }
 
-    private void populateFightersActing() {
+    private void populateFighterActing() {
         fighterActing = fightersReady.stream().findAny().orElse(null);
     }
 
     private void processFighterActing() {
-        getFighterActing().ifPresent(f -> f.skillBegin(SkillName.ATTACK, target().singleRandomEnemy()));
+        Optional<Fighter> acting = getFighterActing();
+        acting.ifPresent(f -> f.determineSkillCast(target()));
+        if (acting.isPresent() && !acting.get().getCast().isDone()) {
+            fighterActing = null;
+        }
     }
 
     private void setFighterFacing() {

@@ -40,6 +40,6 @@ public class StatAtb {
     }
 
     public float getPercent() {
-        return current / max;
+        return Numbers.percent(current, max);
     }
 }

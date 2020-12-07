@@ -15,6 +15,9 @@ import com.henez.simple.sprite.SpriteAnimation;
 import com.henez.simple.world.battle.Battle;
 import com.henez.simple.world.map.gamemap.GameMap;
 import com.henez.simple.world.map.gamemap.impl.TestMap;
+import com.henez.simple.world.mapobjects.ControlledPlayer;
+import com.henez.simple.world.mapobjects.Fighter;
+import com.henez.simple.world.mapobjects.MapObject;
 import lombok.Getter;
 
 import java.util.Arrays;

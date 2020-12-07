@@ -1,7 +1,7 @@
 package com.henez.simple.skills;
 
 import com.henez.simple.datastructures.GameList;
-import com.henez.simple.world.Fighter;
+import com.henez.simple.world.mapobjects.Fighter;
 
 import java.util.stream.Collectors;
 

@@ -1,11 +1,13 @@
-package com.henez.simple.world;
+package com.henez.simple.world.mapobjects;
 
+import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.enums.Animation;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.skills.SkillExecution;
 import com.henez.simple.skills.SkillName;
-import com.henez.simple.skills.SkillTarget;
+import com.henez.simple.skills.SkillTargetBuilder;
 import com.henez.simple.sprite.Sprite;
+import com.henez.simple.stats.Cast;
 import com.henez.simple.stats.StatSheet;
 import com.henez.simple.stats.damage.Damage;
 import lombok.Getter;
@@ -14,6 +16,7 @@ import lombok.Getter;
 public class Fighter extends Actor {
     protected StatSheet statSheet;
     protected SkillExecution skillExecution;
+    protected Cast cast;
     protected boolean dead;
     protected boolean isPlayer;
 
@@ -21,6 +24,7 @@ public class Fighter extends Actor {
         super(gx, gy, sprite, depth);
         statSheet = new StatSheet();
         skillExecution = new SkillExecution();
+        cast = new Cast();
     }
 
     @Override
@@ -32,14 +36,31 @@ public class Fighter extends Actor {
 
     public void battleStart() {
         statSheet.resetForBattle();
+        cast.resetForBattle();
     }
 
     public void battleUpdate() {
-        statSheet.tickAtb();
+        if (cast.inProgress()) {
+            cast.update();
+        } else {
+            statSheet.tickAtb();
+        }
     }
 
-    public void skillBegin(SkillName skillName, SkillTarget skillTarget) {
-        skillExecution.executeSkill(skillName, skillTarget);
+    public void determineSkillCast(SkillTargetBuilder targetBuilder) {
+        SkillName chosenSkill = SkillName.ATTACK;
+        if (Numbers.flip() && Numbers.flip()) {
+            chosenSkill = SkillName.ATTACK_CAST;
+        }
+
+        cast.begin(chosenSkill, targetBuilder.singleRandomEnemy(), 1);
+        if (cast.isDone()) {
+            skillBegin(cast);
+        }
+    }
+
+    public void skillBegin(Cast cast) {
+        skillExecution.executeSkill(cast.getSkillName(), cast.getSkillTarget());
     }
 
     public boolean skillUpdate() {
@@ -55,7 +76,7 @@ public class Fighter extends Actor {
     }
 
     public boolean readyToAct() {
-        return statSheet.readyToAct();
+        return statSheet.readyToAct() && cast.isDone();
     }
 
     public void turnEnd() {

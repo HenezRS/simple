@@ -3,7 +3,7 @@ package com.henez.simple.renderer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.henez.simple.global.Global;
-import com.henez.simple.world.MapObject;
+import com.henez.simple.world.mapobjects.MapObject;
 
 public class Renderer {
 

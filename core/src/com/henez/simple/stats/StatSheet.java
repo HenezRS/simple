@@ -58,4 +58,8 @@ public class StatSheet {
     public int getStatCur(StatName statName) {
         return stats.get(statName).get();
     }
+
+    public float getStatPercent(StatName statName) {
+        return stats.get(statName).getPercent();
+    }
 }

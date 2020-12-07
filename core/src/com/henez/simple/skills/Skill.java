@@ -2,7 +2,7 @@ package com.henez.simple.skills;
 
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.renderer.Batcher;
-import com.henez.simple.world.Fighter;
+import com.henez.simple.world.mapobjects.Fighter;
 import lombok.Getter;
 
 @Getter

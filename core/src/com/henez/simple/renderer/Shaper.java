@@ -66,6 +66,11 @@ public class Shaper extends ShapeRenderer {
         rectOutline(rect);
     }
 
+    public void rectOutline(Rect rect, Color color, int tx, int ty) {
+        setColor(color);
+        rectOutline(rect);
+    }
+
     public void rectOutlineFull(Rect rect, Color color) {
         setColor(color);
         rectOutlineFull(rect);
@@ -74,7 +79,7 @@ public class Shaper extends ShapeRenderer {
     public void bar(Rectangle rect, float percent, Color color, Color colorUnder) {
         setColor(colorUnder);
         rect(rect.x + tx, rect.y + ty, rect.width, rect.height);
-        setColor(Colors.black.color);
+        setColor(Colors.ui_back.color);
         rect.width = Numbers.floor(rect.width * percent);
         float w = rect.width;
         Numbers.clamp((int) rect.width++, 0, (int) w);
@@ -84,12 +89,10 @@ public class Shaper extends ShapeRenderer {
         setColor(color);
         Numbers.clamp((int) rect.width--, 0, (int) w);
         rect(rect.x + tx, rect.y + ty, rect.width, rect.height);
-        /*
-        if(percent != last) {
-            FNM.logger.log(rect.width+" * "+percent+ " = "+(rect.width * percent));
-            last = percent;
-        }
-         */
+    }
+
+    public void barH1(int x, int y, int w, float percent, Color color, Color colorUnder) {
+        bar(new Rect(x, y, w, 1), percent, color, colorUnder);
     }
 
     public void bar2(Rectangle rect, float percent, Color color, Color color2, Color colorUnder) {

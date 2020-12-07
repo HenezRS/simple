@@ -4,7 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum ImgIcon7 {
-    none,
+    hp,
+    mp,
     ;
 
     private final int x;

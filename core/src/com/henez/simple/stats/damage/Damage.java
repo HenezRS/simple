@@ -2,7 +2,7 @@ package com.henez.simple.stats.damage;
 
 import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.skills.Skill;
-import com.henez.simple.world.Fighter;
+import com.henez.simple.world.mapobjects.Fighter;
 
 public class Damage {
     private Fighter source;

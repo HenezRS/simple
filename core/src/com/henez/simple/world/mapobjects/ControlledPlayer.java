@@ -1,4 +1,4 @@
-package com.henez.simple.world;
+package com.henez.simple.world.mapobjects;
 
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.Facing;
