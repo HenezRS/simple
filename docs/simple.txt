@@ -1,5 +1,25 @@
 ~|===||~ SIMPLE: CRUEL WORLDS ~||===|~
 
+=-=-= Game Modes
+1. Beginner
+2. Standard - unlocked after certain Beginner progress
+3. Hardcore - unlocked with Standard
+
+== Beginner
+1. classes / party members gained as you play
+2. classes can be changed
+3. class mastery unlocked during story, changeable
+4. 1 static questline. Same everytime
+
+== Standard
+0. the intended way to play
+1. declare classes + class mastery on party creation, unable to change
+2. questline is random
+3.
+
+== Hardcore
+same rules as Standard except 1 addition: party wipe ends your journey
+
 =-=-= Character / Fighter / Party Member
 == Stats
 == Equipment
@@ -11,10 +31,21 @@
 		--- Bonus: give character stats if bonus rune requirement is satisfied (e.g. must be connected to 2 red runes
 	-- Runestone: base with sockets (ff10-2 garment grid)
 	-- Guidestone: overlay for Runestone, gives bonuses to runes that overlap with markings. Can be rotated?
+	
+	= revision 2 =
+	-- Runes primarily give a skill + x linked sockets.
+	-- support runes benefit all linked skills
+	-- support runes are equipment drops w/ random affixes
+	-- support runes will give additive power, players should be free to add many skills w/o losing power to 1 super juiced ability
+	-- equipable runestones dictate number of runes
+	
 == Tree
 == Strat
 
-
+== Loot
+2 kinds of loot
+ -- inventory: items are consumable or treasures that take up a bag slow.
+ -- equipment: endless inventory? or 2nd tab for equipment + town storage?
 
 =-=-= Stats
 == Meta

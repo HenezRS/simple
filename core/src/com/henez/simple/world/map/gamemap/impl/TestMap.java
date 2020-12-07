@@ -1,6 +1,6 @@
 package com.henez.simple.world.map.gamemap.impl;
 
-import com.henez.simple.atlas.ImgTiles;
+import com.henez.simple.atlas.imgs.ImgTiles;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.enums.tiles.TileGroup;
 import com.henez.simple.world.map.gamemap.GameMap;

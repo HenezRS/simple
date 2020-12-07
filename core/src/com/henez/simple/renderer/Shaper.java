@@ -38,6 +38,11 @@ public class Shaper extends ShapeRenderer {
         rect(rect);
     }
 
+    public void rect(int x, int y, int w, int h, Color color) {
+        setColor(color);
+        rect(x, y, w, h);
+    }
+
     public void rectGrid(int gx, int gy, Color color) {
         rectOutline(new Rect(gx * Global.tilePixelSize, gy * Global.tilePixelSize, Global.tilePixelSize, Global.tilePixelSize), color);
     }

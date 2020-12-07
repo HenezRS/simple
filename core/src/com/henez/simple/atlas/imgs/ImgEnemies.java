@@ -1,11 +1,11 @@
-package com.henez.simple.atlas;
+package com.henez.simple.atlas.imgs;
 
 import lombok.Getter;
 
 @Getter
 public enum ImgEnemies {
-    octo_idle_0(0,0),
-    octo_idle_1(1,0),
+    octo_idle_0(0, 0),
+    octo_idle_1(1, 0),
     ;
 
     private final int x;

@@ -1,6 +1,6 @@
 package com.henez.simple.world.map.tiles;
 
-import com.henez.simple.atlas.ImgTiles;
+import com.henez.simple.atlas.imgs.ImgTiles;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.datastructures.Numbers;
 import lombok.Getter;
@@ -20,7 +20,7 @@ public class TilePool {
     }
 
     public ImgTiles getRandom() {
-        if(chance>0) {
+        if (chance > 0) {
             return tiles.stream().filter(tile -> Numbers.rollPercent(chance)).findFirst().orElse(tiles.last());
         }
         return tiles.random();

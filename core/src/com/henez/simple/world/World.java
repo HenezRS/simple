@@ -1,8 +1,8 @@
 package com.henez.simple.world;
 
 import com.henez.simple.atlas.Atlas;
-import com.henez.simple.atlas.ImgActors;
-import com.henez.simple.atlas.ImgEnemies;
+import com.henez.simple.atlas.imgs.ImgActors;
+import com.henez.simple.atlas.imgs.ImgEnemies;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.state.WorldState;

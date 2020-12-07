@@ -3,6 +3,8 @@ package com.henez.simple.atlas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.henez.simple.atlas.imgs.*;
+import com.henez.simple.global.Global;
 
 import java.util.Arrays;
 
@@ -11,12 +13,14 @@ public class Atlas {
     private static TextureRegion[][] texActors;
     private static TextureRegion[][] texEnemies;
     private static TextureRegion[][] texEffects;
+    private static TextureRegion[][] texIcon7;
 
     public static void load() {
-        texTiles = loadTilesFromFile("png/tiles.png");
-        texActors = loadTilesFromFile("png/actors.png");
-        texEnemies = loadTilesFromFile("png/enemies.png");
-        texEffects = loadTilesFromFile("png/effects.png");
+        texTiles = loadTilesFromFile("png/tiles.png", Global.tilePixelSize);
+        texActors = loadTilesFromFile("png/actors.png", Global.tilePixelSize);
+        texEnemies = loadTilesFromFile("png/enemies.png", Global.tilePixelSize);
+        texEffects = loadTilesFromFile("png/effects.png", Global.tilePixelSize);
+        texIcon7 = loadTilesFromFile("png/icon7.png", 7);
 
     }
 
@@ -36,8 +40,12 @@ public class Atlas {
         return texEffects[img.getY()][img.getX()];
     }
 
-    private static TextureRegion[][] loadTilesFromFile(String path) {
-        TextureRegion[][] dest = TextureRegion.split(new Texture(Gdx.files.internal(path)), 16, 16);
+    public static TextureRegion toTex(ImgIcon7 img) {
+        return texIcon7[img.getY()][img.getX()];
+    }
+
+    private static TextureRegion[][] loadTilesFromFile(String path, int tileSize) {
+        TextureRegion[][] dest = TextureRegion.split(new Texture(Gdx.files.internal(path)), tileSize, tileSize);
         Arrays.stream(dest).forEach(texArray -> Arrays.stream(texArray).forEach(tex -> tex.flip(false, true)));
         return dest;
     }

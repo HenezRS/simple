@@ -1,7 +1,7 @@
 package com.henez.simple.world.map.gamemap;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.henez.simple.atlas.ImgTiles;
+import com.henez.simple.atlas.imgs.ImgTiles;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.enums.tiles.TileGroup;

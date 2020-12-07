@@ -2,7 +2,7 @@ package com.henez.simple.sprite;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.atlas.Atlas;
-import com.henez.simple.atlas.ImgTiles;
+import com.henez.simple.atlas.imgs.ImgTiles;
 import com.henez.simple.debug.Log;
 import com.henez.simple.enums.Animation;
 import lombok.Getter;

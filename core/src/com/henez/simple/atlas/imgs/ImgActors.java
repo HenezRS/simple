@@ -1,22 +1,21 @@
-package com.henez.simple.atlas;
+package com.henez.simple.atlas.imgs;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.henez.simple.atlas.Atlas;
 import lombok.Getter;
 
 @Getter
-public enum ImgEffects {
-    slash_0(0, 0),
-    slash_1(1, 0),
-    slash_2(2, 0),
-    slash_3(3, 0),
-    slash_4(4, 0),
-    slash_5(5, 0),
+public enum ImgActors {
+    knight_idle_0(0, 0),
+    knight_idle_1(1, 0),
+    knight_attack_0(2, 0),
+    knight_attack_1(3, 0),
     ;
 
     private final int x;
     private final int y;
 
-    ImgEffects(int x, int y) {
+    ImgActors(int x, int y) {
         this.x = x;
         this.y = y;
     }

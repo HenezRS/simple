@@ -53,6 +53,7 @@ class Simple {
         Gdx.gl.glClearColor(Colors.black.color.r, Colors.black.color.g, Colors.black.color.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        //batch 1 ---
         batch.begin();
         batch.draw(world.getCurrentMap().getMapTex(), 0, 0);
         world.draw(batch);
@@ -60,18 +61,31 @@ class Simple {
             battleDrawer.drawBattle(batch);
         }
         batch.end();
+        // ---
 
+        //shape 1 ---
         shape.begin(ShapeRenderer.ShapeType.Filled);
         Gdx.gl.glEnable(GL20.GL_BLEND);
         debugDrawer.drawShapes(shape, world);
         if (world.getState() == WorldState.BATTLE) {
-            battleDrawer.drawBars(shape);
+            battleDrawer.drawPanelsShape(shape);
         }
         shape.end();
+        // ---
 
+        //batch 2 ---
+        batch.begin();
+        if (world.getState() == WorldState.BATTLE) {
+            battleDrawer.drawPanelsBatch(batch);
+        }
+        batch.end();
+        // ---
+
+        //shape 2 ---
         batch.begin();
         debugDrawer.draw(batch, world, framerate);
         batch.end();
+        // ---
     }
 
     public void post() {

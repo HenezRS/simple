@@ -3,9 +3,9 @@ package com.henez.simple.sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import lombok.Getter;
 
-import static com.henez.simple.atlas.ImgActors.knight_attack_0;
-import static com.henez.simple.atlas.ImgActors.knight_attack_1;
-import static com.henez.simple.atlas.ImgEffects.*;
+import static com.henez.simple.atlas.imgs.ImgActors.knight_attack_0;
+import static com.henez.simple.atlas.imgs.ImgActors.knight_attack_1;
+import static com.henez.simple.atlas.imgs.ImgEffects.*;
 import static com.henez.simple.global.Global.SEC16;
 import static com.henez.simple.global.Global.SEC4;
 

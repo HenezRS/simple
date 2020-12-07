@@ -1,4 +1,4 @@
-package com.henez.simple.atlas;
+package com.henez.simple.atlas.imgs;
 
 import lombok.Getter;
 

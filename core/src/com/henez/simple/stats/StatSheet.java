@@ -54,4 +54,8 @@ public class StatSheet {
     public boolean isDead() {
         return stats.get(StatName.HP).isEmpty();
     }
+
+    public int getStatCur(StatName statName) {
+        return stats.get(statName).get();
+    }
 }
