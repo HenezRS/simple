@@ -1,7 +1,6 @@
 package com.henez.simple.world.battle;
 
 import com.henez.simple.datastructures.GameList;
-import com.henez.simple.global.Global;
 import com.henez.simple.misc.timer.Timer;
 import com.henez.simple.world.mapobjects.Fighter;
 import lombok.Getter;
@@ -14,7 +13,7 @@ public class Battle {
     private boolean ended = false;
 
     public Battle(GameList<Fighter> playerParty, GameList<Fighter> enemyParty) {
-        turnTimer = new Timer(Global.SEC);
+        turnTimer = new Timer(1);
         battleTimer = new Timer();
         battleMembers = new BattleMembers(playerParty, enemyParty);
     }

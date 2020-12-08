@@ -3,14 +3,16 @@ package com.henez.simple.enums;
 import com.badlogic.gdx.graphics.Color;
 
 public enum Colors {
+    white(new Color(0xffffffff)),
     black(new Color(0x000000ff)),
+    green(new Color(0x00ff00ff)),
     black_50(black.withAlpha(0.5f)),
     text_default(new Color(0xf6d6bdff)),
 
     ui_back(new Color(0x261c18ff)),
     ui_bar_back(new Color(0x665742ff)),
     ui_frame(new Color(0x998042ff)),
-    ui_bar_front(new Color(0xffc89eff)),
+    ui_bar_front(new Color(0xffb8aeff)),
 
     hp(new Color(0x86cf8bff)),
     hp_bar_back(new Color(0x704950ff)),

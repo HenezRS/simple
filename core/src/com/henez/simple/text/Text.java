@@ -26,7 +26,7 @@ public class Text {
     }
 
     public void load() {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/HenezTheBestFont.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/HenezTheBestFontUpper.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 15;
         parameter.flip = true;
@@ -35,7 +35,7 @@ public class Text {
         generator.dispose(); // don't forget to dispose to avoid memory leaks!
 
         parameter.flip = false;
-        generator = new FreeTypeFontGenerator(Gdx.files.internal("font/HenezTheBestFont.ttf"));
+        generator = new FreeTypeFontGenerator(Gdx.files.internal("font/HenezTheBestFontUpper.ttf"));
         textNotFlipped = generator.generateFont(parameter);
         textNotFlipped.getData().setLineHeight(TEXT_LINE_H);
         generator.dispose(); // don't forget to dispose to avoid memory leaks!
@@ -43,17 +43,17 @@ public class Text {
 
     public void draw(Batch batch, CharSequence str, float x, float y) {
         text.setColor(colorDefault);
-        text.draw(batch, str.toString().toUpperCase(), x, y);
+        text.draw(batch, str.toString(), x, y);
     }
 
     public void drawRight(Batch batch, CharSequence str, float x, float y) {
         text.setColor(colorDefault);
-        text.draw(batch, str.toString().toUpperCase(), x + 1, y, 0, Align.right, true);
+        text.draw(batch, str.toString(), x + 1, y, 0, Align.right, true);
     }
 
     public GlyphLayout draw(Batch batch, CharSequence str, float x, float y, int width, boolean wrap) {
         text.setColor(colorDefault);
-        return text.draw(batch, str.toString().toUpperCase(), x + 1, y, width, Align.left, wrap);
+        return text.draw(batch, str.toString(), x + 1, y, width, Align.left, wrap);
     }
 
     public GlyphLayout getGlyphLayout(CharSequence str, int width, boolean wrap) {
@@ -62,22 +62,22 @@ public class Text {
 
     public void draw(Batch batch, CharSequence str, float x, float y, float a) {
         text.setColor(colorDefault.r, colorDefault.g, colorDefault.b, a);
-        text.draw(batch, str.toString().toUpperCase(), x, y);
+        text.draw(batch, str.toString(), x, y);
     }
 
     public void draw(Batch batch, CharSequence str, float x, float y, int line) {
         text.setColor(colorDefault);
-        text.draw(batch, str.toString().toUpperCase(), x, y + getLineHeightBy(line));
+        text.draw(batch, str.toString(), x, y + getLineHeightBy(line));
     }
 
     public void draw(Batch batch, CharSequence str, float x, float y, int line, int paragraph) {
         text.setColor(colorDefault);
-        text.draw(batch, str.toString().toUpperCase(), x, y + getLineHeightBy(line) + getParagraphHeightBy(paragraph));
+        text.draw(batch, str.toString(), x, y + getLineHeightBy(line) + getParagraphHeightBy(paragraph));
     }
 
     public void draw(Batch batch, CharSequence str, float x, float y, Color color) {
         text.setColor(color);
-        text.draw(batch, str.toString().toUpperCase(), x, y);
+        text.draw(batch, str.toString(), x, y);
         text.setColor(colorDefault);
     }
 

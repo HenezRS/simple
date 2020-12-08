@@ -49,7 +49,7 @@ public class Fighter extends Actor {
 
     public void determineSkillCast(SkillTargetBuilder targetBuilder) {
         SkillName chosenSkill = SkillName.ATTACK;
-        if (Numbers.flip() && Numbers.flip()) {
+        if (true || Numbers.flip() && Numbers.flip()) {
             chosenSkill = SkillName.ATTACK_CAST;
         }
 
@@ -81,6 +81,7 @@ public class Fighter extends Actor {
 
     public void turnEnd() {
         statSheet.turnEnd();
+        cast.turnEnd();
     }
 
     public void applyDamage(Damage damage) {

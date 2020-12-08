@@ -26,7 +26,7 @@ public class BattleDrawer {
         List<Fighter> fighters = world.getBattle().getBattleMembers().getPlayerParty();
         AtomicInteger padding = new AtomicInteger();
         fighters.forEach(f -> {
-            fighterPanelDrawer.drawBatch(batch, Static.renderer.getX() + 302, Static.renderer.getY() + 32 + (64 * padding.getAndIncrement()), f);
+            fighterPanelDrawer.drawBatch(batch, Static.renderer.getX() + 303, Static.renderer.getY() + 31 + (34 * padding.getAndIncrement()), f);
         });
     }
 
@@ -39,7 +39,7 @@ public class BattleDrawer {
             } else {
                 shape.bar(new Rect(f.getX(), f.getY(), Global.tilePixelSize, 1), f.getStatSheet().getAtb().getPercent(), Colors.text_default.color, Colors.black.withAlpha(0.5f));
             }*/
-            fighterPanelDrawer.drawShape(shape, Static.renderer.getX() + 302, Static.renderer.getY() + 32 + (64 * padding.getAndIncrement()), f);
+            fighterPanelDrawer.drawShape(shape, Static.renderer.getX() + 303, Static.renderer.getY() + 31 + (34 * padding.getAndIncrement()), f);
         });
     }
 }

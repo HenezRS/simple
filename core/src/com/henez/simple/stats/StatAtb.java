@@ -1,6 +1,7 @@
 package com.henez.simple.stats;
 
 import com.henez.simple.datastructures.Numbers;
+import com.henez.simple.global.Global;
 import lombok.Getter;
 
 public class StatAtb {
@@ -15,7 +16,7 @@ public class StatAtb {
         current = 0;
         max = 1000f;
         ready = false;
-        add = 100f;
+        add = 100f / Global.SEC;
     }
 
     public boolean update() {

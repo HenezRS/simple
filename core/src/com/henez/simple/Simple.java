@@ -78,13 +78,13 @@ class Simple {
         if (world.getState() == WorldState.BATTLE) {
             battleDrawer.drawPanelsBatch(batch);
         }
+        debugDrawer.draw(batch, world, framerate);
         batch.end();
         // ---
 
         //shape 2 ---
-        batch.begin();
-        debugDrawer.draw(batch, world, framerate);
-        batch.end();
+        shape.begin(ShapeRenderer.ShapeType.Filled);
+        shape.end();
         // ---
     }
 

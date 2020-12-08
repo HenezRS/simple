@@ -3,6 +3,7 @@ package com.henez.simple.drawer;
 import com.henez.simple.Static;
 import com.henez.simple.atlas.Atlas;
 import com.henez.simple.atlas.imgs.ImgIcon7;
+import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.enums.Facing;
@@ -11,14 +12,16 @@ import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.Shaper;
 import com.henez.simple.world.mapobjects.Fighter;
 
+import static com.henez.simple.text.Text.TEXT_H;
+
 public class FighterPanelDrawer {
     private int w = 57;
     private int h = 24;
 
     private int skillX = 0;
-    private int skillY = h + 1;
+    private int skillY = h;
     private int skillW = w;
-    private int skillH = 6;
+    private int skillH = TEXT_H + 4;
 
     private int playerX = 3;
     private int playerY = 3;
@@ -75,8 +78,9 @@ public class FighterPanelDrawer {
         shape.barH1(x + barMpX, y + barMpY, barW, fighter.getStatSheet().getStatPercent(StatName.MP), Colors.mp.color, Colors.hp_bar_back.color);
 
         if (fighter.getCast().inProgress()) {
-            shape.rect(x + skillX, y + skillY, skillW, skillH, Colors.ui_back.color);
-            shape.barH1(x + skillBarX, y + skillBarY, skillBarW, fighter.getCast().getPercent(), Colors.castbar.color, Colors.hp_bar_back.color);
+            int skillVarW = Numbers.clamp((int) Static.text.getTextRect(fighter.getCast().getName()).width + 2, skillW, 999);
+            shape.rect(x + skillX, y + skillNameY - 1, skillVarW, skillH, Colors.ui_back.color);
+            shape.barH1(x + skillBarX, y + skillBarY, skillVarW - 2, fighter.getCast().getPercent(), Colors.castbar.color, Colors.hp_bar_back.color);
         } else {
             shape.barH1(x + atbBarX, y + atbBarY, atbBarW, fighter.getStatSheet().getAtb().getPercent(), Colors.ui_bar_front.color, Colors.hp_bar_back.color);
         }
