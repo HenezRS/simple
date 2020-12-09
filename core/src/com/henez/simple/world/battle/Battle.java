@@ -5,6 +5,8 @@ import com.henez.simple.misc.timer.Timer;
 import com.henez.simple.world.mapobjects.Fighter;
 import lombok.Getter;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Getter
 public class Battle {
     private Timer turnTimer;
@@ -16,25 +18,28 @@ public class Battle {
         turnTimer = new Timer(1);
         battleTimer = new Timer();
         battleMembers = new BattleMembers(playerParty, enemyParty);
+
+        seperateUpdateSpriteFrames(enemyParty);
     }
 
     public void update() {
         battleTimer.update();
-        battleMembers.getFighterActing().ifPresentOrElse(this::resolveFighterActing, this::tickBattle);
+        tickBattle();
     }
 
-    public void tickBattle() {
-        if (turnTimer.update()) {
-            turnTimer.reset();
-            battleMembers.processTurn();
-        }
+    private void tickBattle() {
+        turnTimer.reset();
+        battleMembers.processTurn();
     }
 
-    private void resolveFighterActing(Fighter fighterActing) {
-        if (fighterActing.skillUpdate()) {
-            fighterActing.turnEnd();
-            battleMembers.updateMembers();
-        }
+    private void seperateUpdateSpriteFrames(GameList<Fighter> fighters) {
+        AtomicInteger index = new AtomicInteger();
+        fighters.forEach(fighter -> {
+            for (int i = 0; i < index.get() * 8; ++i) {
+                fighter.getSprite().update();
+            }
+            index.getAndIncrement();
+        });
     }
 
     private void endBattle() {

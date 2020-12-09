@@ -12,7 +12,7 @@ import static com.henez.simple.global.Global.SEC4;
 @Getter
 public enum AnimationAtlas {
     KNIGHT_ATTACK(SEC4, 1, knight_attack_0.asTex(), knight_attack_1.asTex(), knight_attack_1.asTex()),
-    SLASH(SEC16 * 16, 3, slash_0.asTex(), slash_1.asTex(), slash_2.asTex(), slash_3.asTex(), slash_4.asTex(), slash_5.asTex()),
+    SLASH(SEC16, 3, slash_0.asTex(), slash_1.asTex(), slash_2.asTex(), slash_3.asTex(), slash_4.asTex(), slash_5.asTex()),
     ;
 
     private float delay;

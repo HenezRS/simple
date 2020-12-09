@@ -19,7 +19,7 @@ public class BattleDrawer {
     }
 
     public void drawBattle(Batcher batch) {
-        world.getBattle().getBattleMembers().getFighterActing().ifPresent(f -> f.getSkillExecution().draw(batch));
+        world.getBattle().getBattleMembers().getFightersExecuting().forEach(f -> f.getSkillExecution().draw(batch));
     }
 
     public void drawPanelsBatch(Batcher batch) {

@@ -15,7 +15,6 @@ public class Cast {
     private boolean done;
     private boolean instant;
     private String name;
-    private boolean hasCast;
 
     public Cast() {
         resetForBattle();
@@ -30,7 +29,6 @@ public class Cast {
         max = skillName.getCastDelay();
         done = max <= 0;
         instant = max <= 0;
-        hasCast = true;
     }
 
     public boolean update() {
@@ -47,8 +45,6 @@ public class Cast {
     public void resetForBattle() {
         current = 0;
         done = true;
-        instant = false;
-        hasCast = false;
     }
 
     public void turnEnd() {

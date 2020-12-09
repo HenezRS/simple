@@ -50,7 +50,7 @@ public class S_Attack extends Skill {
 
     @Override
     public void draw(Batcher batch) {
-        if (drawEffect) {
+        if (drawEffect && !effect.isDone()) {
             batch.draw(effect.getCurrent(), target.getX(), target.getY());
         }
     }

@@ -3,11 +3,10 @@ package com.henez.simple.world.battle;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.skills.SkillTargetBuilder;
-import com.henez.simple.stats.Cast;
 import com.henez.simple.world.mapobjects.Fighter;
+import com.henez.simple.world.mapobjects.FighterState;
 import lombok.Getter;
 
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Getter
@@ -16,8 +15,8 @@ public class BattleMembers {
     private GameList<Fighter> enemyParty;
     private GameList<Fighter> fighters;
     private GameList<Fighter> fightersWaiting;
-    private GameList<Fighter> fightersReady;
-    private Fighter fighterActing;
+    private GameList<Fighter> fightersCasting;
+    private GameList<Fighter> fightersExecuting;
 
     public BattleMembers(GameList<Fighter> playerParty, GameList<Fighter> enemyParty) {
         this.playerParty = playerParty;
@@ -28,53 +27,70 @@ public class BattleMembers {
         fighters.addAll(enemyParty);
 
         fightersWaiting = new GameList<>();
-        fightersWaiting.addAll(fighters);
+        fightersCasting = new GameList<>();
+        fightersExecuting = new GameList<>();
 
-        fightersReady = new GameList<>();
-
-        fightersWaiting.forEach(Fighter::battleStart);
+        fighters.forEach(Fighter::battleStart);
 
         setFighterFacing();
     }
 
     public void processTurn() {
-        tickFightersWaiting();
-        updateMembers();
+        processFightersWaiting();
+        processFightersCasting();
+        processFightersExecuting();
     }
 
-    public void updateMembers() {
-        do {
-            populateFightersReady();
-            populateFighterActing();
-            processFighterActing();
-        }
-        while (getFighterActing().isEmpty() && !fightersReady.isEmpty());
+    private void processFightersWaiting() {
+        populateFightersWaiting();
+        tickFightersWaiting();
+    }
+
+    private void processFightersCasting() {
+        populateFightersCasting();
+        tickFightersCasting();
+    }
+
+    private void processFightersExecuting() {
+        populateFightersExecuting();
+        tickFightersExecuting();
+    }
+
+    private void populateFightersWaiting() {
+        fightersWaiting = fighters.stream().filter(fighter -> fighter.getFighterState() == FighterState.WAITING).collect(Collectors.toCollection(GameList::new));
+    }
+
+    private void populateFightersCasting() {
+        fightersCasting = fighters.stream().filter(fighter -> fighter.getFighterState() == FighterState.CASTING).collect(Collectors.toCollection(GameList::new));
+    }
+
+    private void populateFightersExecuting() {
+        fightersExecuting = fighters.stream().filter(fighter -> fighter.getFighterState() == FighterState.EXECUTING).collect(Collectors.toCollection(GameList::new));
     }
 
     public void tickFightersWaiting() {
-        getFightersWaiting().forEach(Fighter::battleUpdate);
+        fightersWaiting.forEach(fighter -> {
+            fighter.battleUpdate();
+            if (fighter.readyToAct()) {
+                fighter.determineSkillCast(target(fighter));
+            }
+        });
     }
 
-    public void populateFightersReady() {
-        fightersReady = fightersWaiting.stream().filter(Fighter::readyToAct).collect(Collectors.toCollection(GameList::new));
+    public void tickFightersCasting() {
+        fightersCasting.forEach(fighter -> {
+            fighter.castingUpdate();
+            if (fighter.getCast().isDone()) {
+                fighter.skillBeginCastExecution();
+            }
+        });
     }
 
-    private void populateFighterActing() {
-        fighterActing = fightersReady.stream().findAny().orElse(null);
-    }
-
-    private void processFighterActing() {
-        getFighterActing().ifPresent(acting -> {
-            Cast cast = acting.getCast();
-            if (cast.isHasCast() && cast.isDone()) {
-                acting.skillBegin(cast);
-            } else {
-                acting.determineSkillCast(target());
-                if (cast.isInstant()) {
-                    acting.skillBegin(cast);
-                } else {
-                    fighterActing = null;
-                }
+    public void tickFightersExecuting() {
+        fightersExecuting.forEach(fighter -> {
+            fighter.getSkillExecution().update();
+            if (fighter.getSkillExecution().isDone()) {
+                fighter.turnEnd();
             }
         });
     }
@@ -87,11 +103,7 @@ public class BattleMembers {
         enemyParty.forEach(f -> f.setFacing2(Facing.byDir2(f.getGx(), playerX)));
     }
 
-    public Optional<Fighter> getFighterActing() {
-        return Optional.ofNullable(fighterActing);
-    }
-
-    private SkillTargetBuilder target() {
+    private SkillTargetBuilder target(Fighter fighterActing) {
         return new SkillTargetBuilder(fighterActing, fighters);
     }
 }

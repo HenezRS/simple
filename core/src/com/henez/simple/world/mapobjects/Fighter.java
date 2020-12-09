@@ -12,11 +12,14 @@ import com.henez.simple.stats.StatSheet;
 import com.henez.simple.stats.damage.Damage;
 import lombok.Getter;
 
+import java.util.Arrays;
+
 @Getter
 public class Fighter extends Actor {
     protected StatSheet statSheet;
     protected SkillExecution skillExecution;
     protected Cast cast;
+    protected FighterState fighterState;
     protected boolean dead;
     protected boolean isPlayer;
 
@@ -35,16 +38,17 @@ public class Fighter extends Actor {
     }
 
     public void battleStart() {
+        fighterState = FighterState.WAITING;
         statSheet.resetForBattle();
         cast.resetForBattle();
     }
 
     public void battleUpdate() {
-        if (cast.inProgress()) {
-            cast.update();
-        } else {
-            statSheet.tickAtb();
-        }
+        statSheet.tickAtb();
+    }
+
+    public void castingUpdate() {
+        cast.update();
     }
 
     public void determineSkillCast(SkillTargetBuilder targetBuilder) {
@@ -54,29 +58,37 @@ public class Fighter extends Actor {
         }
 
         cast.begin(chosenSkill, targetBuilder.singleRandomEnemy(), 1);
+
+        if (cast.isInstant()) {
+            skillBeginCastExecution();
+        } else {
+            fighterState = FighterState.CASTING;
+        }
     }
 
-    public void skillBegin(Cast cast) {
+    public void skillBeginCastExecution() {
+        fighterState = FighterState.EXECUTING;
         skillExecution.executeSkill(cast.getSkillName(), cast.getSkillTarget());
     }
 
-    public boolean skillUpdate() {
-        skillExecution.update();
-        if (skillExecution.isDone()) {
-            skillExecution.finish();
-        }
-        return skillExecution.isDone();
+    public boolean fighterStateOneOf(FighterState... fighterStates) {
+        return Arrays.asList(fighterStates).contains(fighterState);
     }
 
     public void resetSpriteState() {
         sprite.setAnimationAndReset(Animation.idle);
     }
 
+    public boolean isWaiting() {
+        return !statSheet.readyToAct() && cast.isDone() && !skillExecution.isExecuting();
+    }
+
     public boolean readyToAct() {
-        return statSheet.readyToAct() && cast.isDone() && isPlayer;
+        return statSheet.readyToAct() && isPlayer;
     }
 
     public void turnEnd() {
+        fighterState = FighterState.WAITING;
         statSheet.turnEnd();
         cast.turnEnd();
     }
