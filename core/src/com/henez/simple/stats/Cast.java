@@ -13,7 +13,9 @@ public class Cast {
     private SkillName skillName;
     private SkillTarget skillTarget;
     private boolean done;
+    private boolean instant;
     private String name;
+    private boolean hasCast;
 
     public Cast() {
         resetForBattle();
@@ -27,12 +29,8 @@ public class Cast {
         add = 1 * speedMul;
         max = skillName.getCastDelay();
         done = max <= 0;
-
-        this.name = "a";
-        int l = Numbers.nextIntBetween(1, 20);
-        for (int i = 0; i < l; ++i) {
-            this.name += (char) ('a' + Math.random() * ('z' - 'a'));
-        }
+        instant = max <= 0;
+        hasCast = true;
     }
 
     public boolean update() {
@@ -49,6 +47,8 @@ public class Cast {
     public void resetForBattle() {
         current = 0;
         done = true;
+        instant = false;
+        hasCast = false;
     }
 
     public void turnEnd() {

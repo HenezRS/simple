@@ -66,7 +66,7 @@ public class FighterPanelDrawer {
 
         batch.draw(fighter.getSprite().getTex(), x + playerX, y + playerY, Facing.LEFT);
 
-        if (fighter.getCast().inProgress()) {
+        if (fighter.getCast().inProgress() || fighter.getSkillExecution().isExecuting()) {
             Static.text.draw(batch, fighter.getCast().getName() + "", x + skillNameX, y + skillNameY);
         }
     }
@@ -77,10 +77,16 @@ public class FighterPanelDrawer {
         shape.barH1(x + barHpX, y + barHpY, barW, fighter.getStatSheet().getStatPercent(StatName.HP), Colors.hp.color, Colors.hp_bar_back.color);
         shape.barH1(x + barMpX, y + barMpY, barW, fighter.getStatSheet().getStatPercent(StatName.MP), Colors.mp.color, Colors.hp_bar_back.color);
 
-        if (fighter.getCast().inProgress()) {
+        if (fighter.getCast().inProgress() || fighter.getSkillExecution().isExecuting()) {
             int skillVarW = Numbers.clamp((int) Static.text.getTextRect(fighter.getCast().getName()).width + 2, skillW, 999);
             shape.rect(x + skillX, y + skillNameY - 1, skillVarW, skillH, Colors.ui_back.color);
-            shape.barH1(x + skillBarX, y + skillBarY, skillVarW - 2, fighter.getCast().getPercent(), Colors.castbar.color, Colors.hp_bar_back.color);
+
+            float percent = fighter.getCast().getPercent();
+            shape.barH1(x + skillBarX,
+                        y + skillBarY,
+                        skillVarW - 2,
+                        percent,
+                        fighter.getSkillExecution().isExecuting() ? Colors.castbar.mul(2f, 1) : Colors.castbar.color, Colors.hp_bar_back.color);
         } else {
             shape.barH1(x + atbBarX, y + atbBarY, atbBarW, fighter.getStatSheet().getAtb().getPercent(), Colors.ui_bar_front.color, Colors.hp_bar_back.color);
         }

@@ -3,6 +3,7 @@ package com.henez.simple.world.battle;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.skills.SkillTargetBuilder;
+import com.henez.simple.stats.Cast;
 import com.henez.simple.world.mapobjects.Fighter;
 import lombok.Getter;
 
@@ -63,11 +64,19 @@ public class BattleMembers {
     }
 
     private void processFighterActing() {
-        Optional<Fighter> acting = getFighterActing();
-        acting.ifPresent(f -> f.determineSkillCast(target()));
-        if (acting.isPresent() && !acting.get().getCast().isDone()) {
-            fighterActing = null;
-        }
+        getFighterActing().ifPresent(acting -> {
+            Cast cast = acting.getCast();
+            if (cast.isHasCast() && cast.isDone()) {
+                acting.skillBegin(cast);
+            } else {
+                acting.determineSkillCast(target());
+                if (cast.isInstant()) {
+                    acting.skillBegin(cast);
+                } else {
+                    fighterActing = null;
+                }
+            }
+        });
     }
 
     private void setFighterFacing() {

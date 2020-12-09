@@ -54,9 +54,6 @@ public class Fighter extends Actor {
         }
 
         cast.begin(chosenSkill, targetBuilder.singleRandomEnemy(), 1);
-        if (cast.isDone()) {
-            skillBegin(cast);
-        }
     }
 
     public void skillBegin(Cast cast) {
@@ -76,7 +73,7 @@ public class Fighter extends Actor {
     }
 
     public boolean readyToAct() {
-        return statSheet.readyToAct() && cast.isDone();
+        return statSheet.readyToAct() && cast.isDone() && isPlayer;
     }
 
     public void turnEnd() {

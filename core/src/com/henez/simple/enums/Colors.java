@@ -51,4 +51,5 @@ public enum Colors {
     public float[] getAsFloats3() {
         return new float[] { color.r, color.g, color.b };
     }
+
 }
