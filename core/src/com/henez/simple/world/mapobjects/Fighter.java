@@ -1,5 +1,6 @@
 package com.henez.simple.world.mapobjects;
 
+import com.henez.simple.atlas.imgset.ImgSetFighters;
 import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.enums.Animation;
 import com.henez.simple.renderer.Batcher;
@@ -20,11 +21,13 @@ public class Fighter extends Actor {
     protected SkillExecution skillExecution;
     protected Cast cast;
     protected FighterState fighterState;
+    protected ImgSetFighters imgSetFighters;
     protected boolean dead;
     protected boolean isPlayer;
 
-    public Fighter(int gx, int gy, Sprite sprite, int depth) {
-        super(gx, gy, sprite, depth);
+    public Fighter(int gx, int gy, ImgSetFighters imgSetFighters, int depth) {
+        super(gx, gy, new Sprite(), depth);
+        this.imgSetFighters = imgSetFighters;
         statSheet = new StatSheet();
         skillExecution = new SkillExecution();
         cast = new Cast();

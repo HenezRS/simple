@@ -66,7 +66,7 @@ class Simple {
         //shape 1 ---
         shape.begin(ShapeRenderer.ShapeType.Filled);
         Gdx.gl.glEnable(GL20.GL_BLEND);
-        debugDrawer.drawShapes(shape, world);
+        debugDrawer.drawShape(shape, world);
         if (world.getState() == WorldState.BATTLE) {
             battleDrawer.drawPanelsShape(shape);
         }
@@ -77,8 +77,9 @@ class Simple {
         batch.begin();
         if (world.getState() == WorldState.BATTLE) {
             battleDrawer.drawPanelsBatch(batch);
+            debugDrawer.drawBattleBatch(batch, world);
         }
-        debugDrawer.draw(batch, world, framerate);
+        debugDrawer.drawBatch(batch, world, framerate);
         batch.end();
         // ---
 

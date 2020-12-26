@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Align;
+import com.henez.simple.Static;
 import com.henez.simple.enums.Colors;
 
 public class Text {
@@ -44,6 +45,11 @@ public class Text {
     public void draw(Batch batch, CharSequence str, float x, float y) {
         text.setColor(colorDefault);
         text.draw(batch, str.toString(), x, y);
+    }
+
+    public void drawToCamera(Batch batch, CharSequence str, float x, float y) {
+        text.setColor(colorDefault);
+        text.draw(batch, str.toString(), x + Static.renderer.getX(), y + Static.renderer.getY());
     }
 
     public void drawRight(Batch batch, CharSequence str, float x, float y) {

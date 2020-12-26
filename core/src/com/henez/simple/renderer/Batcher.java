@@ -3,6 +3,7 @@ package com.henez.simple.renderer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.henez.simple.Static;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.global.Global;
 import com.henez.simple.sprite.BatchDrawable;
@@ -42,6 +43,10 @@ public class Batcher extends SpriteBatch {
         } else {
             super.draw(region, x + tx, y + ty);
         }
+    }
+
+    public void drawToCamera(TextureRegion region, float x, float y, Facing facing) {
+        draw(region, x + Static.renderer.getX(), y + Static.renderer.getY(), facing);
     }
 
     public void draw(TextureRegion region, float x, float y, float rotation) {

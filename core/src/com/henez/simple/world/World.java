@@ -1,20 +1,14 @@
 package com.henez.simple.world;
 
-import com.henez.simple.atlas.Atlas;
-import com.henez.simple.atlas.imgs.ImgActors;
-import com.henez.simple.atlas.imgs.ImgEnemies;
+import com.henez.simple.atlas.imgset.ImgSetFighters;
 import com.henez.simple.datastructures.GameList;
-import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.state.WorldState;
-import com.henez.simple.global.Global;
 import com.henez.simple.input.In;
 import com.henez.simple.renderer.Batcher;
-import com.henez.simple.sprite.AnimationAtlas;
-import com.henez.simple.sprite.Sprite;
-import com.henez.simple.sprite.SpriteAnimation;
 import com.henez.simple.world.battle.Battle;
 import com.henez.simple.world.map.gamemap.GameMap;
 import com.henez.simple.world.map.gamemap.impl.TestMap;
+import com.henez.simple.world.mapobjects.ActorFactory;
 import com.henez.simple.world.mapobjects.ControlledPlayer;
 import com.henez.simple.world.mapobjects.Fighter;
 import com.henez.simple.world.mapobjects.MapObject;
@@ -49,12 +43,12 @@ public class World {
         int startGx = currentMap.getStartGx();
         int startGy = currentMap.getStartGy();
 
-        player = defaultPlayerController(startGx, startGy, depth++);
+        player = ActorFactory.createControlledPlayer(startGx, startGy, depth++, ImgSetFighters.class_knight);
         playerParty = new GameList<>();
         playerParty.add(player);
-        playerParty.add(defaultPlayer(startGx, startGy, depth++));
-        playerParty.add(defaultPlayer(startGx, startGy, depth++));
-        playerParty.add(defaultPlayer(startGx, startGy, depth));
+        playerParty.add(ActorFactory.createPlayer(startGx, startGy, depth++, ImgSetFighters.class_knight2));
+        playerParty.add(ActorFactory.createPlayer(startGx, startGy, depth++, ImgSetFighters.class_knight3));
+        playerParty.add(ActorFactory.createPlayer(startGx, startGy, depth, ImgSetFighters.class_knight4));
         player.setParty(playerParty);
 
         addToWorld(playerParty);
@@ -101,8 +95,10 @@ public class World {
         stepsUntilEncounter = stepsUntilEncounterMax;
 
         AtomicInteger depth = new AtomicInteger();
+        GameList<ImgSetFighters> img = new GameList<>();
+        img.addAll(ImgSetFighters.enemy_octo, ImgSetFighters.enemy_octo2, ImgSetFighters.enemy_octo3, ImgSetFighters.enemy_octo4);
         encounterService.getEncounterPositions().forEach(xy -> {
-            enemyParty.add(defaultEnemy(xy.getX(), xy.getY(), depth.getAndIncrement()));
+            enemyParty.add(ActorFactory.createEnemy(xy.getX(), xy.getY(), depth.getAndIncrement(), img.get(depth.get() - 1)));
         });
         Collections.reverse(enemyParty);
         addToWorld(enemyParty);
@@ -148,32 +144,5 @@ public class World {
 
     private void orderWorldByDepth() {
         objects.sort(Comparator.comparing(MapObject::getDepth).reversed());
-    }
-
-    private ControlledPlayer defaultPlayerController(int startGx, int startGy, int depth) {
-        ControlledPlayer player = new ControlledPlayer(startGx, startGy, new Sprite(), depth);
-        player.giveAnimation(Animation.idle, new SpriteAnimation(Global.SEC2, Atlas.toTex(ImgActors.knight_idle_0), Atlas.toTex(ImgActors.knight_idle_1)));
-        player.giveAnimation(Animation.move, new SpriteAnimation(Global.SEC2, 3.0f, Atlas.toTex(ImgActors.knight_idle_0), Atlas.toTex(ImgActors.knight_idle_1)));
-        player.giveAnimation(Animation.attack, new SpriteAnimation(Global.SEC2, Atlas.toTex(ImgActors.knight_attack_0), Atlas.toTex(ImgActors.knight_attack_1)));
-        player.getSprite().setCurrent(Animation.idle);
-        player.setIsPlayer();
-        return player;
-    }
-
-    private Fighter defaultPlayer(int startGx, int startGy, int depth) {
-        Fighter player = new Fighter(startGx, startGy, new Sprite(), depth);
-        player.giveAnimation(Animation.idle, new SpriteAnimation(Global.SEC2, Atlas.toTex(ImgActors.knight_idle_0), Atlas.toTex(ImgActors.knight_idle_1)));
-        player.giveAnimation(Animation.move, new SpriteAnimation(Global.SEC2, 3.0f, Atlas.toTex(ImgActors.knight_idle_0), Atlas.toTex(ImgActors.knight_idle_1)));
-        player.giveAnimation(Animation.attack, new SpriteAnimation(AnimationAtlas.KNIGHT_ATTACK));
-        player.getSprite().setCurrent(Animation.idle);
-        player.setIsPlayer();
-        return player;
-    }
-
-    private Fighter defaultEnemy(int startGx, int startGy, int depth) {
-        Fighter enemy = new Fighter(startGx, startGy, new Sprite(), depth);
-        enemy.giveAnimation(Animation.idle, new SpriteAnimation(Global.SEC2, Atlas.toTex(ImgEnemies.octo_idle_0), Atlas.toTex(ImgEnemies.octo_idle_1)));
-        enemy.getSprite().setCurrent(Animation.idle);
-        return enemy;
     }
 }

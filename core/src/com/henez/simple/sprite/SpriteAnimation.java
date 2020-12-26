@@ -2,6 +2,8 @@ package com.henez.simple.sprite;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.datastructures.GameList;
+import com.henez.simple.sprite.animation.AnimationAtlas;
+import com.henez.simple.sprite.animation.AnimationDynamic;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -30,6 +32,11 @@ public class SpriteAnimation {
     public SpriteAnimation(AnimationAtlas animationAtlas) {
         init(animationAtlas.getDelay(), animationAtlas.getSpeed(), animationAtlas.getTextureRegions());
         keyFrame = animationAtlas.getKeyFrame();
+    }
+
+    public SpriteAnimation(AnimationDynamic animationDynamic) {
+        init(animationDynamic.getDelay(), animationDynamic.getSpeed(), animationDynamic.getTextureRegions());
+        keyFrame = animationDynamic.getKeyFrame();
     }
 
     private void init(float delay, float speed, TextureRegion... textureRegions) {

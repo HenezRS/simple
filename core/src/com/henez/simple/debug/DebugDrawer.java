@@ -4,6 +4,7 @@ import com.henez.simple.Static;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Colors;
+import com.henez.simple.enums.Facing;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.global.Global;
 import com.henez.simple.input.In;
@@ -12,6 +13,7 @@ import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.Shaper;
 import com.henez.simple.text.Text;
 import com.henez.simple.world.World;
+import com.henez.simple.world.battle.BattleMembers;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -23,7 +25,7 @@ public class DebugDrawer {
         lines = new GameList<>();
     }
 
-    public void draw(Batcher batch, World world, Framerate framerate) {
+    public void drawBatch(Batcher batch, World world, Framerate framerate) {
         lines.clear();
 
         if (world.getState() == WorldState.BATTLE) {
@@ -56,7 +58,33 @@ public class DebugDrawer {
         });
     }
 
-    public void drawShapes(Shaper shape, World world) {
+    public void drawBattleBatch(Batcher batch, World world) {
+        BattleMembers battleMembers = world.getBattle().getBattleMembers();
+
+        AtomicInteger x = new AtomicInteger(50);
+        int y = 160;
+        AtomicInteger index = new AtomicInteger();
+        Static.text.drawToCamera(batch, "waiting", x.get(), y);
+        battleMembers.getFightersWaiting().forEach(fighter -> {
+            batch.drawToCamera(fighter.getSprite().getTex(), x.get() + (index.getAndIncrement() * 16), y + Text.TEXT_LINE_H, Facing.LEFT);
+        });
+
+        x.set(x.get() + 80);
+        index.set(0);
+        Static.text.drawToCamera(batch, "casting", x.get(), y);
+        battleMembers.getFightersCasting().forEach(fighter -> {
+            batch.drawToCamera(fighter.getSprite().getTex(), x.get() + (index.getAndIncrement() * 16), y + Text.TEXT_LINE_H, Facing.LEFT);
+        });
+
+        x.set(x.get() + 80);
+        index.set(0);
+        Static.text.drawToCamera(batch, "executing", x.get(), y);
+        battleMembers.getFightersExecuting().forEach(fighter -> {
+            batch.drawToCamera(fighter.getSprite().getTex(), x.get() + (index.getAndIncrement() * 16), y + Text.TEXT_LINE_H, Facing.LEFT);
+        });
+    }
+
+    public void drawShape(Shaper shape, World world) {
         //drawMouseSquare(shape);
         //drawEncounterSquares(shape, world);
     }

@@ -1,6 +1,7 @@
 package com.henez.simple.datastructures;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GameList<T> extends ArrayList<T> {
 
@@ -16,6 +17,10 @@ public class GameList<T> extends ArrayList<T> {
         } catch (IndexOutOfBoundsException ignored) {
             return null;
         }
+    }
+
+    public void addAll(T... item) {
+        this.addAll(Arrays.asList(item));
     }
 
     public T first() {

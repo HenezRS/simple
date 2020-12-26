@@ -1,57 +1,20 @@
 package com.henez.simple.skills.impl;
 
 import com.henez.simple.enums.Animation;
-import com.henez.simple.renderer.Batcher;
 import com.henez.simple.skills.Skill;
 import com.henez.simple.skills.SkillName;
 import com.henez.simple.skills.SkillTarget;
-import com.henez.simple.sprite.AnimationAtlas;
-import com.henez.simple.sprite.SpriteAnimation;
-import com.henez.simple.stats.damage.Damage;
+import com.henez.simple.skills.skillstep.impl.SS_ApplyDamage;
+import com.henez.simple.skills.skillstep.impl.SS_PlayAnimUntilKeyFrame;
+import com.henez.simple.skills.skillstep.impl.SS_PlayEffect;
+import com.henez.simple.sprite.animation.AnimationDynamicFactory;
 
 public class S_Attack extends Skill {
 
-    SpriteAnimation effect;
-    boolean drawEffect = false;
-
     public S_Attack(SkillName skillName, SkillTarget skillTarget) {
         super(skillName, skillTarget);
-        effect = new SpriteAnimation(AnimationAtlas.SLASH);
-        source.getSprite().setAnimationAndResetPlayOnce(Animation.attack);
-    }
-
-    @Override
-    public boolean update() {
-        switch (state) {
-        case 0:
-            swingWep();
-            break;
-        case 1:
-            slash();
-            break;
-        }
-        return done;
-    }
-
-    private void swingWep() {
-        if (source.getSprite().isKeyFrameDoneThisFrame()) {
-            drawEffect = true;
-            nextState();
-        }
-    }
-
-    private void slash() {
-        effect.update();
-        if (effect.isDone()) {
-            target.applyDamage(new Damage(source, target, this));
-            finish();
-        }
-    }
-
-    @Override
-    public void draw(Batcher batch) {
-        if (drawEffect && !effect.isDone()) {
-            batch.draw(effect.getCurrent(), target.getX(), target.getY());
-        }
+        steps.addAll(new SS_PlayAnimUntilKeyFrame(source, Animation.attack),
+                     new SS_PlayEffect(target, AnimationDynamicFactory.toActorAttack(source.getImgSetFighters())),
+                     new SS_ApplyDamage(source, target, this));
     }
 }
