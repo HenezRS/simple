@@ -15,6 +15,7 @@ public abstract class Skill {
     protected GameList<Fighter> targets;
     protected GameList<SkillStep> steps;
     protected boolean done = false;
+    protected boolean firstUpdate = true;
     protected int state = 0;
 
     public Skill(SkillName skillName, SkillTarget skillTarget) {
@@ -28,16 +29,24 @@ public abstract class Skill {
     }
 
     public boolean update() {
-        if (steps.size() <= 0) {
-            finish();
-            return done;
+        if (firstUpdate) {
+            if (steps.size() <= 0) {
+                finish();
+                return done;
+            }
         }
 
         SkillStep current = steps.get(state);
+
+        if (firstUpdate) {
+            current.init();
+        }
+
         current.update();
         if (current.isDone()) {
             nextState();
         }
+        firstUpdate = false;
         return done;
     }
 
@@ -56,5 +65,6 @@ public abstract class Skill {
 
     protected void finish() {
         done = true;
+        firstUpdate = true;
     }
 }

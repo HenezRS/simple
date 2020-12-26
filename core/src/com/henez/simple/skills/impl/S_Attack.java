@@ -7,14 +7,14 @@ import com.henez.simple.skills.SkillTarget;
 import com.henez.simple.skills.skillstep.impl.SS_ApplyDamage;
 import com.henez.simple.skills.skillstep.impl.SS_PlayAnimUntilKeyFrame;
 import com.henez.simple.skills.skillstep.impl.SS_PlayEffect;
-import com.henez.simple.sprite.animation.AnimationDynamicFactory;
+import com.henez.simple.sprite.animation.AnimationAtlas;
 
 public class S_Attack extends Skill {
 
     public S_Attack(SkillName skillName, SkillTarget skillTarget) {
         super(skillName, skillTarget);
         steps.addAll(new SS_PlayAnimUntilKeyFrame(source, Animation.attack),
-                     new SS_PlayEffect(target, AnimationDynamicFactory.toActorAttack(source.getImgSetFighters())),
+                     new SS_PlayEffect(target, AnimationAtlas.SLASH.toDynamic()),
                      new SS_ApplyDamage(source, target, this));
     }
 }
