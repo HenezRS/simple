@@ -44,6 +44,7 @@ class Simple {
     public void update() {
         framerate.update();
         world.update();
+        Static.effects.update();
         Static.renderer.positionCameraOnMapObject(world.getPlayer());
     }
 
@@ -60,6 +61,7 @@ class Simple {
         if (world.getState() == WorldState.BATTLE) {
             battleDrawer.drawBattle(batch);
         }
+        Static.effects.draw(batch);
         batch.end();
         // ---
 
@@ -77,7 +79,7 @@ class Simple {
         batch.begin();
         if (world.getState() == WorldState.BATTLE) {
             battleDrawer.drawPanelsBatch(batch);
-            debugDrawer.drawBattleBatch(batch, world);
+            //debugDrawer.drawBattleBatch(batch, world);
         }
         debugDrawer.drawBatch(batch, world, framerate);
         batch.end();

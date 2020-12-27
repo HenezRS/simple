@@ -1,5 +1,6 @@
 package com.henez.simple.misc.timer;
 
+import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.global.Global;
 import com.henez.simple.utils.StringUtils;
 import lombok.Getter;
@@ -36,5 +37,9 @@ public class Timer {
     public String getSeconds() {
         float f = (float) tick / Global.SEC;
         return StringUtils.decimal2(f);
+    }
+
+    public float getPercentRemaining() {
+        return 1 - Numbers.percent(tick, delay);
     }
 }

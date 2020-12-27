@@ -21,6 +21,8 @@ public class Text {
     private BitmapFont textNotFlipped;
     private Color colorDefault = Colors.text_default.color;
     private Color colorNext = colorDefault;
+    private Color colorBack = Colors.black.color;
+    private Color colorBackDefault = colorBack;
 
     public Text() {
 
@@ -90,7 +92,7 @@ public class Text {
     public void draw(Batch batch, CharSequence str, float x, float y, TextStyle style) {
         switch (style) {
         case shadow:
-            draw(batch, str, x + 1, y + 1, Color.BLACK);
+            draw(batch, str, x + 1, y + 1, colorBack);
             draw(batch, str, x, y, colorNext);
             break;
         default:
@@ -103,6 +105,16 @@ public class Text {
         text.setColor(color);
         draw(batch, str, x, y, style);
         text.setColor(colorDefault);
+    }
+
+    public void draw(Batch batch, CharSequence str, float x, float y, float a, TextStyle style) {
+        text.setColor(colorDefault.r, colorDefault.g, colorDefault.b, a);
+        colorBack = Colors.black.withAlpha(a);
+        colorNext = Colors.text_default.withAlpha(a);
+        draw(batch, str, x, y, style);
+        text.setColor(colorDefault);
+        colorBack = colorBackDefault;
+        colorNext = colorDefault;
     }
 
     public Rectangle getTextRect(String line) {

@@ -1,5 +1,6 @@
 package com.henez.simple.skills.skillstep.impl;
 
+import com.henez.simple.effect.EffectFactory;
 import com.henez.simple.skills.Skill;
 import com.henez.simple.skills.skillstep.SkillStep;
 import com.henez.simple.stats.damage.Damage;
@@ -15,10 +16,12 @@ public class SS_ApplyDamage extends SkillStep {
         this.stepTarget = stepTarget;
         this.skill = skill;
     }
-    
+
     @Override
     public void update() {
-        stepTarget.applyDamage(new Damage(stepSource, stepTarget, skill));
+        Damage damage = new Damage(stepSource, stepTarget, skill);
+        stepTarget.applyDamage(damage);
+        EffectFactory.createDamageText(damage);
         finish();
     }
 }

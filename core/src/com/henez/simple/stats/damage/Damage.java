@@ -3,7 +3,9 @@ package com.henez.simple.stats.damage;
 import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.skills.Skill;
 import com.henez.simple.world.mapobjects.Fighter;
+import lombok.Getter;
 
+@Getter
 public class Damage {
     private Fighter source;
     private Fighter target;
