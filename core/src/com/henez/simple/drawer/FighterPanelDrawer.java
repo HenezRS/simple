@@ -3,6 +3,7 @@ package com.henez.simple.drawer;
 import com.henez.simple.Static;
 import com.henez.simple.atlas.Atlas;
 import com.henez.simple.atlas.imgs.ImgIcon7;
+import com.henez.simple.atlas.imgs.ImgTiles;
 import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Colors;
@@ -65,10 +66,14 @@ public class FighterPanelDrawer {
         batch.draw(Atlas.toTex(ImgIcon7.hp), x + iconHpX, y + iconHpY);
         batch.draw(Atlas.toTex(ImgIcon7.mp), x + iconMpX, y + iconMpY);
 
-        batch.draw(fighter.getSprite().getTex(), x + playerX, y + playerY, Facing.LEFT);
+        if (!fighter.isDead()) {
+            batch.draw(fighter.getSprite().getTex(), x + playerX, y + playerY, fighter.isPlayer() ? Facing.LEFT : Facing.RIGHT);
 
-        if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING)) {
-            Static.text.draw(batch, fighter.getCast().getName() + "", x + skillNameX, y + skillNameY);
+            if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING)) {
+                Static.text.draw(batch, fighter.getCast().getName() + "", x + skillNameX, y + skillNameY);
+            }
+        } else {
+            batch.draw(ImgTiles.grave.asTex(), x + playerX, y + playerY, fighter.isPlayer() ? Facing.LEFT : Facing.RIGHT);
         }
     }
 
@@ -78,18 +83,22 @@ public class FighterPanelDrawer {
         shape.barH1(x + barHpX, y + barHpY, barW, fighter.getStatSheet().getStatPercent(StatName.HP), Colors.hp.color, Colors.hp_bar_back.color);
         shape.barH1(x + barMpX, y + barMpY, barW, fighter.getStatSheet().getStatPercent(StatName.MP), Colors.mp.color, Colors.hp_bar_back.color);
 
-        if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING)) {
-            int skillVarW = Numbers.clamp((int) Static.text.getTextRect(fighter.getCast().getName()).width + 2, skillW, 999);
-            shape.rect(x + skillX, y + skillNameY - 1, skillVarW, skillH, Colors.ui_back.color);
+        if (!fighter.isDead()) {
+            if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING)) {
+                int skillVarW = Numbers.clamp((int) Static.text.getTextRect(fighter.getCast().getName()).width + 2, skillW, 999);
+                shape.rect(x + skillX, y + skillNameY - 1, skillVarW, skillH - (fighter.fighterStateIs(FighterState.CASTING) ? 0 : 1), Colors.ui_back.color);
 
-            float percent = fighter.getCast().getPercent();
-            shape.barH1(x + skillBarX,
-                        y + skillBarY,
-                        skillVarW - 2,
-                        percent,
-                        fighter.getSkillExecution().isExecuting() ? Colors.castbar.mul(3f, 1) : Colors.castbar.color, Colors.hp_bar_back.color);
-        } else {
-            shape.barH1(x + atbBarX, y + atbBarY, atbBarW, fighter.getStatSheet().getAtb().getPercent(), Colors.ui_bar_front.color, Colors.hp_bar_back.color);
+                if (fighter.fighterStateIs(FighterState.CASTING)) {
+                    float percent = fighter.getCast().getPercent();
+                    shape.barH1(x + skillBarX,
+                                y + skillBarY,
+                                skillVarW - 2,
+                                percent,
+                                fighter.getSkillExecution().isExecuting() ? Colors.castbar.mul(3f, 1) : Colors.castbar.color, Colors.hp_bar_back.color);
+                }
+            } else {
+                shape.barH1(x + atbBarX, y + atbBarY, atbBarW, fighter.getStatSheet().getAtb().getPercent(), Colors.ui_bar_front.color, Colors.hp_bar_back.color);
+            }
         }
     }
 }

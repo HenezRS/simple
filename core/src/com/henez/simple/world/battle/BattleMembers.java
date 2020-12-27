@@ -7,6 +7,8 @@ import com.henez.simple.world.mapobjects.Fighter;
 import com.henez.simple.world.mapobjects.FighterState;
 import lombok.Getter;
 
+import java.util.Collections;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Getter
@@ -14,6 +16,7 @@ public class BattleMembers {
     private GameList<Fighter> playerParty;
     private GameList<Fighter> enemyParty;
     private GameList<Fighter> fighters;
+    private GameList<Fighter> fightersShuffled;
     private GameList<Fighter> fightersWaiting;
     private GameList<Fighter> fightersCasting;
     private GameList<Fighter> fightersExecuting;
@@ -26,11 +29,16 @@ public class BattleMembers {
         fighters.addAll(playerParty);
         fighters.addAll(enemyParty);
 
+        fightersShuffled = new GameList<>();
+        fightersShuffled.addAll(fighters);
+        Collections.shuffle(fightersShuffled);
+
         fightersWaiting = new GameList<>();
         fightersCasting = new GameList<>();
         fightersExecuting = new GameList<>();
 
-        fighters.forEach(Fighter::battleStart);
+        AtomicInteger pos = new AtomicInteger();
+        fightersShuffled.forEach(f -> f.battleStart(pos.getAndIncrement(), fighters.size()));
 
         setFighterFacing();
     }
@@ -57,15 +65,15 @@ public class BattleMembers {
     }
 
     private void populateFightersWaiting() {
-        fightersWaiting = fighters.stream().filter(fighter -> fighter.getFighterState() == FighterState.WAITING).collect(Collectors.toCollection(GameList::new));
+        fightersWaiting = fighters.stream().filter(fighter -> fighter.canAct() && fighter.getFighterState() == FighterState.WAITING).collect(Collectors.toCollection(GameList::new));
     }
 
     private void populateFightersCasting() {
-        fightersCasting = fighters.stream().filter(fighter -> fighter.getFighterState() == FighterState.CASTING).collect(Collectors.toCollection(GameList::new));
+        fightersCasting = fighters.stream().filter(fighter -> fighter.canAct() && fighter.getFighterState() == FighterState.CASTING).collect(Collectors.toCollection(GameList::new));
     }
 
     private void populateFightersExecuting() {
-        fightersExecuting = fighters.stream().filter(fighter -> fighter.getFighterState() == FighterState.EXECUTING).collect(Collectors.toCollection(GameList::new));
+        fightersExecuting = fighters.stream().filter(fighter -> fighter.canAct() && fighter.getFighterState() == FighterState.EXECUTING).collect(Collectors.toCollection(GameList::new));
     }
 
     public void tickFightersWaiting() {

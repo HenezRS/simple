@@ -1,6 +1,7 @@
 package com.henez.simple.skills;
 
 import com.henez.simple.datastructures.GameList;
+import com.henez.simple.effect.EffectFactory;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.skills.skillstep.SkillStep;
 import com.henez.simple.world.mapobjects.Fighter;
@@ -32,8 +33,14 @@ public abstract class Skill {
         if (firstUpdate) {
             if (steps.size() <= 0) {
                 finish();
+                targets.forEach(f -> EffectFactory.createCancel(f.getGx(), f.getGy()));
                 return done;
             }
+        }
+
+        if (targetNoLongerValid()) {
+            finish();
+            return done;
         }
 
         SkillStep current = steps.get(state);
@@ -48,6 +55,10 @@ public abstract class Skill {
         }
         firstUpdate = false;
         return done;
+    }
+
+    private boolean targetNoLongerValid() {
+        return targets.stream().filter(Fighter::canBeTarget).count() < 1;
     }
 
     public void draw(Batcher batch) {

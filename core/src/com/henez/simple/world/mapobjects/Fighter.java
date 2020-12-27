@@ -1,5 +1,6 @@
 package com.henez.simple.world.mapobjects;
 
+import com.henez.simple.atlas.imgs.ImgTiles;
 import com.henez.simple.atlas.imgset.ImgSetFighters;
 import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.enums.Animation;
@@ -37,12 +38,14 @@ public class Fighter extends Actor {
     public void draw(Batcher batch) {
         if (!dead) {
             super.draw(batch);
+        } else {
+            batch.draw(ImgTiles.grave.asTex(), x, y, facing2);
         }
     }
 
-    public void battleStart() {
+    public void battleStart(int pos, int fighterCount) {
         fighterState = FighterState.WAITING;
-        statSheet.resetForBattle();
+        statSheet.resetForBattle(pos, fighterCount);
         cast.resetForBattle();
     }
 
@@ -56,22 +59,28 @@ public class Fighter extends Actor {
 
     public void determineSkillCast(SkillTargetBuilder targetBuilder) {
         SkillName chosenSkill = SkillName.ATTACK;
-        if (true || Numbers.flip() && Numbers.flip()) {
+        if (Numbers.flip() && Numbers.flip()) {
             chosenSkill = SkillName.ATTACK_CAST;
         }
 
-        cast.begin(chosenSkill, targetBuilder.singleRandomEnemy(), 1);
+        if (targetBuilder.isTargetsAvailable()) {
+            cast.begin(chosenSkill, targetBuilder.singleRandomEnemy(), 1);
 
-        if (cast.isInstant()) {
-            skillBeginCastExecution();
-        } else {
-            fighterState = FighterState.CASTING;
+            if (cast.isInstant()) {
+                skillBeginCastExecution();
+            } else {
+                fighterState = FighterState.CASTING;
+            }
         }
     }
 
     public void skillBeginCastExecution() {
         fighterState = FighterState.EXECUTING;
         skillExecution.executeSkill(cast.getSkillName(), cast.getSkillTarget());
+    }
+
+    public boolean fighterStateIs(FighterState fighterState) {
+        return this.fighterState == fighterState;
     }
 
     public boolean fighterStateOneOf(FighterState... fighterStates) {
@@ -82,12 +91,16 @@ public class Fighter extends Actor {
         sprite.setAnimationAndReset(Animation.idle);
     }
 
-    public boolean isWaiting() {
-        return !statSheet.readyToAct() && cast.isDone() && !skillExecution.isExecuting();
+    public boolean canAct() {
+        return !dead;
+    }
+
+    public boolean canBeTarget() {
+        return !dead;
     }
 
     public boolean readyToAct() {
-        return statSheet.readyToAct() && isPlayer;
+        return statSheet.readyToAct();
     }
 
     public void turnEnd() {

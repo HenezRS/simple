@@ -24,6 +24,8 @@ class Simple {
     private World world;
     private BattleDrawer battleDrawer;
 
+    private boolean drawBattleQueues = false;
+
     Simple() {
         in = new In();
         debugDrawer = new DebugDrawer();
@@ -79,7 +81,9 @@ class Simple {
         batch.begin();
         if (world.getState() == WorldState.BATTLE) {
             battleDrawer.drawPanelsBatch(batch);
-            //debugDrawer.drawBattleBatch(batch, world);
+            if (drawBattleQueues) {
+                debugDrawer.drawBattleBatch(batch, world);
+            }
         }
         debugDrawer.drawBatch(batch, world, framerate);
         batch.end();

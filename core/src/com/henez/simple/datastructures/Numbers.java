@@ -46,6 +46,9 @@ public class Numbers {
     }
 
     public static float percent(float left, float right) {
+        if (left < 0) {
+            left = 0;
+        }
         BigDecimal bd = new BigDecimal(Float.toString(left / right));
         bd = bd.setScale(2, RoundingMode.CEILING);
         return bd.floatValue();

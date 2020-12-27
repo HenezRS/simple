@@ -4,16 +4,15 @@ import com.henez.simple.Static;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.Shaper;
 import com.henez.simple.world.World;
-import com.henez.simple.world.mapobjects.Fighter;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class BattleDrawer {
     private World world;
     private FighterPanelDrawer fighterPanelDrawer;
 
-    private int fighterPanelX = 335;
+    private int fighterPanelPlayerX = 240 + 95;
+    private int fighterPanelEnemyX = 240 - 95 - 57;
 
     public BattleDrawer(World world) {
         this.world = world;
@@ -25,23 +24,26 @@ public class BattleDrawer {
     }
 
     public void drawPanelsBatch(Batcher batch) {
-        List<Fighter> fighters = world.getBattle().getBattleMembers().getPlayerParty();
         AtomicInteger padding = new AtomicInteger();
-        fighters.forEach(f -> {
-            fighterPanelDrawer.drawBatch(batch, Static.renderer.getX() + fighterPanelX, Static.renderer.getY() + 31 + (34 * padding.getAndIncrement()), f);
+        world.getBattle().getBattleMembers().getPlayerParty().forEach(f -> {
+            fighterPanelDrawer.drawBatch(batch, Static.renderer.getX() + fighterPanelPlayerX, Static.renderer.getY() + 31 + (34 * padding.getAndIncrement()), f);
+        });
+
+        padding.set(0);
+        world.getBattle().getBattleMembers().getEnemyParty().forEach(f -> {
+            fighterPanelDrawer.drawBatch(batch, Static.renderer.getX() + fighterPanelEnemyX, Static.renderer.getY() + 31 + (34 * padding.getAndIncrement()), f);
         });
     }
 
     public void drawPanelsShape(Shaper shape) {
-        List<Fighter> fighters = world.getBattle().getBattleMembers().getPlayerParty();
         AtomicInteger padding = new AtomicInteger();
-        fighters.forEach(f -> {
-            /*if (f.getSkillExecution().isExecuting()) {
-                shape.bar(new Rect(f.getX(), f.getY(), Global.tilePixelSize, 1), 1.0f, Colors.red.color, Colors.black.color);
-            } else {
-                shape.bar(new Rect(f.getX(), f.getY(), Global.tilePixelSize, 1), f.getStatSheet().getAtb().getPercent(), Colors.text_default.color, Colors.black.withAlpha(0.5f));
-            }*/
-            fighterPanelDrawer.drawShape(shape, Static.renderer.getX() + fighterPanelX, Static.renderer.getY() + 31 + (34 * padding.getAndIncrement()), f);
+        world.getBattle().getBattleMembers().getPlayerParty().forEach(f -> {
+            fighterPanelDrawer.drawShape(shape, Static.renderer.getX() + fighterPanelPlayerX, Static.renderer.getY() + 31 + (34 * padding.getAndIncrement()), f);
+        });
+
+        padding.set(0);
+        world.getBattle().getBattleMembers().getEnemyParty().forEach(f -> {
+            fighterPanelDrawer.drawShape(shape, Static.renderer.getX() + fighterPanelEnemyX, Static.renderer.getY() + 31 + (34 * padding.getAndIncrement()), f);
         });
     }
 }

@@ -35,8 +35,8 @@ public class StatAtb {
         ready = false;
     }
 
-    public void reset() {
-        current = Numbers.nextFloatBetween(1f, max * 0.8f);
+    public void reset(float pos, float fighterCount) {
+        current = max - (((pos + 1) / (fighterCount + 1)) * max);
         ready = false;
     }
 

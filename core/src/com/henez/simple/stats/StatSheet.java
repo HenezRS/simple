@@ -31,8 +31,8 @@ public class StatSheet {
         stats.put(stat, new Stat(StatGrade.getMaxAtLevel(curve, level.getLevel(), stat.getMul())));
     }
 
-    public void resetForBattle() {
-        atb.reset();
+    public void resetForBattle(int pos, int fighterCount) {
+        atb.reset(pos, fighterCount);
     }
 
     public void turnEnd() {

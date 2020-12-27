@@ -60,4 +60,12 @@ public class Batcher extends SpriteBatch {
             super.draw(drawable.getTex(), drawable.getX() + tx, drawable.getY() + ty);
         }
     }
+
+    public void setAlpha(float a) {
+        setColor(1f, 1f, 1f, a);
+    }
+
+    public void resetAlpha() {
+        setColor(1f, 1f, 1f, 1f);
+    }
 }

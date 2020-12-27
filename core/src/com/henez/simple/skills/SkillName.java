@@ -11,15 +11,15 @@ public enum SkillName {
     ERROR("[error: missing skill]", 0, 0, 0),
     DO_NOTHING("do nothing", 0, 0, 0),
     ATTACK("attack", 1, 0, 0),
-    ATTACK_CAST("attack casting", 4, 2, Global.SEC * 2),
+    ATTACK_CAST("attack casting", 3.2f, 2, Global.SEC * 2),
     ;
 
     private String name;
-    private int power;
+    private float power;
     private int cost;
     private int castDelay;
 
-    SkillName(String name, int power, int cost, int castDelay) {
+    SkillName(String name, float power, int cost, int castDelay) {
         this.name = name;
         this.power = power;
         this.cost = cost;

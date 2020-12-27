@@ -1,5 +1,7 @@
 package com.henez.simple.atlas.imgs;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.henez.simple.atlas.Atlas;
 import lombok.Getter;
 
 @Getter
@@ -40,6 +42,7 @@ public enum ImgTiles {
     debug_b,
     debug_g,
     debug_r,
+    grave,
     ;
 
     private final int x;
@@ -48,5 +51,9 @@ public enum ImgTiles {
     ImgTiles() {
         this.x = this.ordinal() % 16;
         this.y = this.ordinal() / 16;
+    }
+
+    public TextureRegion asTex() {
+        return Atlas.toTex(this);
     }
 }
