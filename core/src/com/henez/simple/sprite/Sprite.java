@@ -5,6 +5,9 @@ import com.henez.simple.atlas.Atlas;
 import com.henez.simple.atlas.imgs.ImgTiles;
 import com.henez.simple.debug.Log;
 import com.henez.simple.enums.Animation;
+import com.henez.simple.enums.Facing;
+import com.henez.simple.renderer.Batcher;
+import com.henez.simple.sprite.spriteeffects.SpriteEffectManager;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +19,7 @@ import java.util.Map;
 public class Sprite {
     private Map<Animation, SpriteAnimation> animations;
     private Animation current;
+    private SpriteEffectManager spriteEffectManager;
     private boolean resetWhenDone = false;
 
     public Sprite() {
@@ -44,6 +48,10 @@ public class Sprite {
             resetWhenDone = false;
             setAnimationAndReset(Animation.idle);
         }
+    }
+
+    public void draw(Batcher batch, float x, float y, Facing facing) {
+        batch.draw(getTex(), x, y, facing);
     }
 
     public TextureRegion getTex() {

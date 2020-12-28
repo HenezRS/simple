@@ -59,4 +59,8 @@ public enum Facing {
     public static Facing byDir2(int x, int xx) {
         return x <= xx ? Facing.RIGHT : Facing.LEFT;
     }
+
+    public static Facing actorDefault() {
+        return Facing.RIGHT;
+    }
 }

@@ -26,6 +26,11 @@ public class Timer {
         done = false;
     }
 
+    public void reset(int newDelay) {
+        delay = newDelay;
+        reset();
+    }
+
     public boolean update() {
         if (!done) {
             tick++;

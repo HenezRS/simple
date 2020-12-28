@@ -1,10 +1,10 @@
 package com.henez.simple.world.mapobjects;
 
 import com.henez.simple.enums.Animation;
+import com.henez.simple.enums.Facing;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.global.Global;
 import com.henez.simple.renderer.Batcher;
-import com.henez.simple.sprite.BatchDrawable;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.sprite.SpriteAnimation;
 import com.henez.simple.world.map.gamemap.GameMap;
@@ -37,7 +37,7 @@ public class MapObject {
     }
 
     public void draw(Batcher batch) {
-        batch.draw(new BatchDrawable(x, y, sprite.getTex()));
+        sprite.draw(batch, x, y, Facing.actorDefault());
     }
 
     public void giveAnimation(Animation animation, SpriteAnimation spriteAnimation) {
