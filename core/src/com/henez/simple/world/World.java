@@ -96,7 +96,21 @@ public class World {
 
         AtomicInteger depth = new AtomicInteger();
         GameList<ImgSetFighters> img = new GameList<>();
-        img.addAll(ImgSetFighters.enemy_octo, ImgSetFighters.enemy_octo2, ImgSetFighters.enemy_octo3, ImgSetFighters.enemy_octo4);
+        img.addAll(ImgSetFighters.enemy_octo,
+                   ImgSetFighters.enemy_octo2,
+                   ImgSetFighters.enemy_octo3,
+                   ImgSetFighters.enemy_octo4,
+                   ImgSetFighters.enemy_octo4,
+                   ImgSetFighters.enemy_octo4,
+                   ImgSetFighters.enemy_octo4,
+                   ImgSetFighters.enemy_octo4,
+                   ImgSetFighters.enemy_octo4,
+                   ImgSetFighters.enemy_octo4,
+                   ImgSetFighters.enemy_octo4,
+                   ImgSetFighters.enemy_octo4,
+                   ImgSetFighters.enemy_octo4,
+                   ImgSetFighters.enemy_octo4,
+                   ImgSetFighters.enemy_octo4);
         encounterService.getEncounterPositions().forEach(xy -> {
             enemyParty.add(ActorFactory.createEnemy(xy.getX(), xy.getY(), depth.getAndIncrement(), img.get(depth.get() - 1)));
         });

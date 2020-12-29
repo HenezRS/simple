@@ -1,6 +1,5 @@
 package com.henez.simple.world.mapobjects;
 
-import com.henez.simple.atlas.imgs.ImgTiles;
 import com.henez.simple.atlas.imgset.ImgSetFighters;
 import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.enums.Animation;
@@ -36,11 +35,7 @@ public class Fighter extends Actor {
 
     @Override
     public void draw(Batcher batch) {
-        if (!dead) {
-            super.draw(batch);
-        } else {
-            batch.draw(ImgTiles.grave.asTex(), x, y, facing2);
-        }
+        sprite.draw(batch, x, y, facing2, dead);
     }
 
     public void battleStart(int pos, int fighterCount) {

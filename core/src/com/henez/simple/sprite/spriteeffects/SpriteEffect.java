@@ -14,6 +14,10 @@ public abstract class SpriteEffect {
 
     public abstract void update();
 
+    public void applyShaderUniforms() {
+        
+    }
+
     protected void finish() {
         done = true;
     }

@@ -1,6 +1,7 @@
 package com.henez.simple.sprite.spriteeffects.impl;
 
 import com.badlogic.gdx.graphics.Color;
+import com.henez.simple.shaders.Shader;
 import com.henez.simple.sprite.spriteeffects.SpriteEffect;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,5 +21,10 @@ public class SE_Blink extends SpriteEffect {
         if (timer.update()) {
             finish();
         }
+    }
+
+    @Override
+    public void applyShaderUniforms() {
+        Shader.sprite.shader.setUniformf("blinkAlpha", timer.getPercentRemaining());
     }
 }

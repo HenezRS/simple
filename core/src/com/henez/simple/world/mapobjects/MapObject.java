@@ -37,7 +37,7 @@ public class MapObject {
     }
 
     public void draw(Batcher batch) {
-        sprite.draw(batch, x, y, Facing.actorDefault());
+        sprite.draw(batch, x, y, Facing.actorDefault(), false);
     }
 
     public void giveAnimation(Animation animation, SpriteAnimation spriteAnimation) {

@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 public enum Shader {
     BW("Shader_BW.glsl"),
+    blink("Shader_blink.glsl"),
+    sprite("Shader_sprite.glsl"),
     ;
 
     public String path;

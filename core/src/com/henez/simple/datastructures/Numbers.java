@@ -16,6 +16,7 @@ public class Numbers {
      * Returns {@code int} value between min and max inclusive of both bounds.
      */
     public static int nextIntBetween(int min, int max) {
+        //System.out.println(min + " - " + max + " = " + (min + random.nextInt((max + 1) - min)));
         return min + random.nextInt((max + 1) - min);
     }
 
@@ -29,6 +30,10 @@ public class Numbers {
 
     public static boolean flip() {
         return random.nextInt(2) == 1;
+    }
+
+    public static boolean flip(int power) {
+        return random.nextInt((int) Math.pow(2, power)) == 1;
     }
 
     public static float floor(float in) {

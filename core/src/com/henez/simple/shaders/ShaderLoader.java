@@ -17,6 +17,7 @@ public final class ShaderLoader {
             shader.vert = readShader(file)[0];
             shader.frag = readShader(file)[1];
             shader.shader = new ShaderProgram(shader.vert, shader.frag);
+            System.out.println(shader.shader.getLog());
         });
     }
 

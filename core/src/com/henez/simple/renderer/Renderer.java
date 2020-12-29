@@ -1,7 +1,6 @@
 package com.henez.simple.renderer;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.henez.simple.global.Global;
 import com.henez.simple.world.mapobjects.MapObject;
 
@@ -14,7 +13,6 @@ public class Renderer {
     public Renderer() {
         batcher = new Batcher();
         shaper = new Shaper();
-        ShaderProgram.pedantic = false;
         resetCamera();
     }
 

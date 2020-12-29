@@ -7,6 +7,7 @@ import com.henez.simple.debug.Log;
 import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.renderer.Batcher;
+import com.henez.simple.shaders.Shader;
 import com.henez.simple.sprite.spriteeffects.SpriteEffectManager;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class Sprite {
         current = Animation.none;
         animations = new HashMap<>();
         animations.put(current, new SpriteAnimation(0, Atlas.toTex(ImgTiles.none)));
+        spriteEffectManager = new SpriteEffectManager();
     }
 
     public Sprite(TextureRegion tex) {
@@ -43,6 +45,7 @@ public class Sprite {
     }
 
     public void update() {
+        spriteEffectManager.update();
         animations.get(current).update();
         if (resetWhenDone && isDone()) {
             resetWhenDone = false;
@@ -50,8 +53,19 @@ public class Sprite {
         }
     }
 
-    public void draw(Batcher batch, float x, float y, Facing facing) {
-        batch.draw(getTex(), x, y, facing);
+    public void draw(Batcher batch, float x, float y, Facing facing, boolean dead) {
+        TextureRegion tex = getTex();
+        if (dead) {
+            tex = ImgTiles.grave.asTex();
+        }
+        
+        Shader.sprite.shader.begin();
+        Shader.sprite.shader.setUniformf("blinkAlpha", 0.0f);
+        spriteEffectManager.applyShaderUniforms();
+        Shader.sprite.shader.end();
+        batch.begin();
+        batch.draw(tex, x, y, facing);
+        batch.end();
     }
 
     public TextureRegion getTex() {

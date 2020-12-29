@@ -14,16 +14,18 @@ void main() {
     gl_Position = u_projTrans * a_position;
 }
 
-//-!@#frag
+    //-!@#frag
+    #version 120
 varying vec4 v_color;
 varying vec2 v_texCoords;
 uniform sampler2D u_texture;
-uniform mat4 u_projTrans;
+
+//float grey = dot( c.rgb, vec3(0.22, 0.707, 0.071) );
 
 void main() {
     vec4 color = texture2D(u_texture, v_texCoords).rgba;
     float gray = (color.r + color.g + color.b) / 3.0;
-    vec4 grayscale = vec4(gray,gray,gray,color.a);
+    vec4 grayscale = vec4(gray, gray, gray, color.a);
 
     gl_FragColor = vec4(grayscale);
 }

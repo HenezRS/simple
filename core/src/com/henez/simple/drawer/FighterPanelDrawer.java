@@ -86,7 +86,7 @@ public class FighterPanelDrawer {
         if (!fighter.isDead()) {
             if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING)) {
                 int skillVarW = Numbers.clamp((int) Static.text.getTextRect(fighter.getCast().getName()).width + 2, skillW, 999);
-                shape.rect(x + skillX, y + skillNameY - 1, skillVarW, skillH - (fighter.fighterStateIs(FighterState.CASTING) ? 0 : 1), Colors.ui_back.color);
+                shape.rect(x + skillX, y + skillNameY - 1, skillVarW, skillH - (fighter.fighterStateIs(FighterState.CASTING) ? 0 : 2), Colors.ui_back.color);
 
                 if (fighter.fighterStateIs(FighterState.CASTING)) {
                     float percent = fighter.getCast().getPercent();

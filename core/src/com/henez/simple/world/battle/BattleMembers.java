@@ -1,7 +1,9 @@
 package com.henez.simple.world.battle;
 
 import com.henez.simple.datastructures.GameList;
+import com.henez.simple.enums.Colors;
 import com.henez.simple.enums.Facing;
+import com.henez.simple.misc.timer.Timer;
 import com.henez.simple.skills.SkillTargetBuilder;
 import com.henez.simple.world.mapobjects.Fighter;
 import com.henez.simple.world.mapobjects.FighterState;
@@ -20,6 +22,9 @@ public class BattleMembers {
     private GameList<Fighter> fightersWaiting;
     private GameList<Fighter> fightersCasting;
     private GameList<Fighter> fightersExecuting;
+    private int cur = 0;
+
+    Timer timer;
 
     public BattleMembers(GameList<Fighter> playerParty, GameList<Fighter> enemyParty) {
         this.playerParty = playerParty;
@@ -41,12 +46,23 @@ public class BattleMembers {
         fightersShuffled.forEach(f -> f.battleStart(pos.getAndIncrement(), fighters.size()));
 
         setFighterFacing();
+
+        timer = new Timer(60 / 4);
     }
 
     public void processTurn() {
         processFightersWaiting();
         processFightersCasting();
         processFightersExecuting();
+
+        if (timer.update()) {
+            timer.reset();
+            fighters.get(cur).getSprite().getSpriteEffectManager().createBlink(Colors.white.color);
+            cur++;
+            if (cur >= fighters.size()) {
+                cur = 0;
+            }
+        }
     }
 
     private void processFightersWaiting() {
