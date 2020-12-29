@@ -4,19 +4,24 @@ import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.global.Global;
 import com.henez.simple.utils.StringUtils;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Timer {
     protected int tick;
     protected int delay;
     protected boolean done;
+    protected boolean disabled;
 
     public Timer() {
+        disabled = false;
         this.delay = 0;
         reset();
     }
 
     public Timer(int delay) {
+        disabled = false;
         this.delay = delay;
         reset();
     }
@@ -32,11 +37,11 @@ public class Timer {
     }
 
     public boolean update() {
-        if (!done) {
+        if (!done && !disabled) {
             tick++;
             done = tick >= delay && delay > 0;
         }
-        return done;
+        return done && !disabled;
     }
 
     public String getSeconds() {

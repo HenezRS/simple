@@ -4,6 +4,7 @@ import com.henez.simple.atlas.imgset.ImgSetFighters;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.input.In;
+import com.henez.simple.playerdata.PlayerData;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.world.battle.Battle;
 import com.henez.simple.world.map.gamemap.GameMap;
@@ -25,46 +26,33 @@ public class World {
     private Battle battle;
     private EncounterService encounterService;
     private GameList<MapObject> objects;
+    private PlayerData playerData;
     private ControlledPlayer player;
-    private GameList<Fighter> playerParty;
     private GameList<Fighter> enemyParty;
     private GameMap currentMap;
-    private int stepsUntilEncounter;
-    private int stepsUntilEncounterMax = 0;
 
     public World() {
         state = WorldState.MAP;
         encounterService = new EncounterService();
         currentMap = new TestMap();
         objects = new GameList<>();
-        stepsUntilEncounter = stepsUntilEncounterMax;
 
-        int depth = 0;
-        int startGx = currentMap.getStartGx();
-        int startGy = currentMap.getStartGy();
+        playerData = new PlayerData();
+        playerData.setPartyPosition(currentMap.getStartGx(), currentMap.getStartGy());
+        player = playerData.getControlledPlayer();
 
-        player = ActorFactory.createControlledPlayer(startGx, startGy, depth++, ImgSetFighters.class_knight);
-        playerParty = new GameList<>();
-        playerParty.add(player);
-        playerParty.add(ActorFactory.createPlayer(startGx, startGy, depth++, ImgSetFighters.class_knight2));
-        playerParty.add(ActorFactory.createPlayer(startGx, startGy, depth++, ImgSetFighters.class_knight3));
-        playerParty.add(ActorFactory.createPlayer(startGx, startGy, depth, ImgSetFighters.class_knight4));
-        player.setParty(playerParty);
-
-        addToWorld(playerParty);
-
-        enemyParty = new GameList<>();
+        addToWorld(playerData.getPlayerParty());
     }
 
     public void update() {
         objects.forEach(obj -> obj.update(state, currentMap));
         if (player.isMoveComplete()) {
-            stepsUntilEncounter--;
+            playerData.deductEncounterStep();
             encounterService.reset();
             if (player.getTileDetail().isExit()) {
                 player.setMoveAble(false);
                 nextFloor();
-            } else if (stepsUntilEncounter < 0 && player.canEncounter() && encounterService.canEncounter(player.getGx(), player.getGy(), player.getLastMoveDir(), currentMap)) {
+            } else if (playerData.readyForEncounter() && encounterService.canEncounter(player.getGx(), player.getGy(), player.getLastMoveDir(), currentMap)) {
                 if (encounterService.setEncounterPositionsAndReturnValid(currentMap)) {
                     player.setMoveAble(false);
                     beginEncounter();
@@ -79,7 +67,7 @@ public class World {
         player.beginMoveIfAble(currentMap);
 
         if (In.mouse.isClicked()) {
-            movePartyTo(In.mouse.getGx(), In.mouse.getGy());
+            playerData.setPartyPosition(In.mouse.getGx(), In.mouse.getGy());
         }
     }
 
@@ -91,33 +79,23 @@ public class World {
     }
 
     private void beginEncounter() {
+        enemyParty = new GameList<>();
         state = WorldState.BATTLE;
-        stepsUntilEncounter = stepsUntilEncounterMax;
+        playerData.resetEncounterSteps();
 
         AtomicInteger depth = new AtomicInteger();
         GameList<ImgSetFighters> img = new GameList<>();
         img.addAll(ImgSetFighters.enemy_octo,
                    ImgSetFighters.enemy_octo2,
                    ImgSetFighters.enemy_octo3,
-                   ImgSetFighters.enemy_octo4,
-                   ImgSetFighters.enemy_octo4,
-                   ImgSetFighters.enemy_octo4,
-                   ImgSetFighters.enemy_octo4,
-                   ImgSetFighters.enemy_octo4,
-                   ImgSetFighters.enemy_octo4,
-                   ImgSetFighters.enemy_octo4,
-                   ImgSetFighters.enemy_octo4,
-                   ImgSetFighters.enemy_octo4,
-                   ImgSetFighters.enemy_octo4,
-                   ImgSetFighters.enemy_octo4,
                    ImgSetFighters.enemy_octo4);
         encounterService.getEncounterPositions().forEach(xy -> {
-            enemyParty.add(ActorFactory.createEnemy(xy.getX(), xy.getY(), depth.getAndIncrement(), img.get(depth.get() - 1)));
+            enemyParty.add(ActorFactory.createEnemyPositioned(xy.getX(), xy.getY(), depth.getAndIncrement(), img.get(depth.get() - 1)));
         });
         Collections.reverse(enemyParty);
         addToWorld(enemyParty);
 
-        battle = new Battle(playerParty, enemyParty);
+        battle = new Battle(playerData.getPlayerParty(), enemyParty);
     }
 
     private void endEncounter() {
@@ -129,13 +107,8 @@ public class World {
     private void nextFloor() {
         clearWorld();
         currentMap = new TestMap();
-        movePartyTo(currentMap.getStartGx(), currentMap.getStartGy());
-        addToWorld(playerParty);
-    }
-
-    private void movePartyTo(int gx, int gy) {
-        AtomicInteger depth = new AtomicInteger();
-        playerParty.forEach(player -> player.resetPosition(gx, gy, depth.getAndIncrement()));
+        playerData.setPartyPosition(currentMap.getStartGx(), currentMap.getStartGy());
+        addToWorld(playerData.getPlayerParty());
     }
 
     public void draw(Batcher batch) {

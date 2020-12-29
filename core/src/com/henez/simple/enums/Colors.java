@@ -30,8 +30,8 @@ public enum Colors {
     pal_dark_3(new Color(0x997577ff)),
 
     red(new Color(0xffaa77ff)),
-
     blue(new Color(0x77aaffff)),
+    yellow(new Color(0xffff77ff)),
     ;
 
     public Color color;

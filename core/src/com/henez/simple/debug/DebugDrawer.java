@@ -31,7 +31,7 @@ public class DebugDrawer {
         if (world.getState() == WorldState.BATTLE) {
             lines.add(String.format("BATTLE: %ss", world.getBattle().getBattleTimer().getSeconds()));
         } else {
-            lines.add(String.format("ENC: %s steps", world.getStepsUntilEncounter()));
+            lines.add(String.format("ENC: %s steps", world.getPlayerData().getStepsUntilEncounter()));
         }
 
         lines.add(In.showHeld());

@@ -32,6 +32,13 @@ public class MapObject {
         this.depth = depth;
     }
 
+    public void setPosition(int gx, int gy) {
+        this.gx = gx;
+        this.gy = gy;
+        this.x = gx * Global.tilePixelSize;
+        this.y = gy * Global.tilePixelSize;
+    }
+
     public void update(WorldState state, GameMap map) {
         sprite.update();
     }

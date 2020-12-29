@@ -36,6 +36,6 @@ public class E_PopText extends Effect {
 
     @Override
     public void draw(Batcher batcher) {
-        Static.text.draw(batcher, text, x, y, timer.getPercentRemaining(), Text.TextStyle.shadow);
+        Static.text.draw(batcher, text, x, y, timer.getPercentRemaining(), color, Text.TextStyle.shadow);
     }
 }

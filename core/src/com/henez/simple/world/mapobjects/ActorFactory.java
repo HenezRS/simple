@@ -9,21 +9,28 @@ public final class ActorFactory {
     private ActorFactory() {
     }
 
-    public static ControlledPlayer createControlledPlayer(int startGx, int startGy, int depth, ImgSetFighters imgSetFighters) {
-        ControlledPlayer player = new ControlledPlayer(startGx, startGy, imgSetFighters, depth);
+    public static ControlledPlayer createControlledPlayer(int depth, ImgSetFighters imgSetFighters) {
+        ControlledPlayer player = new ControlledPlayer(0, 0, imgSetFighters, depth);
         buildSprite(player);
         player.setIsPlayer();
         return player;
     }
 
-    public static Fighter createEnemy(int startGx, int startGy, int depth, ImgSetFighters imgSetFighters) {
-        Fighter enemy = new Fighter(startGx, startGy, imgSetFighters, depth);
+    public static Fighter createEnemy(int depth, ImgSetFighters imgSetFighters) {
+        Fighter enemy = new Fighter(0, 0, imgSetFighters, depth);
         buildSprite(enemy);
         return enemy;
     }
 
-    public static Fighter createPlayer(int startGx, int startGy, int depth, ImgSetFighters imgSetFighters) {
-        Fighter player = createEnemy(startGx, startGy, depth, imgSetFighters);
+    public static Fighter createEnemyPositioned(int startGx, int startGy, int depth, ImgSetFighters imgSetFighters) {
+        Fighter enemy = new Fighter(0, 0, imgSetFighters, depth);
+        enemy.setPosition(startGx, startGy);
+        buildSprite(enemy);
+        return enemy;
+    }
+
+    public static Fighter createPlayer(int depth, ImgSetFighters imgSetFighters) {
+        Fighter player = createEnemy(depth, imgSetFighters);
         player.setIsPlayer();
         return player;
     }

@@ -117,6 +117,18 @@ public class Text {
         colorNext = colorDefault;
     }
 
+    public void draw(Batch batch, CharSequence str, float x, float y, float a, Color color, TextStyle style) {
+        text.setColor(colorDefault.r, colorDefault.g, colorDefault.b, a);
+        colorBack = Colors.black.withAlpha(a);
+        colorNext = color;
+        colorNext.a = a;
+        draw(batch, str, x, y, style);
+        colorNext.a = 1.0f;
+        text.setColor(colorDefault);
+        colorBack = colorBackDefault;
+        colorNext = colorDefault;
+    }
+
     public Rectangle getTextRect(String line) {
         GlyphLayout gl = new GlyphLayout();
         gl.setText(text, line);
