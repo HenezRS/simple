@@ -1,7 +1,6 @@
 package com.henez.simple.world.battle;
 
 import com.henez.simple.datastructures.GameList;
-import com.henez.simple.enums.Colors;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.misc.timer.Timer;
 import com.henez.simple.skills.SkillTargetBuilder;
@@ -22,6 +21,7 @@ public class BattleMembers {
     private GameList<Fighter> fightersWaiting;
     private GameList<Fighter> fightersCasting;
     private GameList<Fighter> fightersExecuting;
+    private GameList<Fighter> fightersChannelling;
     private int cur = 0;
 
     Timer timer;
@@ -41,6 +41,7 @@ public class BattleMembers {
         fightersWaiting = new GameList<>();
         fightersCasting = new GameList<>();
         fightersExecuting = new GameList<>();
+        fightersChannelling = new GameList<>();
 
         AtomicInteger pos = new AtomicInteger();
         fightersShuffled.forEach(f -> f.battleStart(pos.getAndIncrement(), fighters.size()));
@@ -61,16 +62,17 @@ public class BattleMembers {
     public void processTurn() {
         processFightersWaiting();
         processFightersCasting();
+        processFightersChannelling();
         processFightersExecuting();
 
-        if (timer.update()) {
+        /*if (timer.update()) {
             timer.reset();
             fighters.get(cur).getSprite().getSpriteEffectManager().createBlink(Colors.white.color);
             cur++;
             if (cur >= fighters.size()) {
                 cur = 0;
             }
-        }
+        }*/
     }
 
     private void processFightersWaiting() {
@@ -88,6 +90,11 @@ public class BattleMembers {
         tickFightersExecuting();
     }
 
+    private void processFightersChannelling() {
+        populateFightersChannelling();
+        tickFightersChannelling();
+    }
+
     private void populateFightersWaiting() {
         fightersWaiting = fighters.stream().filter(fighter -> fighter.canAct() && fighter.getFighterState() == FighterState.WAITING).collect(Collectors.toCollection(GameList::new));
     }
@@ -98,6 +105,10 @@ public class BattleMembers {
 
     private void populateFightersExecuting() {
         fightersExecuting = fighters.stream().filter(fighter -> fighter.canAct() && fighter.getFighterState() == FighterState.EXECUTING).collect(Collectors.toCollection(GameList::new));
+    }
+
+    private void populateFightersChannelling() {
+        fightersChannelling = fighters.stream().filter(fighter -> fighter.canAct() && fighter.getFighterState() == FighterState.CHANNELLING).collect(Collectors.toCollection(GameList::new));
     }
 
     public void tickFightersWaiting() {
@@ -118,9 +129,21 @@ public class BattleMembers {
         });
     }
 
+    public void tickFightersChannelling() {
+        fightersChannelling.forEach(fighter -> {
+            fighter.castingUpdate();
+            fighter.executionUpdate();
+            if (fighter.getCast().isChannelCastReady()) {
+                fighter.skillBeginChannelExecution();
+            } else if (fighter.getCast().isDone()) {
+                fighter.skillBeginCastExecution();
+            }
+        });
+    }
+
     public void tickFightersExecuting() {
         fightersExecuting.forEach(fighter -> {
-            fighter.getSkillExecution().update();
+            fighter.executionUpdate();
             if (fighter.getSkillExecution().isDone()) {
                 fighter.turnEnd();
             }

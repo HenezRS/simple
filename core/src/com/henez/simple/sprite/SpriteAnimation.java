@@ -2,7 +2,6 @@ package com.henez.simple.sprite;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.datastructures.GameList;
-import com.henez.simple.sprite.animation.AnimationAtlas;
 import com.henez.simple.sprite.animation.AnimationDynamic;
 import lombok.Getter;
 
@@ -23,15 +22,6 @@ public class SpriteAnimation {
 
     public SpriteAnimation(float delay, TextureRegion... textureRegions) {
         init(delay, 1.0f, textureRegions);
-    }
-
-    public SpriteAnimation(float delay, float speed, TextureRegion... textureRegions) {
-        init(delay, speed, textureRegions);
-    }
-
-    public SpriteAnimation(AnimationAtlas animationAtlas) {
-        init(animationAtlas.getDelay(), animationAtlas.getSpeed(), animationAtlas.getTextureRegions());
-        keyFrame = animationAtlas.getKeyFrame();
     }
 
     public SpriteAnimation(AnimationDynamic animationDynamic) {

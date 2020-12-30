@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Numbers {
 
-    public static Random random = new Random(255);
+    public static Random random = new Random(256);
 
     private Numbers() {
 

@@ -12,12 +12,10 @@ public enum AnimationAtlas {
     ;
 
     private float delay;
-    private float speed;
     private int keyFrame;
     private TextureRegion[] textureRegions;
 
     AnimationAtlas(float delay, int keyFrame, TextureRegion... textureRegions) {
-        speed = 1.0f;
         this.delay = delay;
         this.keyFrame = keyFrame;
         this.textureRegions = textureRegions;
@@ -25,5 +23,9 @@ public enum AnimationAtlas {
 
     public AnimationDynamic toDynamic() {
         return new AnimationDynamic(delay, keyFrame, textureRegions);
+    }
+
+    public AnimationDynamic toDynamicWithSpeed(float newSpeed) {
+        return new AnimationDynamic(delay, keyFrame, textureRegions).withSpeed(newSpeed);
     }
 }

@@ -20,6 +20,7 @@ public enum Colors {
     xp(new Color(0xac91baff)),
 
     castbar(new Color(0xae5bcfff)),
+    channelbar(new Color(0x5baecfff)),
 
     pal_dark_0(new Color(0x08141eff)),
 

@@ -13,10 +13,14 @@ public final class AnimationDynamicFactory {
     }
 
     public static AnimationDynamic toActorMove(ImgSetFighters imgSetFighters) {
-        return new AnimationDynamic(SEC2, 3.0f, 1, imgSetFighters.getIdle(), imgSetFighters.getIdle2());
+        return new AnimationDynamic(SEC2, 1, imgSetFighters.getIdle(), imgSetFighters.getIdle2()).withSpeed(3.0f);
     }
 
     public static AnimationDynamic toActorAttack(ImgSetFighters imgSetFighters) {
         return new AnimationDynamic(SEC2, 1, imgSetFighters.getAttack(), imgSetFighters.getAttack2(), imgSetFighters.getAttack2());
+    }
+
+    public static AnimationDynamic toActorAttackFast(ImgSetFighters imgSetFighters) {
+        return new AnimationDynamic(SEC2, 1, imgSetFighters.getAttack(), imgSetFighters.getAttack2(), imgSetFighters.getAttack2()).withSpeed(16.0f);
     }
 }

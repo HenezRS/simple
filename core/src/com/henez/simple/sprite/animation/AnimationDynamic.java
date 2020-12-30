@@ -6,20 +6,19 @@ import lombok.Getter;
 @Getter
 public class AnimationDynamic {
     private float delay;
-    private float speed = 1.0f;
+    private float speed;
     private int keyFrame;
     private TextureRegion[] textureRegions;
 
     public AnimationDynamic(float delay, int keyFrame, TextureRegion... textureRegions) {
+        speed = 1.0f;
         this.delay = delay;
         this.keyFrame = keyFrame;
         this.textureRegions = textureRegions;
     }
 
-    public AnimationDynamic(float delay, float speed, int keyFrame, TextureRegion... textureRegions) {
+    public AnimationDynamic withSpeed(float speed) {
         this.speed = speed;
-        this.delay = delay;
-        this.keyFrame = keyFrame;
-        this.textureRegions = textureRegions;
+        return this;
     }
 }

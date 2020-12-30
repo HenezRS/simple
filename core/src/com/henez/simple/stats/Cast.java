@@ -15,6 +15,11 @@ public class Cast {
     private boolean done;
     private boolean instant;
     private String name;
+    private boolean channelled;
+    private int channelExecutionMaxCount;
+    private float channelExecutionTick;
+    private float channelExecutionDelay;
+    private boolean channelCastReady;
 
     public Cast() {
         resetForBattle();
@@ -29,6 +34,7 @@ public class Cast {
         max = skillName.getCastDelay();
         done = max <= 0;
         instant = max <= 0;
+        channelled = skillName.getChannelDelay() > 0;
     }
 
     public boolean update() {
@@ -39,12 +45,33 @@ public class Cast {
             }
         }
 
+        channelCastReady = false;
+        if (!done && channelled) {
+            //do not execution last cast... last execution handled by BattleMembers.java
+            channelExecutionTick += add;
+            if (channelExecutionTick >= channelExecutionDelay) {
+                channelExecutionTick -= channelExecutionDelay;
+                channelCastReady = true;
+            }
+        }
+
         return done;
+    }
+
+    public void beginChannel(float channelSpeedMul) {
+        channelCastReady = false;
+        current = 0;
+        add = 1 * channelSpeedMul;
+        max = skillName.getChannelDelay();
+        done = false;
+
+        channelExecutionTick = 0;
+        channelExecutionMaxCount = skillName.getChannelExecutionCount();
+        channelExecutionDelay = max / channelExecutionMaxCount;
     }
 
     public void resetForBattle() {
         current = 0;
-        done = true;
     }
 
     public void turnEnd() {

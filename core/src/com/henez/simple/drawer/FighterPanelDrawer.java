@@ -10,6 +10,7 @@ import com.henez.simple.enums.Colors;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.enums.StatName;
 import com.henez.simple.renderer.Batcher;
+import com.henez.simple.renderer.ShapeFactory;
 import com.henez.simple.renderer.Shaper;
 import com.henez.simple.world.mapobjects.Fighter;
 import com.henez.simple.world.mapobjects.FighterState;
@@ -69,7 +70,7 @@ public class FighterPanelDrawer {
         if (!fighter.isDead()) {
             batch.draw(fighter.getSprite().getTex(), x + playerX, y + playerY, fighter.isPlayer() ? Facing.LEFT : Facing.RIGHT);
 
-            if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING)) {
+            if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING, FighterState.CHANNELLING)) {
                 Static.text.draw(batch, fighter.getCast().getName() + "", x + skillNameX, y + skillNameY);
             }
         } else {
@@ -84,17 +85,30 @@ public class FighterPanelDrawer {
         shape.barH1(x + barMpX, y + barMpY, barW, fighter.getStatSheet().getStatPercent(StatName.MP), Colors.mp.color, Colors.hp_bar_back.color);
 
         if (!fighter.isDead()) {
-            if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING)) {
+            if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING, FighterState.CHANNELLING)) {
                 int skillVarW = Numbers.clamp((int) Static.text.getTextRect(fighter.getCast().getName()).width + 2, skillW, 999);
+                int skillBarVarW = skillVarW - 2;
                 shape.rect(x + skillX, y + skillNameY - 1, skillVarW, skillH - (fighter.fighterStateIs(FighterState.CASTING) ? 0 : 2), Colors.ui_back.color);
 
                 if (fighter.fighterStateIs(FighterState.CASTING)) {
                     float percent = fighter.getCast().getPercent();
                     shape.barH1(x + skillBarX,
                                 y + skillBarY,
-                                skillVarW - 2,
+                                skillBarVarW,
                                 percent,
                                 Colors.castbar.color, Colors.hp_bar_back.color);
+                } else if (fighter.fighterStateIs(FighterState.CHANNELLING)) {
+                    float percent = 1 - fighter.getCast().getPercent();
+                    shape.barH1(x + skillBarX,
+                                y + skillBarY,
+                                skillBarVarW,
+                                percent,
+                                Colors.channelbar.color, Colors.hp_bar_back.color);
+
+                    int max = fighter.getCast().getChannelExecutionMaxCount();
+                    for (int i = 0; i < max; ++i) {
+                        ShapeFactory.channellingDivider(shape, x + (i * (skillBarVarW / max)), y + skillBarY);
+                    }
                 }
             } else {
                 shape.barH1(x + atbBarX, y + atbBarY, atbBarW, fighter.getStatSheet().getAtb().getPercent(), Colors.ui_bar_front.color, Colors.hp_bar_back.color);
