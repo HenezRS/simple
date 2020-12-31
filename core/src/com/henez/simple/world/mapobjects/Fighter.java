@@ -72,7 +72,6 @@ public class Fighter extends Actor {
             if (turn % 2 == 0) {
                 chosenSkill = SkillName.ATTACK_CAST_CHANNEL;
             }
-            chosenSkill = SkillName.ATTACK_CHANNEL;
         }
 
         if (chosenSkill != null && targetBuilder.isTargetsAvailable()) {
@@ -80,12 +79,7 @@ public class Fighter extends Actor {
             sprite.getSpriteEffectManager().createBlink(Colors.white.color);
 
             if (cast.isInstant()) {
-                if (cast.isChannelled()) {
-                    cast.beginChannel(1);
-                    fighterState = FighterState.CHANNELLING;
-                } else {
-                    skillBeginCastExecution();
-                }
+                skillBeginCastExecution();
             } else {
                 fighterState = FighterState.CASTING;
             }
@@ -93,8 +87,13 @@ public class Fighter extends Actor {
     }
 
     public void skillBeginCastExecution() {
-        fighterState = FighterState.EXECUTING;
-        skillExecution.executeSkill(cast.getSkillName(), cast.getSkillTarget());
+        if (cast.isChannelled() && !cast.isChannelStarted()) {
+            cast.beginChannel(1);
+            fighterState = FighterState.CHANNELLING;
+        } else {
+            fighterState = FighterState.EXECUTING;
+            skillExecution.executeSkill(cast.getSkillName(), cast.getSkillTarget());
+        }
     }
 
     public void skillBeginChannelExecution() {

@@ -7,6 +7,6 @@ public final class ShapeFactory {
     }
 
     public static void channellingDivider(Shaper shape, int x, int y) {
-        shape.rect(x, y - 1, 1, 3, Colors.white.color);
+        shape.rect(x, y, 1, 2, Colors.white.color);
     }
 }

@@ -20,6 +20,7 @@ public class Cast {
     private float channelExecutionTick;
     private float channelExecutionDelay;
     private boolean channelCastReady;
+    private boolean channelStarted;
 
     public Cast() {
         resetForBattle();
@@ -35,6 +36,7 @@ public class Cast {
         done = max <= 0;
         instant = max <= 0;
         channelled = skillName.getChannelDelay() > 0;
+        channelStarted = false;
     }
 
     public boolean update() {
@@ -59,6 +61,7 @@ public class Cast {
     }
 
     public void beginChannel(float channelSpeedMul) {
+        channelStarted = true;
         channelCastReady = false;
         current = 0;
         add = 1 * channelSpeedMul;
