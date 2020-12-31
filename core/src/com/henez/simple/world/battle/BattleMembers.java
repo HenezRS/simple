@@ -135,6 +135,7 @@ public class BattleMembers {
             fighter.executionUpdate();
             if (fighter.getCast().isChannelCastReady()) {
                 fighter.skillBeginChannelExecution();
+                fighter.cancelChannelIfTargetNoLongerValid();
             } else if (fighter.getCast().isDone()) {
                 fighter.skillBeginCastExecution();
             }

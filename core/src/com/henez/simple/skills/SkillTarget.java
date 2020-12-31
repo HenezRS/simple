@@ -18,4 +18,7 @@ public class SkillTarget {
         target = targets.get(0);
     }
 
+    public boolean targetsNoLongerValid() {
+        return targets.stream().filter(Fighter::canBeTarget).count() < 1;
+    }
 }

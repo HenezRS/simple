@@ -26,7 +26,7 @@ public enum SkillName {
 
     SkillName(String name, float power, int cost, int castDelay, int channelDelay, int channelExecutionCount) {
         this.name = name;
-        this.power = power;
+        this.power = power * 10.0f;
         this.cost = cost;
         this.castDelay = castDelay;
         this.channelDelay = channelDelay;

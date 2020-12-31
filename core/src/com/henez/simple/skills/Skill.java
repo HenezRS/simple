@@ -57,8 +57,8 @@ public abstract class Skill {
         return done;
     }
 
-    private boolean targetNoLongerValid() {
-        return targets.stream().filter(Fighter::canBeTarget).count() < 1;
+    public boolean targetNoLongerValid() {
+        return skillTarget.targetsNoLongerValid();
     }
 
     public void draw(Batcher batch) {

@@ -100,6 +100,12 @@ public class Fighter extends Actor {
         skillExecution.executeSkill(cast.getSkillName(), cast.getSkillTarget());
     }
 
+    public void cancelChannelIfTargetNoLongerValid() {
+        if (cast.getSkillTarget().targetsNoLongerValid()) {
+            turnEnd();
+        }
+    }
+
     public boolean fighterStateIs(FighterState fighterState) {
         return this.fighterState == fighterState;
     }
