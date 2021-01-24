@@ -22,6 +22,11 @@ public class Batcher extends SpriteBatch {
         ty = y;
     }
 
+    public void addTransformCamera() {
+        tx = Static.renderer.getX();
+        ty = Static.renderer.getY();
+    }
+
     public void resetTransform() {
         tx = 0;
         ty = 0;

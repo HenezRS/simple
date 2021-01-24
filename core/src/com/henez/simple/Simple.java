@@ -6,8 +6,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.henez.simple.debug.DebugDrawer;
 import com.henez.simple.drawer.BattleDrawer;
 import com.henez.simple.enums.Colors;
+import com.henez.simple.enums.state.GameState;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.input.In;
+import com.henez.simple.menu.MenuTitle;
 import com.henez.simple.misc.Framerate;
 import com.henez.simple.misc.screenshotter.Screenshotter;
 import com.henez.simple.renderer.Batcher;
@@ -17,6 +19,7 @@ import com.henez.simple.world.World;
 
 class Simple {
 
+    private GameState gameState;
     private boolean firstDrawComplete = false;
 
     private In in;
@@ -24,6 +27,7 @@ class Simple {
     private Framerate framerate;
     private World world;
     private BattleDrawer battleDrawer;
+    private MenuTitle menuTitle;
 
     private boolean drawBattleQueues = false;
 
@@ -33,11 +37,13 @@ class Simple {
         framerate = new Framerate();
         world = new World();
         battleDrawer = new BattleDrawer(world);
+        menuTitle = new MenuTitle();
 
         init();
     }
 
     private void init() {
+        gameState = GameState.TITLE;
     }
 
     public void input() {
@@ -46,10 +52,23 @@ class Simple {
 
     public void update() {
         framerate.update();
+
+        if (gameState == GameState.PLAY) {
+            updatePlay();
+        } else {
+            updateTitle();
+        }
+    }
+
+    private void updatePlay() {
         world.update();
 
         Static.effects.update();
         Static.renderer.positionCameraOnMapObject(world.getPlayer());
+    }
+
+    private void updateTitle() {
+        menuTitle.update();
     }
 
     public void draw() {
@@ -58,6 +77,14 @@ class Simple {
         Gdx.gl.glClearColor(Colors.black.color.r, Colors.black.color.g, Colors.black.color.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if (gameState == GameState.PLAY) {
+            drawPlay(batch, shape);
+        } else {
+            drawTitle(batch, shape);
+        }
+    }
+
+    private void drawPlay(Batcher batch, Shaper shape) {
         //batch 0 map ---
         batch.begin();
         batch.draw(world.getCurrentMap().getMapTex(), 0, 0);
@@ -110,6 +137,14 @@ class Simple {
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.end();
         // ---
+    }
+
+    private void drawTitle(Batcher batch, Shaper shape) {
+        batch.begin();
+        batch.addTransformCamera();
+        menuTitle.draw(batch, shape);
+        batch.resetTransform();
+        batch.end();
     }
 
     public void post() {

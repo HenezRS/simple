@@ -1,10 +1,10 @@
 package com.henez.simple.world;
 
 import com.henez.simple.atlas.imgset.ImgSetFighters;
+import com.henez.simple.data.PlayerData;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.input.In;
-import com.henez.simple.playerdata.PlayerData;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.world.battle.Battle;
 import com.henez.simple.world.map.gamemap.GameMap;

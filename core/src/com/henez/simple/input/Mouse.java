@@ -42,4 +42,8 @@ public class Mouse {
         this.gx = gx;
         this.gy = gy;
     }
+
+    public boolean isMouseWithin(int xx, int yy, int w, int h) {
+        return x > xx && x < xx + w && y > yy && y < yy + h;
+    }
 }

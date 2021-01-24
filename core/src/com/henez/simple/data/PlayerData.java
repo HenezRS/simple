@@ -1,4 +1,4 @@
-package com.henez.simple.playerdata;
+package com.henez.simple.data;
 
 import com.henez.simple.atlas.imgset.ImgSetFighters;
 import com.henez.simple.datastructures.GameList;
@@ -22,12 +22,12 @@ public class PlayerData {
         int depth = 0;
         resetEncounterSteps();
 
-        controlledPlayer = ActorFactory.createControlledPlayer(depth++, ImgSetFighters.class_knight);
+        controlledPlayer = ActorFactory.createControlledPlayer(depth++, ImgSetFighters.class_kni);
         playerParty = new GameList<>();
         playerParty.add(controlledPlayer);
-        playerParty.add(ActorFactory.createPlayer(depth++, ImgSetFighters.class_knight2));
-        playerParty.add(ActorFactory.createPlayer(depth++, ImgSetFighters.class_knight3));
-        playerParty.add(ActorFactory.createPlayer(depth, ImgSetFighters.class_knight4));
+        playerParty.add(ActorFactory.createPlayer(depth++, ImgSetFighters.class_kni));
+        playerParty.add(ActorFactory.createPlayer(depth++, ImgSetFighters.class_kni));
+        playerParty.add(ActorFactory.createPlayer(depth, ImgSetFighters.class_kni));
         controlledPlayer.setParty(playerParty);
     }
 

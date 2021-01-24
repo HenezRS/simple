@@ -1,0 +1,34 @@
+package com.henez.simple.stats.classes;
+
+import com.henez.simple.atlas.imgset.ImgSetFighters;
+import lombok.Getter;
+
+import java.util.Arrays;
+
+@Getter
+public enum ClassName {
+    kni("kni", "knight", ImgSetFighters.class_kni),
+    ran("ran", "ranger", ImgSetFighters.class_ran),
+    mag("mag", "mage", ImgSetFighters.class_mag),
+    cle("cle", "cleric", ImgSetFighters.class_cle),
+    rog("rog", "rogue", ImgSetFighters.class_rog),
+    tri("tri", "trickster", ImgSetFighters.class_tri),
+    bru("bru", "brute", ImgSetFighters.class_bru),
+    foo("foo", "fool", ImgSetFighters.class_foo),
+    dru("dru", "druid", ImgSetFighters.class_dru),
+    cul("cul", "cultist", ImgSetFighters.class_cul);
+
+    private String nameShort;
+    private String name;
+    private ImgSetFighters imgSet;
+
+    ClassName(String nameShort, String name, ImgSetFighters imgSet) {
+        this.nameShort = nameShort.toUpperCase();
+        this.name = name;
+        this.imgSet = imgSet;
+    }
+
+    public static ClassName getByName(String name) {
+        return Arrays.stream(ClassName.values()).filter(className -> className.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
+    }
+}
