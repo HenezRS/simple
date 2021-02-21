@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Align;
 import com.henez.simple.Static;
+import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Colors;
 
 public class Text {
@@ -129,10 +129,10 @@ public class Text {
         colorNext = colorDefault;
     }
 
-    public Rectangle getTextRect(String line) {
+    public Rect getTextRect(String line) {
         GlyphLayout gl = new GlyphLayout();
         gl.setText(text, line);
-        return new Rectangle(0, 0, gl.width, TEXT_H);
+        return new Rect(0, 0, (int) gl.width, TEXT_H);
     }
 
     public int getLineHeightBy(int mul) {

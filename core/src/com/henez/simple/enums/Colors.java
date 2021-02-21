@@ -7,7 +7,9 @@ public enum Colors {
     black(new Color(0x000000ff)),
     green(new Color(0x00ff00ff)),
     black_50(black.withAlpha(0.5f)),
-    text_default(new Color(0xf6d6bdff)),
+    text_default(new Color(0xe5c79eff)),
+    text_hover(new Color(0xffffefff)),
+    text_click(new Color(0xffffefff)),
 
     ui_back(new Color(0x261c18ff)),
     ui_bar_back(new Color(0x665742ff)),

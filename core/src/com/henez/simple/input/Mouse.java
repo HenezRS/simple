@@ -46,4 +46,8 @@ public class Mouse {
     public boolean isMouseWithin(int xx, int yy, int w, int h) {
         return x > xx && x < xx + w && y > yy && y < yy + h;
     }
+
+    public boolean isMouseWithinInclusive(int xx, int yy, int w, int h) {
+        return x > xx - 1 && x < xx + w + 1 && y > yy - 1 && y < yy + h + 1;
+    }
 }

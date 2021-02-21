@@ -16,7 +16,13 @@ public enum ClassName {
     bru("bru", "brute", ImgSetFighters.class_bru),
     foo("foo", "fool", ImgSetFighters.class_foo),
     dru("dru", "druid", ImgSetFighters.class_dru),
-    cul("cul", "cultist", ImgSetFighters.class_cul);
+    cul("cul", "cultist", ImgSetFighters.class_cul),
+
+    enemy_octo("en", "octo", ImgSetFighters.enemy_octo),
+    enemy_octo2("en", "octo2", ImgSetFighters.enemy_octo2),
+    enemy_octo3("en", "octo3", ImgSetFighters.enemy_octo3),
+    enemy_octo4("en", "octo4", ImgSetFighters.enemy_octo4),
+    ;
 
     private String nameShort;
     private String name;

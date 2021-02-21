@@ -28,7 +28,7 @@ public abstract class Button {
     abstract void draw(Batcher batch);
 
     private void setState() {
-        hover = In.mouse.isMouseWithin(x, y, w, h);
+        hover = In.mouse.isMouseWithinInclusive(x, y, w - 1, h - 1);
         clicked = hover && In.mouse.isClicked();
         held = hover && In.mouse.isHeld();
     }

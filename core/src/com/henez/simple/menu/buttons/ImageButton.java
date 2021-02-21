@@ -20,7 +20,7 @@ public class ImageButton extends Button {
     }
 
     @Override
-    void draw(Batcher batch) {
+    public void draw(Batcher batch) {
         batch.draw(group.getBack(), x, y);
         if (hover) {
             batch.draw(group.getHover(), x, y);

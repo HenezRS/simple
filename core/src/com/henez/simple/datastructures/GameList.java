@@ -2,6 +2,7 @@ package com.henez.simple.datastructures;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class GameList<T> extends ArrayList<T> {
 
@@ -29,5 +30,9 @@ public class GameList<T> extends ArrayList<T> {
 
     public T last() {
         return get(size() - 1);
+    }
+
+    public void reverse() {
+        Collections.reverse(this);
     }
 }

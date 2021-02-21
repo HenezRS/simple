@@ -16,6 +16,7 @@ import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.Shaper;
 import com.henez.simple.shaders.Shader;
 import com.henez.simple.world.World;
+import com.henez.simple.world.map.gamemap.impl.TestMap;
 
 class Simple {
 
@@ -69,6 +70,11 @@ class Simple {
 
     private void updateTitle() {
         menuTitle.update();
+        if (menuTitle.isDone()) {
+            world.getPlayerData().beginNewGame(menuTitle.getNewGameData());
+            world.beginNewWorld(new TestMap());
+            gameState = GameState.PLAY;
+        }
     }
 
     public void draw() {

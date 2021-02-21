@@ -10,6 +10,7 @@ import com.henez.simple.skills.SkillTargetBuilder;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.stats.Cast;
 import com.henez.simple.stats.StatSheet;
+import com.henez.simple.stats.classes.ClassName;
 import com.henez.simple.stats.damage.Damage;
 import lombok.Getter;
 
@@ -22,14 +23,16 @@ public class Fighter extends Actor {
     protected Cast cast;
     protected FighterState fighterState;
     protected ImgSetFighters imgSetFighters;
+    protected ClassName className;
     protected boolean dead = false;
     protected boolean isPlayer = false;
     protected boolean isLeader = false;
     protected int turn;
 
-    public Fighter(int gx, int gy, ImgSetFighters imgSetFighters, int depth) {
+    public Fighter(int gx, int gy, ClassName className, int depth) {
         super(gx, gy, new Sprite(), depth);
-        this.imgSetFighters = imgSetFighters;
+        this.className = className;
+        this.imgSetFighters = className.getImgSet();
         statSheet = new StatSheet();
         skillExecution = new SkillExecution();
         cast = new Cast();

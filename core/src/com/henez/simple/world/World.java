@@ -1,11 +1,11 @@
 package com.henez.simple.world;
 
-import com.henez.simple.atlas.imgset.ImgSetFighters;
 import com.henez.simple.data.PlayerData;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.input.In;
 import com.henez.simple.renderer.Batcher;
+import com.henez.simple.stats.classes.ClassName;
 import com.henez.simple.world.battle.Battle;
 import com.henez.simple.world.map.gamemap.GameMap;
 import com.henez.simple.world.map.gamemap.impl.TestMap;
@@ -34,13 +34,14 @@ public class World {
     public World() {
         state = WorldState.MAP;
         encounterService = new EncounterService();
-        currentMap = new TestMap();
-        objects = new GameList<>();
-
         playerData = new PlayerData();
+    }
+
+    public void beginNewWorld(GameMap gameMap) {
+        currentMap = gameMap;
+        clearWorld();
         playerData.setPartyPosition(currentMap.getStartGx(), currentMap.getStartGy());
         player = playerData.getControlledPlayer();
-
         addToWorld(playerData.getPlayerParty());
     }
 
@@ -84,13 +85,13 @@ public class World {
         playerData.resetEncounterSteps();
 
         AtomicInteger depth = new AtomicInteger();
-        GameList<ImgSetFighters> img = new GameList<>();
-        img.addAll(ImgSetFighters.enemy_octo,
-                   ImgSetFighters.enemy_octo2,
-                   ImgSetFighters.enemy_octo3,
-                   ImgSetFighters.enemy_octo4);
+        GameList<ClassName> classes = new GameList<>();
+        classes.addAll(ClassName.enemy_octo,
+                       ClassName.enemy_octo2,
+                       ClassName.enemy_octo3,
+                       ClassName.enemy_octo4);
         encounterService.getEncounterPositions().forEach(xy -> {
-            enemyParty.add(ActorFactory.createEnemyPositioned(xy.getX(), xy.getY(), depth.getAndIncrement(), img.get(depth.get() - 1)));
+            enemyParty.add(ActorFactory.createEnemyPositioned(xy.getX(), xy.getY(), depth.getAndIncrement(), classes.get(depth.get() - 1)));
         });
         Collections.reverse(enemyParty);
         addToWorld(enemyParty);
@@ -105,10 +106,7 @@ public class World {
     }
 
     private void nextFloor() {
-        clearWorld();
-        currentMap = new TestMap();
-        playerData.setPartyPosition(currentMap.getStartGx(), currentMap.getStartGy());
-        addToWorld(playerData.getPlayerParty());
+        beginNewWorld(new TestMap());
     }
 
     public void draw(Batcher batch) {

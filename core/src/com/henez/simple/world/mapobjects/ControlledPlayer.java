@@ -1,10 +1,10 @@
 package com.henez.simple.world.mapobjects;
 
-import com.henez.simple.atlas.imgset.ImgSetFighters;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.input.In;
+import com.henez.simple.stats.classes.ClassName;
 import com.henez.simple.world.map.gamemap.GameMap;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,8 +18,8 @@ public class ControlledPlayer extends Fighter {
     private boolean moveAble;
     private GameList<Fighter> party;
 
-    public ControlledPlayer(int gx, int gy, ImgSetFighters imgSetFighters, int depth) {
-        super(gx, gy, imgSetFighters, depth);
+    public ControlledPlayer(int gx, int gy, ClassName className, int depth) {
+        super(gx, gy, className, depth);
     }
 
     @Override
