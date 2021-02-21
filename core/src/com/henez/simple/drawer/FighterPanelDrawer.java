@@ -1,5 +1,6 @@
 package com.henez.simple.drawer;
 
+import com.badlogic.gdx.graphics.Color;
 import com.henez.simple.Static;
 import com.henez.simple.atlas.Atlas;
 import com.henez.simple.atlas.imgs.ImgIcon7;
@@ -57,6 +58,9 @@ public class FighterPanelDrawer {
     private int atbBarY = skillNameY;
     private int atbBarW = skillBarW;
 
+    private Color backColor;
+    private Color frameColor;
+
     public FighterPanelDrawer() {
     }
 
@@ -78,9 +82,16 @@ public class FighterPanelDrawer {
         }
     }
 
-    public void drawShape(Shaper shape, int x, int y, Fighter fighter) {
-        shape.rect(x, y, w, h, Colors.ui_back.color);
-        shape.rectOutline(new Rect(x + 1, y + 1, 20, 20), Colors.ui_frame.color);
+    public void drawShape(Shaper shape, int x, int y, Fighter fighter, boolean isPlayer) {
+        backColor = Colors.ui_back_red.color;
+        frameColor = Colors.ui_frame_red.color;
+        if (isPlayer) {
+            backColor = Colors.ui_back_blue.color;
+            frameColor = Colors.ui_frame_blue.color;
+        }
+
+        shape.rect(x, y, w, h, backColor);
+        shape.rectOutline(new Rect(x + 1, y + 1, 20, 20), frameColor);
         shape.barH1(x + barHpX, y + barHpY, barW, fighter.getStatSheet().getStatPercent(StatName.HP), Colors.hp.color, Colors.hp_bar_back.color);
         shape.barH1(x + barMpX, y + barMpY, barW, fighter.getStatSheet().getStatPercent(StatName.MP), Colors.mp.color, Colors.hp_bar_back.color);
 
@@ -88,7 +99,7 @@ public class FighterPanelDrawer {
             if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING, FighterState.CHANNELLING)) {
                 int skillVarW = Numbers.clamp((int) Static.text.getTextRect(fighter.getCast().getName()).width + 2, skillW, 999);
                 int skillBarVarW = skillVarW - 2;
-                shape.rect(x + skillX, y + skillNameY - 1, skillVarW, skillH - (fighter.fighterStateIs(FighterState.CASTING) ? 0 : 2), Colors.ui_back.color);
+                shape.rect(x + skillX, y + skillNameY - 1, skillVarW, skillH - (fighter.fighterStateIs(FighterState.CASTING) ? 0 : 2), backColor);
 
                 if (fighter.fighterStateIs(FighterState.CASTING)) {
                     float percent = fighter.getCast().getPercent();

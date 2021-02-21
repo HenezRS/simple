@@ -8,6 +8,7 @@ import com.henez.simple.menu.buttons.TextButton;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.Shaper;
 import com.henez.simple.stats.classes.ClassName;
+import com.henez.simple.text.Text;
 import lombok.Getter;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,6 +19,7 @@ public class MenuTitle {
     private ButtonGroup characterButtons;
     private TextButton resetButton;
     private TextButton confirmButton;
+    private TextButton defaultButton;
     private GameList<ClassName> classes;
     private boolean done = false;
 
@@ -26,6 +28,7 @@ public class MenuTitle {
         characterButtons = ButtonFactory.createCharacterSelectButtons();
         resetButton = new TextButton("reset", 30, 240);
         confirmButton = new TextButton("confirm", 30 + 50, 240);
+        defaultButton = new TextButton("default and confirm", 30, 240 + Text.TEXT_PARAGRAPH_H);
         classes = new GameList<>();
     }
 
@@ -45,12 +48,17 @@ public class MenuTitle {
         if (confirmButton.isClicked() && !classes.isEmpty()) {
             confirm();
         }
+        defaultButton.update();
+        if (defaultButton.isClicked()) {
+            confirmDefault();
+        }
     }
 
     public void draw(Batcher batch, Shaper shape) {
         characterButtons.draw(batch);
         resetButton.draw(batch);
         confirmButton.draw(batch);
+        defaultButton.draw(batch);
 
         AtomicInteger i = new AtomicInteger();
         classes.forEach(className -> {
@@ -61,5 +69,11 @@ public class MenuTitle {
     private void confirm() {
         newGameData.setClasses(classes);
         done = true;
+    }
+
+    private void confirmDefault() {
+        classes.clear();
+        classes.add(ClassName.kni);
+        confirm();
     }
 }

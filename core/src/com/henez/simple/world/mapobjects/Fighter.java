@@ -73,7 +73,7 @@ public class Fighter extends Actor {
         if (isLeader) {
             chosenSkill = SkillName.ATTACK_CHANNEL;
             if (turn % 2 == 0) {
-                chosenSkill = SkillName.ATTACK_CAST_CHANNEL;
+                chosenSkill = SkillName.ATTACK;
             }
         }
 

@@ -10,11 +10,21 @@ public enum Colors {
     text_default(new Color(0xe5c79eff)),
     text_hover(new Color(0xffffefff)),
     text_click(new Color(0xffffefff)),
+    text_player(new Color(0x49aac4ff)),
+    text_enemy(new Color(0xc46a49ff)),
 
     ui_back(new Color(0x261c18ff)),
     ui_bar_back(new Color(0x665742ff)),
     ui_frame(new Color(0x998042ff)),
     ui_bar_front(new Color(0xffb8aeff)),
+
+    //ui_back_blue(new Color(0x1f2326ff)),
+    ui_back_blue(ui_back),
+    ui_frame_blue(new Color(0x295e5bff)),
+
+    //ui_back_red(new Color(0x3b2525ff)),
+    ui_back_red(ui_back),
+    ui_frame_red(new Color(0x823838ff)),
 
     hp(new Color(0x86cf8bff)),
     hp_bar_back(new Color(0x704950ff)),
@@ -41,6 +51,10 @@ public enum Colors {
 
     Colors(Color color) {
         this.color = color;
+    }
+
+    Colors(Colors colors) {
+        this.color = colors.color;
     }
 
     public Color withAlpha(float a) {
