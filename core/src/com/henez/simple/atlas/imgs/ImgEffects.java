@@ -12,6 +12,9 @@ public enum ImgEffects {
     slash_3(3, 0),
     slash_4(4, 0),
     slash_5(5, 0),
+    missile_particle(6, 0),
+    missile_0(7, 0),
+    missile_1(8, 0),
     ;
 
     private final int x;

@@ -9,6 +9,7 @@ import static com.henez.simple.global.Global.SEC16;
 @Getter
 public enum AnimationAtlas {
     SLASH(SEC16, 3, slash_0.asTex(), slash_1.asTex(), slash_2.asTex(), slash_3.asTex(), slash_4.asTex(), slash_5.asTex()),
+    MISSILE(SEC16, 0, missile_0.asTex(), missile_1.asTex()),
     ;
 
     private float delay;
