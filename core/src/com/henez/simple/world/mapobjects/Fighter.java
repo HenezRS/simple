@@ -60,7 +60,7 @@ public class Fighter extends Actor {
 
     public void executionUpdate() {
         if (fighterState == FighterState.CHANNELLING) {
-            if (skillExecution != null && skillExecution.getSkill() != null && !skillExecution.isDone()) {
+            if (skillExecution != null && skillExecution.getSkillComponent() != null && !skillExecution.isDone()) {
                 skillExecution.update();
             }
         } else {

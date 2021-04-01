@@ -26,14 +26,14 @@ same rules as Standard except 1 addition: party wipe ends your journey
 == Skills
  - Gained from runes socketed into a runestone and can be modified with guidestone.
 	-- Rune: Gives bonuses/abilities when socketed (materia in ff7 / gems in poe)
-		--- Skill: grant user the skill
+		--- Skill: grant user the skillComponent
 		--- Support: modify skills linked with this rune on runestone
 		--- Bonus: give character stats if bonus rune requirement is satisfied (e.g. must be connected to 2 red runes
 	-- Runestone: base with sockets (ff10-2 garment grid)
 	-- Guidestone: overlay for Runestone, gives bonuses to runes that overlap with markings. Can be rotated?
 	
 	= revision 2 =
-	-- Runes primarily give a skill + x linked sockets.
+	-- Runes primarily give a skillComponent + x linked sockets.
 	-- support runes benefit all linked skills
 	-- support runes are equipment drops w/ random affixes
 	-- support runes will give additive power, players should be free to add many skills w/o losing power to 1 super juiced ability

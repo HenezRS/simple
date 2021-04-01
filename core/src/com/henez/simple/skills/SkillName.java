@@ -1,7 +1,10 @@
 package com.henez.simple.skills;
 
 import com.henez.simple.global.Global;
-import com.henez.simple.skills.impl.*;
+import com.henez.simple.skills.skillcomponent.SkillComponent;
+import com.henez.simple.skills.skillcomponent.impl.*;
+import com.henez.simple.skills.skillgroup.SkillGroup;
+import com.henez.simple.skills.skillgroup.impl.SG_All;
 import lombok.Getter;
 
 @Getter
@@ -33,21 +36,21 @@ public enum SkillName {
         this.channelExecutionCount = channelExecutionCount;
     }
 
-    public Skill create(SkillTarget skillTarget) {
+    public SkillGroup create(SkillTarget skillTarget) {
         switch (this) {
         case DO_NOTHING:
-            return new S_DoNothing(this, skillTarget);
+            return new SG_All(this, skillTarget);
         case ATTACK:
         case ATTACK_CAST:
-            return new S_Attack(this, skillTarget);
+            return new SC_Attack(this, skillTarget);
         case ATTACK_CHANNEL:
         case ATTACK_CAST_CHANNEL:
         case ATTACK_CAST_CHANNEL_RAPID:
-            return new S_AttackFast(this, skillTarget);
+            return new SC_AttackFast(this, skillTarget);
         case MISSILE_CAST:
-            return new S_Missile(this, skillTarget);
+            return new SC_Missile(this, skillTarget);
         default:
-            return new S_Error(this, skillTarget);
+            return new SC_Error(this, skillTarget);
         }
     }
 }
