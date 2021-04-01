@@ -26,6 +26,7 @@ public abstract class SkillComponent {
         this.skillName = skillName;
         this.source = source;
         this.target = target;
+        steps = new GameList<>();
         buildSteps();
     }
 

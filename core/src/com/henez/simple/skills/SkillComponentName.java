@@ -17,6 +17,7 @@ public enum SkillComponentName {
     ATTACK,
     ATTACK_FAST,
     DO_NOTHING,
+    ERROR,
     MISSILE,
     ;
 

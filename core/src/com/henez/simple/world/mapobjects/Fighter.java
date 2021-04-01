@@ -60,7 +60,7 @@ public class Fighter extends Actor {
 
     public void executionUpdate() {
         if (fighterState == FighterState.CHANNELLING) {
-            if (skillExecution != null && skillExecution.getSkillComponent() != null && !skillExecution.isDone()) {
+            if (skillExecution != null && skillExecution.getSkillGroup() != null && !skillExecution.isDone()) {
                 skillExecution.update();
             }
         } else {
@@ -71,11 +71,10 @@ public class Fighter extends Actor {
     public void determineSkillCast(SkillTargetBuilder targetBuilder) {
         SkillName chosenSkill = null;
         if (isLeader) {
-            chosenSkill = SkillName.MISSILE_CAST;
-            /*chosenSkill = SkillName.ATTACK_CAST_CHANNEL_RAPID;
-            if (turn % 2 == 1) {
-                chosenSkill = SkillName.ATTACK_CAST_CHANNEL;
-            }*/
+            chosenSkill = SkillName.ATTACK_CAST;
+            if(turn==1) {
+                chosenSkill = SkillName.ATTACK_ALL;
+            }
         }
 
         if (chosenSkill != null && targetBuilder.isTargetsAvailable()) {

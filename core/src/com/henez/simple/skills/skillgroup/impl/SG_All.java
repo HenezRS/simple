@@ -21,4 +21,10 @@ public class SG_All extends SkillGroup {
             skillComponents.add(skillComponent);
         });
     }
+
+    @Override
+    public boolean update() {
+        done = skillComponents.stream().allMatch(SkillComponent::update);
+        return done;
+    }
 }

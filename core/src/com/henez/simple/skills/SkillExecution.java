@@ -2,13 +2,14 @@ package com.henez.simple.skills;
 
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.skills.skillcomponent.SkillComponent;
+import com.henez.simple.skills.skillgroup.SkillGroup;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class SkillExecution {
-    SkillComponent skillComponent;
+    SkillGroup skillGroup;
     SkillName skillName;
     boolean executing = false;
 
@@ -18,19 +19,19 @@ public class SkillExecution {
     public void executeSkill(SkillName skillName, SkillTarget skillTarget) {
         this.skillName = skillName;
         executing = true;
-        skillComponent = skillName.create(skillTarget);
+        skillGroup = skillName.create(skillTarget);
     }
 
     public void update() {
-        skillComponent.update();
+        skillGroup.update();
     }
 
     public void draw(Batcher batch) {
-        skillComponent.draw(batch);
+        skillGroup.draw(batch);
     }
 
     public boolean isDone() {
-        return skillComponent.isDone();
+        return skillGroup.isDone();
     }
 
     public void finish() {

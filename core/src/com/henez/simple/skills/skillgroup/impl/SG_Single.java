@@ -13,4 +13,10 @@ public class SG_Single extends SkillGroup {
         skillComponent.createSteps(skillName, source, target);
         skillComponents.add(skillComponent);
     }
+
+    @Override
+    public boolean update() {
+        done = skillComponents.stream().allMatch(SkillComponent::update);
+        return done;
+    }
 }

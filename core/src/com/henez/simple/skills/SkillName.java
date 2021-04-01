@@ -5,6 +5,7 @@ import com.henez.simple.skills.skillcomponent.SkillComponent;
 import com.henez.simple.skills.skillcomponent.impl.*;
 import com.henez.simple.skills.skillgroup.SkillGroup;
 import com.henez.simple.skills.skillgroup.impl.SG_All;
+import com.henez.simple.skills.skillgroup.impl.SG_Single;
 import lombok.Getter;
 
 @Getter
@@ -13,6 +14,7 @@ public enum SkillName {
     ERROR("[error: missing skill]", 0, 0, 0, 0, 0),
     DO_NOTHING("do nothing", 0, 0, 0, 0, 0),
     ATTACK("attack", 1, 0, 0, 0, 0),
+    ATTACK_ALL("attack all", 3.2f, 2, Global.SEC * 2, 0, 0),
     ATTACK_CAST("attack casting", 3.2f, 2, Global.SEC * 2, 0, 0),
     ATTACK_CHANNEL("attack channel", 0.4f, 2, 0, Global.SEC * 4, 4),
     ATTACK_CAST_CHANNEL("attack cast channel", 0.4f, 2, Global.SEC * 2, Global.SEC * 4, 8),
@@ -39,18 +41,20 @@ public enum SkillName {
     public SkillGroup create(SkillTarget skillTarget) {
         switch (this) {
         case DO_NOTHING:
-            return new SG_All(this, skillTarget);
+            return new SG_Single(this, skillTarget, SkillComponentName.DO_NOTHING);
         case ATTACK:
         case ATTACK_CAST:
-            return new SC_Attack(this, skillTarget);
+            return new SG_Single(this, skillTarget, SkillComponentName.ATTACK);
+        case ATTACK_ALL:
+            return new SG_All(this, skillTarget, SkillComponentName.ATTACK);
         case ATTACK_CHANNEL:
         case ATTACK_CAST_CHANNEL:
         case ATTACK_CAST_CHANNEL_RAPID:
-            return new SC_AttackFast(this, skillTarget);
+            return new SG_Single(this, skillTarget, SkillComponentName.ATTACK_FAST);
         case MISSILE_CAST:
-            return new SC_Missile(this, skillTarget);
+            return new SG_Single(this, skillTarget, SkillComponentName.MISSILE);
         default:
-            return new SC_Error(this, skillTarget);
+            return new SG_Single(this, skillTarget, SkillComponentName.ERROR);
         }
     }
 }
