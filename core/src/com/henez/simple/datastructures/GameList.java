@@ -32,6 +32,10 @@ public class GameList<T> extends ArrayList<T> {
         return get(size() - 1);
     }
 
+    public void removeFirst() {
+        remove(0);
+    }
+
     public void reverse() {
         Collections.reverse(this);
     }

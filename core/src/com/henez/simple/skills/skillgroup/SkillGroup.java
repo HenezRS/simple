@@ -21,12 +21,14 @@ public abstract class SkillGroup {
     protected Fighter target;
     protected GameList<Fighter> targets;
     protected GameList<SkillComponent> skillComponents;
+    protected GameList<SkillComponent> skillComponentsWaiting;
     protected boolean done = false;
 
     public SkillGroup(SkillName skillName, SkillTarget skillTarget) {
         this.skillName = skillName;
         this.skillTarget = skillTarget;
         skillComponents = new GameList<>();
+        skillComponentsWaiting = new GameList<>();
 
         source = skillTarget.getSource();
         target = skillTarget.getTarget();

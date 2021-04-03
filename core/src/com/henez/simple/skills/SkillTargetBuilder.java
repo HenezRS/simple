@@ -28,9 +28,20 @@ public class SkillTargetBuilder {
         targetsAvailable = targets.size() > 0;
     }
 
-    public SkillTarget singleRandomEnemy() {
-        addRandomTarget();
+    public SkillTarget createTarget(SkillName skillName) {
+        switch (skillName.getTarget()) {
+        case SINGLE: singleRandomEnemy();
+        case ALL: allEnemies();
+        }
         return new SkillTarget(source, selectedTargets);
+    }
+
+    private void singleRandomEnemy() {
+        addRandomTarget();
+    }
+
+    private void allEnemies() {
+        selectedTargets.addAll(targets);
     }
 
     private void addRandomTarget() {

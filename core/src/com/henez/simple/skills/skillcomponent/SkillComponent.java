@@ -30,6 +30,15 @@ public abstract class SkillComponent {
         buildSteps();
     }
 
+    public SkillComponent with(SkillName skillName, Fighter source, Fighter target) {
+        this.skillName = skillName;
+        this.source = source;
+        this.target = target;
+        steps = new GameList<>();
+        buildSteps();
+        return this;
+    }
+
     public abstract void buildSteps();
 
     public boolean update() {

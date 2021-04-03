@@ -4,14 +4,15 @@ import com.henez.simple.skills.SkillComponentName;
 import com.henez.simple.skills.SkillName;
 import com.henez.simple.skills.SkillTarget;
 import com.henez.simple.skills.skillcomponent.SkillComponent;
-import com.henez.simple.skills.skillcomponent.impl.SC_Missile;
 import com.henez.simple.skills.skillgroup.SkillGroup;
 
-public class SG_Single extends SkillGroup {
+public class SG_AllSequence extends SkillGroup {
 
-    public SG_Single(SkillName skillName, SkillTarget skillTarget, SkillComponentName skillComponentName) {
+    public SG_AllSequence(SkillName skillName, SkillTarget skillTarget, SkillComponentName skillComponentName) {
         super(skillName, skillTarget);
-        skillComponents.add(skillComponentName.create().with(skillName, source, target));
+        targets.forEach(target -> {
+            skillComponents.add(skillComponentName.create().with(skillName, source, target));
+        });
     }
 
     @Override

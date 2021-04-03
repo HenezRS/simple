@@ -71,14 +71,14 @@ public class Fighter extends Actor {
     public void determineSkillCast(SkillTargetBuilder targetBuilder) {
         SkillName chosenSkill = null;
         if (isLeader) {
-            chosenSkill = SkillName.ATTACK_CAST;
-            if(turn==1) {
+            chosenSkill = SkillName.MISSILE_CAST_ALLSEQ;
+            /*if(turn==1) {
                 chosenSkill = SkillName.ATTACK_ALL;
-            }
+            }*/
         }
 
         if (chosenSkill != null && targetBuilder.isTargetsAvailable()) {
-            cast.begin(chosenSkill, targetBuilder.singleRandomEnemy(), 1);
+            cast.begin(chosenSkill, targetBuilder.createTarget(chosenSkill), 1);
             sprite.getSpriteEffectManager().createBlink(Colors.white.color);
 
             if (cast.isInstant()) {
