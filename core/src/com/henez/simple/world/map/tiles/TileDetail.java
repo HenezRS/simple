@@ -10,12 +10,15 @@ import java.util.stream.Stream;
 @Getter
 public class TileDetail {
     boolean walkable;
+    int gx, gy;
     Tile map;
     Tile deco;
     Tile obj;
     GameList<Tile> tiles;
 
     public TileDetail(Tile map, Tile deco, Tile obj) {
+        this.gx = map.getGx();
+        this.gy = map.getGy();
         this.map = map;
         this.deco = deco;
         this.obj = obj;

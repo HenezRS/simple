@@ -85,6 +85,54 @@ public abstract class GameMap {
         mapTex = new MapDrawer().draw(mapData.getWidth(), mapData.getHeight(), backColor.color, tilesMap, tilesDeco);
     }
 
+    public GameList<TileDetail> getWalkableTileCluster(int gx, int gy, int iterations) {
+        GameList<TileDetail> tilesToCheck = new GameList<>();
+        GameList<TileDetail> tilesToCheckNext = new GameList<>();
+        GameList<TileDetail> tilesToCheckNextFilter = new GameList<>();
+        GameList<TileDetail> tilesValid = new GameList<>();
+        GameList<TileDetail> tilesChecked = new GameList<>();
+        tilesToCheck.add(getTileDetail(gx,gy));
+
+        for(int i=0; i<iterations; ++i) {
+            tilesToCheck.forEach(tile -> {
+                if(tile.isWalkable() && !tilesChecked.contains(tile)) {
+                    tilesValid.add(tile);
+
+                    TileDetail next = getTileDetail(tile.getGx()+1,tile.getGy());
+                    if(!tilesToCheckNextFilter.contains(next)) {
+                        tilesToCheckNext.add(next);
+                        tilesToCheckNextFilter.add(next);
+                    }
+
+                    next = getTileDetail(tile.getGx()-1,tile.getGy());
+                    if(!tilesToCheckNextFilter.contains(next)) {
+                        tilesToCheckNext.add(next);
+                        tilesToCheckNextFilter.add(next);
+                    }
+
+                    next = getTileDetail(tile.getGx(),tile.getGy()+1);
+                    if(!tilesToCheckNextFilter.contains(next)) {
+                        tilesToCheckNext.add(next);
+                        tilesToCheckNextFilter.add(next);
+                    }
+
+                    next = getTileDetail(tile.getGx(),tile.getGy()-1);
+                    if(!tilesToCheckNextFilter.contains(next)) {
+                        tilesToCheckNext.add(next);
+                        tilesToCheckNextFilter.add(next);
+                    }
+                }
+                tilesChecked.add(tile);
+            });
+
+            tilesToCheck.clear();
+            tilesToCheck.addAll(tilesToCheckNext);
+            tilesToCheckNext.clear();
+        }
+        System.out.println(tilesValid.size());
+        return tilesValid;
+    }
+
     private TilePool getTilePool(TileGroup group) {
         if (!tileGroup.containsKey(group)) {
             if (!missingGroupByNames.contains(group.name())) {

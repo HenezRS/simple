@@ -7,6 +7,7 @@ import com.henez.simple.world.map.gamemap.GameMap;
 import lombok.Getter;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Getter
 public class EncounterService {
@@ -37,15 +38,16 @@ public class EncounterService {
 
     public boolean setEncounterPositionsAndReturnValid(GameMap map) {
         encounterPositions = new GameList<>();
-        encounterPositions.add(new XY(encounterX, encounterY));
+        //encounterPositions.add(new XY(encounterX, encounterY));
 
-        for (int i = 0; i < 3; ++i) {
+        /*for (int i = 0; i < 3; ++i) {
             if (canEncounter(encounterX, encounterY, encounterFacing, map)) {
                 encounterPositions.add(new XY(encounterX, encounterY));
             } else {
                 return false;
             }
-        }
+        }*/
+        encounterPositions.addAll(map.getWalkableTileCluster(encounterX, encounterY,7).stream().map(tile -> new XY(tile.getGx(),tile.getGy())).collect(Collectors.toCollection(GameList::new)));
 
         return true;
     }

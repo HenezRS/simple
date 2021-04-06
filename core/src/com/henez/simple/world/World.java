@@ -2,6 +2,7 @@ package com.henez.simple.world;
 
 import com.henez.simple.data.PlayerData;
 import com.henez.simple.datastructures.GameList;
+import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.input.In;
 import com.henez.simple.renderer.Batcher;
@@ -91,7 +92,7 @@ public class World {
                        ClassName.enemy_octo3,
                        ClassName.enemy_octo4);
         encounterService.getEncounterPositions().forEach(xy -> {
-            enemyParty.add(ActorFactory.createEnemyPositioned(xy.getX(), xy.getY(), depth.getAndIncrement(), classes.get(depth.get() - 1)));
+            enemyParty.add(ActorFactory.createEnemyPositioned(xy.getX(), xy.getY(), depth.getAndIncrement(), classes.get(Numbers.clamp(depth.get() - 1,0,3))));
         });
         Collections.reverse(enemyParty);
         addToWorld(enemyParty);

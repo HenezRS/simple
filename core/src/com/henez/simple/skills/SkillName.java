@@ -64,10 +64,10 @@ public enum SkillName {
             return new SG_Single(this, skillTarget, SkillComponentName.ATTACK);
         case MISSILE_CAST:
             return new SG_Single(this, skillTarget, SkillComponentName.MISSILE);
-        case MISSILE_CAST_ALL:
-            return new SG_AllSequence(this, skillTarget, SkillComponentName.MISSILE);
         case MISSILE_CAST_ALLSEQ:
-            return new SG_All(this, skillTarget, SkillComponentName.MISSILE,Global.SEC2);
+            return new SG_AllSequence(this, skillTarget, SkillComponentName.MISSILE);
+        case MISSILE_CAST_ALL:
+            return new SG_All(this, skillTarget, SkillComponentName.MISSILE,Global.SEC2, 16.0f,1.5f);
         default:
             return new SG_Single(this, skillTarget, SkillComponentName.ERROR);
         }
