@@ -22,6 +22,9 @@ public abstract class SkillGroup {
     protected GameList<Fighter> targets;
     protected GameList<SkillComponent> skillComponents;
     protected GameList<SkillComponent> skillComponentsWaiting;
+
+    protected float speedMulAnimation = 1;
+    protected float speedMulEffect = 1;
     protected boolean done = false;
 
     public SkillGroup(SkillName skillName, SkillTarget skillTarget) {

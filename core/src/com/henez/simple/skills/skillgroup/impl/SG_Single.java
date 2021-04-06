@@ -11,7 +11,12 @@ public class SG_Single extends SkillGroup {
 
     public SG_Single(SkillName skillName, SkillTarget skillTarget, SkillComponentName skillComponentName) {
         super(skillName, skillTarget);
-        skillComponents.add(skillComponentName.create().with(skillName, source, target));
+        skillComponents.add(skillComponentName.create().with(skillName, source, target,speedMulAnimation,speedMulEffect));
+    }
+
+    public SG_Single(SkillName skillName, SkillTarget skillTarget, SkillComponentName skillComponentName, float speedMulAnimation, float speedMulEffect) {
+        super(skillName, skillTarget);
+        skillComponents.add(skillComponentName.create().with(skillName, source, target,speedMulAnimation,speedMulEffect));
     }
 
     @Override

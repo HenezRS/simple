@@ -11,7 +11,14 @@ public class SG_AllSequence extends SkillGroup {
     public SG_AllSequence(SkillName skillName, SkillTarget skillTarget, SkillComponentName skillComponentName) {
         super(skillName, skillTarget);
         targets.forEach(target -> {
-            skillComponents.add(skillComponentName.create().with(skillName, source, target));
+            skillComponents.add(skillComponentName.create().with(skillName, source, target,speedMulAnimation,speedMulEffect));
+        });
+    }
+
+    public SG_AllSequence(SkillName skillName, SkillTarget skillTarget, SkillComponentName skillComponentName, float speedMulAnimation, float speedMulEffect) {
+        super(skillName, skillTarget);
+        targets.forEach(target -> {
+            skillComponents.add(skillComponentName.create().with(skillName, source, target,speedMulAnimation,speedMulEffect));
         });
     }
 

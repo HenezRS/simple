@@ -17,23 +17,20 @@ public abstract class SkillComponent {
     protected GameList<SkillStep> steps;
     protected boolean done = false;
     protected boolean firstUpdate = true;
+    protected float speedMulAnimation = 1;
+    protected float speedMulEffect = 1;
     protected int state = 0;
 
     public SkillComponent() {
     }
 
-    public void createSteps(SkillName skillName, Fighter source, Fighter target) {
+    public SkillComponent with(SkillName skillName, Fighter source, Fighter target, float speedMulAnimation, float speedMulEffect) {
         this.skillName = skillName;
         this.source = source;
         this.target = target;
-        steps = new GameList<>();
-        buildSteps();
-    }
+        this.speedMulAnimation = speedMulAnimation;
+        this.speedMulEffect = speedMulEffect;
 
-    public SkillComponent with(SkillName skillName, Fighter source, Fighter target) {
-        this.skillName = skillName;
-        this.source = source;
-        this.target = target;
         steps = new GameList<>();
         buildSteps();
         return this;

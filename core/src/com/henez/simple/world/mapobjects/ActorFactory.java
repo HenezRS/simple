@@ -40,7 +40,6 @@ public final class ActorFactory {
         fighter.giveAnimation(Animation.idle, new SpriteAnimation(AnimationDynamicFactory.toActorIdle(fighter.getImgSetFighters())));
         fighter.giveAnimation(Animation.move, new SpriteAnimation(AnimationDynamicFactory.toActorMove(fighter.getImgSetFighters())));
         fighter.giveAnimation(Animation.attack, new SpriteAnimation(AnimationDynamicFactory.toActorAttack(fighter.getImgSetFighters())));
-        fighter.giveAnimation(Animation.attack_fast, new SpriteAnimation(AnimationDynamicFactory.toActorAttackFast(fighter.getImgSetFighters())));
         fighter.getSprite().setCurrent(Animation.idle);
     }
 }

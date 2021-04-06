@@ -89,6 +89,10 @@ public class Sprite {
         animations.get(current).sync(lastAnimation);
     }
 
+    public void setAnimationSpeedMul(float mul) {
+        animations.get(current).setSpeedMul(mul);
+    }
+
     public boolean isDone() {
         return animations.get(current).isDone();
     }

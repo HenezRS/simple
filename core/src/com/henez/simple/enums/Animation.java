@@ -6,7 +6,6 @@ public enum Animation {
     idle("idle"),
     move("move"),
     attack("attack"),
-    attack_fast("attack fast"),
     ;
 
     public final String name;

@@ -19,8 +19,4 @@ public final class AnimationDynamicFactory {
     public static AnimationDynamic toActorAttack(ImgSetFighters imgSetFighters) {
         return new AnimationDynamic(SEC2, 1, imgSetFighters.getAttack(), imgSetFighters.getAttack2(), imgSetFighters.getAttack2());
     }
-
-    public static AnimationDynamic toActorAttackFast(ImgSetFighters imgSetFighters) {
-        return new AnimationDynamic(SEC2, 1, imgSetFighters.getAttack(), imgSetFighters.getAttack2(), imgSetFighters.getAttack2()).withSpeed(16.0f);
-    }
 }

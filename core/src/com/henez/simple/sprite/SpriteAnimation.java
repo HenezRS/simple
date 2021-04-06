@@ -13,6 +13,7 @@ public class SpriteAnimation {
     private float tick;
     private float delay;
     private float speed;
+    private float speedMul;
     private int currentFrame;
     private int frameCount;
     private boolean done = false;
@@ -41,7 +42,7 @@ public class SpriteAnimation {
     public void update() {
         done = false;
         keyFrameDoneThisFrame = false;
-        tick += speed;
+        tick += speed*speedMul;
         if (tick >= delay) {
             tick -= delay;
             progressFrame();
@@ -64,8 +65,13 @@ public class SpriteAnimation {
     public void reset() {
         currentFrame = 0;
         tick = 0;
+        speedMul = 1;
         done = false;
         keyFrameDone = false;
+    }
+
+    public void setSpeedMul(float mul) {
+        speedMul = mul;
     }
 
     public void sync(SpriteAnimation spriteAnimation) {

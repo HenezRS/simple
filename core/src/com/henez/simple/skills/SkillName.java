@@ -16,7 +16,9 @@ public enum SkillName {
     DO_NOTHING("do nothing", 0, 0, 0, 0, 0, SkillTargetName.SINGLE),
     ATTACK("attack", 1, 0, 0, 0, 0, SkillTargetName.SINGLE),
     ATTACK_ALL("attack all", 3.2f, 2, Global.SEC * 2, 0, 0, SkillTargetName.ALL),
-    ATTACK_CAST("attack casting", 3.2f, 2, Global.SEC * 2, 0, 0, SkillTargetName.SINGLE),
+    ATTACK_CAST_SLOW("attack cast slow", 3.2f, 2, Global.SEC * 2, 0, 0, SkillTargetName.SINGLE),
+    ATTACK_CAST("attack cast", 3.2f, 2, Global.SEC * 2, 0, 0, SkillTargetName.SINGLE),
+    ATTACK_CAST_FAST("attack cast fast", 3.2f, 2, Global.SEC * 2, 0, 0, SkillTargetName.SINGLE),
     ATTACK_CHANNEL("attack channel", 0.4f, 2, 0, Global.SEC * 4, 4, SkillTargetName.SINGLE),
     ATTACK_CAST_CHANNEL("attack cast channel", 0.4f, 2, Global.SEC * 2, Global.SEC * 4, 8, SkillTargetName.SINGLE),
     ATTACK_CAST_CHANNEL_RAPID("attack rapid", 0.3f, 2, Global.SEC * 1.2f, Global.SEC * 4, 24, SkillTargetName.SINGLE),
@@ -50,12 +52,16 @@ public enum SkillName {
         case ATTACK:
         case ATTACK_CAST:
             return new SG_Single(this, skillTarget, SkillComponentName.ATTACK);
+        case ATTACK_CAST_SLOW:
+            return new SG_Single(this, skillTarget, SkillComponentName.ATTACK,0.5f,0.5f);
+        case ATTACK_CAST_FAST:
+            return new SG_Single(this, skillTarget, SkillComponentName.ATTACK,2.0f,2.0f);
         case ATTACK_ALL:
             return new SG_AllSequence(this, skillTarget, SkillComponentName.ATTACK);
         case ATTACK_CHANNEL:
         case ATTACK_CAST_CHANNEL:
         case ATTACK_CAST_CHANNEL_RAPID:
-            return new SG_Single(this, skillTarget, SkillComponentName.ATTACK_FAST);
+            return new SG_Single(this, skillTarget, SkillComponentName.ATTACK);
         case MISSILE_CAST:
             return new SG_Single(this, skillTarget, SkillComponentName.MISSILE);
         case MISSILE_CAST_ALL:
