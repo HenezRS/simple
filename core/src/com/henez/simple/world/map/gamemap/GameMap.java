@@ -6,12 +6,14 @@ import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.enums.tiles.TileGroup;
 import com.henez.simple.global.Global;
+import com.henez.simple.utils.TileDetailUtils;
 import com.henez.simple.world.map.MapDrawer;
 import com.henez.simple.world.map.mapdata.MapData;
 import com.henez.simple.world.map.mapdata.MapDataReader;
 import com.henez.simple.world.map.tiles.Tile;
 import com.henez.simple.world.map.tiles.TileDetail;
 import com.henez.simple.world.map.tiles.TilePool;
+import com.henez.simple.world.mapobjects.MapObject;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -85,39 +87,40 @@ public abstract class GameMap {
         mapTex = new MapDrawer().draw(mapData.getWidth(), mapData.getHeight(), backColor.color, tilesMap, tilesDeco);
     }
 
-    public GameList<TileDetail> getWalkableTileCluster(int gx, int gy, int iterations) {
+    public GameList<TileDetail> getWalkableTileCluster(int gx, int gy, GameList<MapObject> objects, int iterations) {
         GameList<TileDetail> tilesToCheck = new GameList<>();
         GameList<TileDetail> tilesToCheckNext = new GameList<>();
         GameList<TileDetail> tilesToCheckNextFilter = new GameList<>();
         GameList<TileDetail> tilesValid = new GameList<>();
         GameList<TileDetail> tilesChecked = new GameList<>();
-        tilesToCheck.add(getTileDetail(gx,gy));
+        tilesToCheck.add(getTileDetail(gx, gy));
 
-        for(int i=0; i<iterations; ++i) {
+        for (int i = 0; i < iterations; ++i) {
             tilesToCheck.forEach(tile -> {
-                if(tile.isWalkable() && !tilesChecked.contains(tile)) {
+                if (tile.isWalkableWithObjects(objects) && !tilesChecked.contains(tile)) {
                     tilesValid.add(tile);
+                    tilesToCheckNextFilter.add(tile);
 
-                    TileDetail next = getTileDetail(tile.getGx()+1,tile.getGy());
-                    if(!tilesToCheckNextFilter.contains(next)) {
+                    TileDetail next = getTileDetail(tile.getGx() + 1, tile.getGy());
+                    if (TileDetailUtils.tileNotWithin(next, tilesToCheckNextFilter)) {
                         tilesToCheckNext.add(next);
                         tilesToCheckNextFilter.add(next);
                     }
 
-                    next = getTileDetail(tile.getGx()-1,tile.getGy());
-                    if(!tilesToCheckNextFilter.contains(next)) {
+                    next = getTileDetail(tile.getGx() - 1, tile.getGy());
+                    if (TileDetailUtils.tileNotWithin(next, tilesToCheckNextFilter)) {
                         tilesToCheckNext.add(next);
                         tilesToCheckNextFilter.add(next);
                     }
 
-                    next = getTileDetail(tile.getGx(),tile.getGy()+1);
-                    if(!tilesToCheckNextFilter.contains(next)) {
+                    next = getTileDetail(tile.getGx(), tile.getGy() + 1);
+                    if (TileDetailUtils.tileNotWithin(next, tilesToCheckNextFilter)) {
                         tilesToCheckNext.add(next);
                         tilesToCheckNextFilter.add(next);
                     }
 
-                    next = getTileDetail(tile.getGx(),tile.getGy()-1);
-                    if(!tilesToCheckNextFilter.contains(next)) {
+                    next = getTileDetail(tile.getGx(), tile.getGy() - 1);
+                    if (TileDetailUtils.tileNotWithin(next, tilesToCheckNextFilter)) {
                         tilesToCheckNext.add(next);
                         tilesToCheckNextFilter.add(next);
                     }

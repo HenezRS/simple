@@ -1,8 +1,6 @@
 package com.henez.simple.skills;
 
 import com.henez.simple.global.Global;
-import com.henez.simple.skills.skillcomponent.SkillComponent;
-import com.henez.simple.skills.skillcomponent.impl.*;
 import com.henez.simple.skills.skillgroup.SkillGroup;
 import com.henez.simple.skills.skillgroup.impl.SG_All;
 import com.henez.simple.skills.skillgroup.impl.SG_AllSequence;
@@ -24,7 +22,8 @@ public enum SkillName {
     ATTACK_CAST_CHANNEL_RAPID("attack rapid", 0.3f, 2, Global.SEC * 1.2f, Global.SEC * 4, 24, SkillTargetName.SINGLE),
     MISSILE_CAST("missile", 3.2f, 2, Global.SEC * 1, 0, 0, SkillTargetName.SINGLE),
     MISSILE_CAST_ALL("missile all", 3.2f, 2, Global.SEC * 1, 0, 0, SkillTargetName.ALL),
-    MISSILE_CAST_ALLSEQ("missile all", 3.2f, 2, Global.SEC * 1, 0, 0, SkillTargetName.ALL),
+    MISSILE_CAST_ALL_INSTANT("missile all insta", 3.2f, 2, Global.SEC * 1, 0, 0, SkillTargetName.ALL),
+    MISSILE_CAST_ALLSEQ("missile all seq", 3.2f, 2, Global.SEC * 1, 0, 0, SkillTargetName.ALL),
     ;
 
     private String name;
@@ -53,9 +52,9 @@ public enum SkillName {
         case ATTACK_CAST:
             return new SG_Single(this, skillTarget, SkillComponentName.ATTACK);
         case ATTACK_CAST_SLOW:
-            return new SG_Single(this, skillTarget, SkillComponentName.ATTACK,0.5f,0.5f);
+            return new SG_Single(this, skillTarget, SkillComponentName.ATTACK, 0.5f, 0.5f);
         case ATTACK_CAST_FAST:
-            return new SG_Single(this, skillTarget, SkillComponentName.ATTACK,2.0f,2.0f);
+            return new SG_Single(this, skillTarget, SkillComponentName.ATTACK, 2.0f, 2.0f);
         case ATTACK_ALL:
             return new SG_AllSequence(this, skillTarget, SkillComponentName.ATTACK);
         case ATTACK_CHANNEL:
@@ -67,7 +66,9 @@ public enum SkillName {
         case MISSILE_CAST_ALLSEQ:
             return new SG_AllSequence(this, skillTarget, SkillComponentName.MISSILE);
         case MISSILE_CAST_ALL:
-            return new SG_All(this, skillTarget, SkillComponentName.MISSILE,Global.SEC2, 16.0f,1.5f);
+            return new SG_All(this, skillTarget, SkillComponentName.MISSILE, Global.SEC2, 16.0f, 1.5f);
+        case MISSILE_CAST_ALL_INSTANT:
+            return new SG_All(this, skillTarget, SkillComponentName.MISSILE, Global.SEC32);
         default:
             return new SG_Single(this, skillTarget, SkillComponentName.ERROR);
         }

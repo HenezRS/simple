@@ -38,6 +38,7 @@ public class Global {
     public static int SEC16 = SEC / 16;
     public static int SEC24 = SEC / 24;
     public static int SEC32 = SEC / 32;
+    public static int SEC64 = SEC / 64;
 
     public static String LAYER_MAP = "map";
     public static String LAYER_OBJ = "obj";

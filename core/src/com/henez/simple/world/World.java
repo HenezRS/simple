@@ -55,7 +55,7 @@ public class World {
                 player.setMoveAble(false);
                 nextFloor();
             } else if (playerData.readyForEncounter() && encounterService.canEncounter(player.getGx(), player.getGy(), player.getLastMoveDir(), currentMap)) {
-                if (encounterService.setEncounterPositionsAndReturnValid(currentMap)) {
+                if (encounterService.setEncounterPositionsAndReturnValid(currentMap, objects)) {
                     player.setMoveAble(false);
                     beginEncounter();
                 }
@@ -92,7 +92,7 @@ public class World {
                        ClassName.enemy_octo3,
                        ClassName.enemy_octo4);
         encounterService.getEncounterPositions().forEach(xy -> {
-            enemyParty.add(ActorFactory.createEnemyPositioned(xy.getX(), xy.getY(), depth.getAndIncrement(), classes.get(Numbers.clamp(depth.get() - 1,0,3))));
+            enemyParty.add(ActorFactory.createEnemyPositioned(xy.getX(), xy.getY(), depth.getAndIncrement(), classes.get(Numbers.clamp(depth.get() - 1, 0, 3))));
         });
         Collections.reverse(enemyParty);
         addToWorld(enemyParty);

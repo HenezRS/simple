@@ -71,11 +71,11 @@ public class Fighter extends Actor {
     public void determineSkillCast(SkillTargetBuilder targetBuilder) {
         SkillName chosenSkill = null;
         if (isLeader) {
-            chosenSkill = SkillName.MISSILE_CAST_ALL;
-            if(turn==1) {
+            chosenSkill = SkillName.MISSILE_CAST_ALL_INSTANT;
+            if (turn == 1) {
                 chosenSkill = SkillName.ATTACK_CAST;
             }
-            if(turn==2) {
+            if (turn == 2) {
                 chosenSkill = SkillName.ATTACK_CAST_FAST;
             }
         }

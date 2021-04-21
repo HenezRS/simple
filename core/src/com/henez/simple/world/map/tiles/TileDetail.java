@@ -2,6 +2,8 @@ package com.henez.simple.world.map.tiles;
 
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.tiles.TileType;
+import com.henez.simple.utils.MapObjectUtils;
+import com.henez.simple.world.mapobjects.MapObject;
 import lombok.Getter;
 
 import java.util.stream.Collectors;
@@ -35,5 +37,9 @@ public class TileDetail {
 
     public boolean canEncounter() {
         return walkable;
+    }
+
+    public boolean isWalkableWithObjects(GameList<MapObject> objects) {
+        return walkable && MapObjectUtils.positionIsEmpty(gx, gy, objects);
     }
 }
