@@ -62,7 +62,7 @@ public class MenuTitle {
 
         AtomicInteger i = new AtomicInteger();
         classes.forEach(className -> {
-            batch.draw(className.getImgSet().getIdle(), 140 - (20 * i.getAndIncrement()), 100);
+            batch.draw(className.getImgSet().getIdle().getTex(), 140 - (20 * i.getAndIncrement()), 100);
         });
     }
 

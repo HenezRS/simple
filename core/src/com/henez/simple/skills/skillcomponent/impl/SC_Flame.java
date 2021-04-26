@@ -8,7 +8,7 @@ import com.henez.simple.skills.skillstep.impl.SS_PlayEffect;
 import com.henez.simple.skills.skillstep.impl.SS_PlayEffectProjectileUntilCollision;
 import com.henez.simple.sprite.animation.EffectAtlas;
 
-public class SC_Missile extends SkillComponent {
+public class SC_Flame extends SkillComponent {
 
     @Override
     public void buildSteps() {

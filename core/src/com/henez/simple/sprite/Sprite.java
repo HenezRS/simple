@@ -3,6 +3,7 @@ package com.henez.simple.sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.atlas.Atlas;
 import com.henez.simple.atlas.imgs.ImgTiles;
+import com.henez.simple.datastructures.TextureRegionEnhanced;
 import com.henez.simple.debug.Log;
 import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.Facing;
@@ -30,7 +31,7 @@ public class Sprite {
         spriteEffectManager = new SpriteEffectManager();
     }
 
-    public Sprite(TextureRegion tex) {
+    public Sprite(TextureRegionEnhanced tex) {
         current = Animation.none;
         animations = new HashMap<>();
         animations.put(current, new SpriteAnimation(0, tex));
@@ -56,9 +57,9 @@ public class Sprite {
     public void draw(Batcher batch, float x, float y, Facing facing, boolean dead) {
         TextureRegion tex = getTex();
         if (dead) {
-            tex = ImgTiles.grave.asTex();
+            tex = ImgTiles.grave.asTex().getTex();
         }
-        
+
         Shader.sprite.shader.begin();
         Shader.sprite.shader.setUniformf("blinkAlpha", 0.0f);
         spriteEffectManager.applyShaderUniforms();
@@ -69,7 +70,7 @@ public class Sprite {
     }
 
     public TextureRegion getTex() {
-        return animations.get(current).getCurrent();
+        return animations.get(current).getCurrent().getTex();
     }
 
     public void setAnimationAndReset(Animation animation) {

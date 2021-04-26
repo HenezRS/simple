@@ -1,0 +1,48 @@
+~|===||~ SIMPLE: CLASSES ~||===|~
+
+Classes
+
+=-=-= MAG / Mage
+Equipment: Light, Magical
+
+== Elementalist (fire/bolt/cold)
+ - e
+
+== Arcane (phys/dark/mana)
+
+== Enchanter (swords/enhancements)
+
+=-=-= WAR / Warrior
+Equipment: Heavy, Melee
+
+== Protector (phys/tank/shields)
+
+== Heroic (holy/phys/self buffs)
+
+== Dark Knight (phys/dark/cold)
+
+== Barbarian (phys/2hand/leech)
+
+=-=-= ROG / Rogue
+Equipment: Medium, Melee, Ranged
+
+== Assassin
+
+== Deadly Poisons
+
+==
+
+=-=-= CLE / Cleric
+Equipment: Light, Magical
+
+== Holy (holy spells/healing)
+
+== Templar (phys/melee/fire/bolt/holy/tank)
+
+== Inquisitor (holy/dark/retaliation)
+
+
+=-=-= DUE / Duelist
+Equipment: Heavy, Melee
+
+==

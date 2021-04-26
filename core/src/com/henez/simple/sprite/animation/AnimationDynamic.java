@@ -1,6 +1,6 @@
 package com.henez.simple.sprite.animation;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.henez.simple.datastructures.TextureRegionEnhanced;
 import lombok.Getter;
 
 @Getter
@@ -8,9 +8,11 @@ public class AnimationDynamic {
     private float delay;
     private float speed;
     private int keyFrame;
-    private TextureRegion[] textureRegions;
+    private TextureRegionEnhanced[] textureRegions;
+    private float frameFirstFaded = 99;
+    private float fadePercentPerFrame;
 
-    public AnimationDynamic(float delay, int keyFrame, TextureRegion... textureRegions) {
+    public AnimationDynamic(float delay, int keyFrame, TextureRegionEnhanced... textureRegions) {
         speed = 1.0f;
         this.delay = delay;
         this.keyFrame = keyFrame;

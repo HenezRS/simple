@@ -24,6 +24,7 @@ public enum SkillName {
     MISSILE_CAST_ALL("missile all", 3.2f, 2, Global.SEC * 1, 0, 0, SkillTargetName.ALL),
     MISSILE_CAST_ALL_INSTANT("missile all insta", 3.2f, 2, Global.SEC * 1, 0, 0, SkillTargetName.ALL),
     MISSILE_CAST_ALLSEQ("missile all seq", 3.2f, 2, Global.SEC * 1, 0, 0, SkillTargetName.ALL),
+    ICE_SPIKE("ice spike", 3.2f, 2, Global.SEC * 2, 0, 0, SkillTargetName.SINGLE),
     ;
 
     private String name;
@@ -62,13 +63,15 @@ public enum SkillName {
         case ATTACK_CAST_CHANNEL_RAPID:
             return new SG_Single(this, skillTarget, SkillComponentName.ATTACK);
         case MISSILE_CAST:
-            return new SG_Single(this, skillTarget, SkillComponentName.MISSILE);
+            return new SG_Single(this, skillTarget, SkillComponentName.FLAME);
         case MISSILE_CAST_ALLSEQ:
-            return new SG_AllSequence(this, skillTarget, SkillComponentName.MISSILE);
+            return new SG_AllSequence(this, skillTarget, SkillComponentName.FLAME);
         case MISSILE_CAST_ALL:
-            return new SG_All(this, skillTarget, SkillComponentName.MISSILE, Global.SEC2, 16.0f, 1.5f);
+            return new SG_All(this, skillTarget, SkillComponentName.FLAME, Global.SEC2, 16.0f, 1.5f);
         case MISSILE_CAST_ALL_INSTANT:
-            return new SG_All(this, skillTarget, SkillComponentName.MISSILE, Global.SEC32);
+            return new SG_All(this, skillTarget, SkillComponentName.FLAME, Global.SEC32);
+        case ICE_SPIKE:
+            return new SG_Single(this, skillTarget, SkillComponentName.ICE_SPIKE);
         default:
             return new SG_Single(this, skillTarget, SkillComponentName.ERROR);
         }

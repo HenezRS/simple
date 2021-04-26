@@ -1,8 +1,8 @@
 package com.henez.simple.atlas.imgset;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.atlas.imgs.ImgActors;
 import com.henez.simple.atlas.imgs.ImgEnemies;
+import com.henez.simple.datastructures.TextureRegionEnhanced;
 import lombok.Getter;
 
 @Getter
@@ -24,10 +24,10 @@ public enum ImgSetFighters {
     enemy_octo4(ImgEnemies.octo4_idle_0, ImgEnemies.octo4_idle_1, ImgEnemies.octo4_attack_0, ImgEnemies.octo4_attack_1),
     ;
 
-    TextureRegion idle;
-    TextureRegion idle2;
-    TextureRegion attack;
-    TextureRegion attack2;
+    TextureRegionEnhanced idle;
+    TextureRegionEnhanced idle2;
+    TextureRegionEnhanced attack;
+    TextureRegionEnhanced attack2;
 
     ImgSetFighters(ImgActors... imgActors) {
         this.idle = imgActors[0].asTex();

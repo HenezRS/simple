@@ -1,7 +1,7 @@
 package com.henez.simple.sprite;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.datastructures.GameList;
+import com.henez.simple.datastructures.TextureRegionEnhanced;
 import com.henez.simple.sprite.animation.AnimationDynamic;
 import lombok.Getter;
 
@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 @Getter
 public class SpriteAnimation {
-    private GameList<TextureRegion> texs;
+    private GameList<TextureRegionEnhanced> texs;
     private float tick;
     private float delay;
     private float speed;
@@ -21,7 +21,7 @@ public class SpriteAnimation {
     private boolean keyFrameDone = false;
     private boolean keyFrameDoneThisFrame = false;
 
-    public SpriteAnimation(float delay, TextureRegion... textureRegions) {
+    public SpriteAnimation(float delay, TextureRegionEnhanced... textureRegions) {
         init(delay, 1.0f, textureRegions);
     }
 
@@ -30,7 +30,7 @@ public class SpriteAnimation {
         keyFrame = animationDynamic.getKeyFrame();
     }
 
-    private void init(float delay, float speed, TextureRegion... textureRegions) {
+    private void init(float delay, float speed, TextureRegionEnhanced... textureRegions) {
         texs = new GameList<>();
         texs.addAll(Arrays.asList(textureRegions));
         this.delay = delay;
@@ -42,7 +42,7 @@ public class SpriteAnimation {
     public void update() {
         done = false;
         keyFrameDoneThisFrame = false;
-        tick += speed*speedMul;
+        tick += speed * speedMul;
         if (tick >= delay) {
             tick -= delay;
             progressFrame();
@@ -79,7 +79,7 @@ public class SpriteAnimation {
         tick = spriteAnimation.tick;
     }
 
-    public TextureRegion getCurrent() {
-        return texs.get(currentFrame);
+    public TextureRegionEnhanced getCurrent() {
+        return (TextureRegionEnhanced) texs.get(currentFrame);
     }
 }

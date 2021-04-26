@@ -1,10 +1,7 @@
 package com.henez.simple.skills;
 
 import com.henez.simple.skills.skillcomponent.SkillComponent;
-import com.henez.simple.skills.skillcomponent.impl.SC_Attack;
-import com.henez.simple.skills.skillcomponent.impl.SC_DoNothing;
-import com.henez.simple.skills.skillcomponent.impl.SC_Error;
-import com.henez.simple.skills.skillcomponent.impl.SC_Missile;
+import com.henez.simple.skills.skillcomponent.impl.*;
 import lombok.Getter;
 
 @Getter
@@ -13,7 +10,9 @@ public enum SkillComponentName {
     ATTACK,
     DO_NOTHING,
     ERROR,
-    MISSILE,
+    FLAME,
+    BOLT,
+    ICE_SPIKE,
     ;
 
     public SkillComponent create() {
@@ -22,8 +21,12 @@ public enum SkillComponentName {
             return new SC_Attack();
         case DO_NOTHING:
             return new SC_DoNothing();
-        case MISSILE:
-            return new SC_Missile();
+        case FLAME:
+            return new SC_Flame();
+        case BOLT:
+            return new SC_Flame();
+        case ICE_SPIKE:
+            return new SC_IceSpike();
         default:
             return new SC_Error();
         }

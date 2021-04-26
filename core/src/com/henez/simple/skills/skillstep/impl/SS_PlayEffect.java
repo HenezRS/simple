@@ -26,7 +26,9 @@ public class SS_PlayEffect extends SkillStep {
     @Override
     public void draw(Batcher batch) {
         if (!effect.isDone()) {
-            batch.draw(effect.getCurrent(), stepTarget.getX(), stepTarget.getY());
+            batch.setAlpha(effect.getCurrent().getAlpha());
+            batch.draw(effect.getCurrent().getTex(), stepTarget.getX(), stepTarget.getY());
+            batch.resetAlpha();
         }
     }
 }

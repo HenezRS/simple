@@ -28,7 +28,7 @@ public class Tile {
         drawable = tilePool.isDrawable();
         rotation = tilePool.getRotation();
         if (drawable) {
-            this.tex = Atlas.toTex(tilePool.getRandom());
+            this.tex = Atlas.toTex(tilePool.getRandom()).getTex();
         }
     }
 }

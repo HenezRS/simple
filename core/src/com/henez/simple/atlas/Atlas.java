@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.atlas.imgs.*;
+import com.henez.simple.datastructures.TextureRegionEnhanced;
 import com.henez.simple.global.Global;
 
 import java.util.Arrays;
@@ -27,20 +28,20 @@ public class Atlas {
         texUi = loadTilesUi();
     }
 
-    public static TextureRegion toTex(ImgTiles img) {
-        return texTiles[img.getY()][img.getX()];
+    public static TextureRegionEnhanced toTex(ImgTiles img) {
+        return new TextureRegionEnhanced(texTiles[img.getY()][img.getX()]);
     }
 
-    public static TextureRegion toTex(ImgActors img) {
-        return texActors[img.getY()][img.getX()];
+    public static TextureRegionEnhanced toTex(ImgActors img) {
+        return new TextureRegionEnhanced(texActors[img.getY()][img.getX()]);
     }
 
-    public static TextureRegion toTex(ImgEnemies img) {
-        return texEnemies[img.getY()][img.getX()];
+    public static TextureRegionEnhanced toTex(ImgEnemies img) {
+        return new TextureRegionEnhanced(texEnemies[img.getY()][img.getX()]);
     }
 
-    public static TextureRegion toTex(ImgEffects img) {
-        return texEffects[img.getY()][img.getX()];
+    public static TextureRegionEnhanced toTex(ImgEffects img) {
+        return new TextureRegionEnhanced(texEffects[img.getY()][img.getX()]);
     }
 
     public static TextureRegion toTex(ImgIcon7 img) {

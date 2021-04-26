@@ -78,7 +78,7 @@ public class FighterPanelDrawer {
                 Static.text.draw(batch, fighter.getCast().getName() + "", x + skillNameX, y + skillNameY);
             }
         } else {
-            batch.draw(ImgTiles.grave.asTex(), x + playerX, y + playerY, fighter.isPlayer() ? Facing.LEFT : Facing.RIGHT);
+            batch.draw(ImgTiles.grave.asTex().getTex(), x + playerX, y + playerY, fighter.isPlayer() ? Facing.LEFT : Facing.RIGHT);
         }
     }
 

@@ -1,7 +1,7 @@
 package com.henez.simple.atlas.imgs;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.atlas.Atlas;
+import com.henez.simple.datastructures.TextureRegionEnhanced;
 import lombok.Getter;
 
 @Getter
@@ -65,7 +65,7 @@ public enum ImgActors {
         this.y = y;
     }
 
-    public TextureRegion asTex() {
+    public TextureRegionEnhanced asTex() {
         return Atlas.toTex(this);
     }
 }

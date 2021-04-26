@@ -1,0 +1,43 @@
+~|===||~ SIMPLE: INTERNAL 0 ~||===|~
+
+== Gameplay
+1. Make party up to 1 from classes below
+2. Find skills and gear to equip as you progress randomized
+3. Find boss and exit stairs on every floor to go lower.
+
+Goal: defeat end boss
+
+== Classes - Gear start
+1. KNI - sword, heavy
+2. MAG - staff, light
+3. ROG - bow, medium
+
+== Skill Terminology
+hit +: hit target and up to 4 others adjacent to center
+hit sq: hit target and up to 8 others around center
+dot: damage over time debuff on enemy
+ex dot: damage over time but only 1 effect from source can persist (e.g. each mage can roll 1 blizzard, casting a 2nd deletes the 1st)
+
+== Skills
+* Attack is default and baseline for everyone
+- Cleave: hit target + up to 2 nearby enemiesef
+- Cross slash: hit +
+- Execute: increased dmg if target <30% hp
+- Flame: single, chance to burn
+- Bolt: single, faster cast
+- Ice Spike: single, apply chill
+- Firestorm: hit 8 times randomly entire enemy party
+- Thunder: hit +
+- Blizzard: hit sq, ex dot
+- Pestilence: single, dark dot, if target dies then hit all nearby with new pestilence
+- Vemon edge: single, chance to poison
+- Contagious blast: target poisoned enemy. deal 2 seconds of poison dmg to all enemies
+
+== Status
+- Ignite: 20% of fire damage dealt over 5 seconds. Fire damage increases impact the primary hit but don't further increase the DoT. Only the biggest ignite deals dmg
+- Shock: next 3 hits on target deal 8% of lightning damage. If shock is removed on the last hit: target is stunned for a
+    small amount of time based on the last hit size. New shocks delete the old shock
+- Chill: all cold damage applies chill, slow target by up to 20% based on hit. Only biggest chill applies
+- Freeze: stun for a short time based on hit
+- Poison: 8% of phys + dark dealt over 8 seconds. All poisons applied deal dmg
+- Bleeding: 20% phys dealt over 8 seconds. Reduced healing received based on bleed size
