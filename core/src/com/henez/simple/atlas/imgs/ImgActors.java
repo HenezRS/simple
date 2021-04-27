@@ -10,6 +10,11 @@ public enum ImgActors {
     kni_idle_1(1, 0),
     kni_attack_0(2, 0),
     kni_attack_1(3, 0),
+    kni_hit(4, 0),
+    kni_channel_0(5, 0),
+    kni_channel_1(6, 0),
+    kni_cast(7, 0),
+    kni_dead(8, 0),
 
     ran_idle_0(0, 1),
     ran_idle_1(1, 1),
@@ -67,5 +72,12 @@ public enum ImgActors {
 
     public TextureRegionEnhanced asTex() {
         return Atlas.toTex(this);
+    }
+
+    public TextureRegionEnhanced asTexWith(int addX, int addY) {
+        TextureRegionEnhanced tex = Atlas.toTex(this);
+        tex.setAddX(addX);
+        tex.setAddY(addY);
+        return tex;
     }
 }

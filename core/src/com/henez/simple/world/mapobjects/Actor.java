@@ -47,7 +47,7 @@ public class Actor extends MapObject {
 
     @Override
     public void draw(Batcher batch) {
-        sprite.draw(batch, x, y, facing2, false);
+        sprite.draw(batch, x, y, facing2);
     }
 
     public boolean canMove(Facing facing, GameMap map) {
@@ -69,7 +69,8 @@ public class Actor extends MapObject {
             return;
         }
         lastMoveDir = facing;
-        sprite.setAnimationAndContinue(Animation.move);
+        ;
+        sprite.playAnimationSync(Animation.move, Animation.idle);
         movement.begin(facing);
         tileDetail = map.getTileDetail(gx + facing.tx, gy + facing.ty);
         if (facing == Facing.LEFT || facing == Facing.RIGHT) {
@@ -79,7 +80,8 @@ public class Actor extends MapObject {
 
     public void completeMove() {
         moveComplete = true;
-        sprite.setAnimationAndContinue(Animation.idle);
+        sprite.playAnimationSync(Animation.idle, Animation.move);
+        sprite.stopAnimation(Animation.move);
         snapToGrid();
     }
 }

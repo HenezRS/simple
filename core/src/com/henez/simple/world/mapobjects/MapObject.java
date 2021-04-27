@@ -44,7 +44,7 @@ public class MapObject {
     }
 
     public void draw(Batcher batch) {
-        sprite.draw(batch, x, y, Facing.actorDefault(), false);
+        sprite.draw(batch, x, y, Facing.actorDefault());
     }
 
     public void giveAnimation(Animation animation, SpriteAnimation spriteAnimation) {

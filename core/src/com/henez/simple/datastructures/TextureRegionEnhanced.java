@@ -9,6 +9,8 @@ import lombok.Setter;
 public class TextureRegionEnhanced {
     private TextureRegion tex;
     private float alpha = 1.0f;
+    private int addX = 0;
+    private int addY = 0;
 
     public TextureRegionEnhanced(TextureRegion tex) {
         this.tex = tex;

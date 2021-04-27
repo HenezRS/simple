@@ -13,8 +13,8 @@ public class SC_Flame extends SkillComponent {
     @Override
     public void buildSteps() {
         steps.addAll(new SS_PlayAnimUntilKeyFrame(source, Animation.attack, speedMulAnimation),
-                new SS_PlayEffectProjectileUntilCollision(source, target, EffectAtlas.MISSILE.toDynamicWithSpeed(speedMulEffect), 1),
-                new SS_PlayEffect(target, EffectAtlas.FLAME.toDynamicWithSpeed(speedMulEffect)),
-                new SS_ApplyDamage(source, target, this));
+                     new SS_PlayEffectProjectileUntilCollision(source, target, EffectAtlas.MISSILE.toDynamicWithSpeed(speedMulEffect), 1),
+                     new SS_PlayEffect(target, EffectAtlas.FLAME.toDynamicWithSpeed(speedMulEffect)),
+                     new SS_ApplyDamage(source, target, this, true));
     }
 }

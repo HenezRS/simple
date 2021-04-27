@@ -12,7 +12,7 @@ public class SC_Attack extends SkillComponent {
     @Override
     public void buildSteps() {
         steps.addAll(new SS_PlayAnimUntilKeyFrame(source, Animation.attack, speedMulAnimation),
-                new SS_PlayEffect(target, EffectAtlas.SLASH.toDynamicWithSpeed(speedMulEffect)),
-                new SS_ApplyDamage(source, target, this));
+                     new SS_PlayEffect(target, EffectAtlas.SLASH.toDynamicWithSpeed(speedMulEffect)),
+                     new SS_ApplyDamage(source, target, this, true));
     }
 }

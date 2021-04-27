@@ -4,25 +4,24 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.atlas.Atlas;
 import com.henez.simple.atlas.imgs.ImgTiles;
 import com.henez.simple.datastructures.TextureRegionEnhanced;
-import com.henez.simple.debug.Log;
 import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.shaders.Shader;
 import com.henez.simple.sprite.spriteeffects.SpriteEffectManager;
 import lombok.Getter;
-import lombok.Setter;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 @Getter
-@Setter
 public class Sprite {
     private Map<Animation, SpriteAnimation> animations;
     private Animation current;
     private SpriteEffectManager spriteEffectManager;
     private boolean resetWhenDone = false;
+    private Animation resetAnimationTarget = Animation.idle;
 
     public Sprite() {
         current = Animation.none;
@@ -37,29 +36,18 @@ public class Sprite {
         animations.put(current, new SpriteAnimation(0, tex));
     }
 
-    public void setCurrent(Animation animation) {
-        if (!animations.containsKey(animation)) {
-            Log.log("Missing animation " + animation.name + ". idle will be set instead.");
-            animation = Animation.idle;
-        }
-        current = animation;
+    private void determineCurrent() {
+        current = Arrays.stream(Animation.values()).filter(animation -> hasAnimation(animation) && animations.get(animation).isInProgress()).findFirst().orElse(Animation.idle);
     }
 
     public void update() {
+        determineCurrent();
         spriteEffectManager.update();
         animations.get(current).update();
-        if (resetWhenDone && isDone()) {
-            resetWhenDone = false;
-            setAnimationAndReset(Animation.idle);
-        }
     }
 
-    public void draw(Batcher batch, float x, float y, Facing facing, boolean dead) {
+    public void draw(Batcher batch, float x, float y, Facing facing) {
         TextureRegion tex = getTex();
-        if (dead) {
-            tex = ImgTiles.grave.asTex().getTex();
-        }
-
         Shader.sprite.shader.begin();
         Shader.sprite.shader.setUniformf("blinkAlpha", 0.0f);
         spriteEffectManager.applyShaderUniforms();
@@ -73,36 +61,46 @@ public class Sprite {
         return animations.get(current).getCurrent().getTex();
     }
 
-    public void setAnimationAndReset(Animation animation) {
-        setCurrent(animation);
-        animations.get(current).reset();
+    public boolean hasAnimation(Animation animation) {
+        return animations.containsKey(animation);
     }
 
-    public void setAnimationAndResetPlayOnce(Animation animation) {
-        setCurrent(animation);
-        resetWhenDone = true;
-        animations.get(current).reset();
+    public void stopAnimation(Animation animation) {
+        if (hasAnimation(animation)) {
+            animations.get(animation).reset();
+        }
     }
 
-    public void setAnimationAndContinue(Animation newAnimation) {
-        SpriteAnimation lastAnimation = animations.get(current);
-        setCurrent(newAnimation);
-        animations.get(current).sync(lastAnimation);
+    public void playAnimation(Animation animation) {
+        if (hasAnimation(animation)) {
+            animations.get(animation).resetAndPlay();
+        }
     }
 
-    public void setAnimationSpeedMul(float mul) {
-        animations.get(current).setSpeedMul(mul);
+    public void playAnimationOnce(Animation animation) {
+        if (hasAnimation(animation)) {
+            animations.get(animation).resetAndPlayOnce();
+        }
     }
 
-    public boolean isDone() {
-        return animations.get(current).isDone();
+    public void playAnimationSync(Animation newAnimation, Animation oldAnimation) {
+        if (hasAnimation(newAnimation) && hasAnimation(oldAnimation)) {
+            SpriteAnimation lastAnimation = animations.get(oldAnimation);
+            animations.get(newAnimation).sync(lastAnimation);
+            animations.get(newAnimation).play();
+        }
     }
 
-    public boolean isKeyFrameDone() {
-        return animations.get(current).isKeyFrameDone();
+    public void setAnimationSpeedMul(Animation animation, float mul) {
+        if (hasAnimation(animation)) {
+            animations.get(animation).setSpeedMul(mul);
+        }
     }
 
-    public boolean isKeyFrameDoneThisFrame() {
-        return animations.get(current).isKeyFrameDoneThisFrame();
+    public boolean isKeyFrameDoneThisFrame(Animation animation) {
+        if (hasAnimation(animation)) {
+            return animations.get(animation).isKeyFrameDoneThisFrame();
+        }
+        return true;
     }
 }

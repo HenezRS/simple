@@ -22,13 +22,13 @@ public class SS_PlayAnimUntilKeyFrame extends SkillStep {
 
     @Override
     public void init() {
-        stepTarget.getSprite().setAnimationAndResetPlayOnce(animation);
-        stepTarget.getSprite().setAnimationSpeedMul(speedMulAnimation);
+        stepTarget.getSprite().playAnimationOnce(animation);
+        stepTarget.getSprite().setAnimationSpeedMul(animation, speedMulAnimation);
     }
 
     @Override
     public void update() {
-        if (stepTarget.getSprite().isKeyFrameDoneThisFrame()) {
+        if (stepTarget.getSprite().isKeyFrameDoneThisFrame(animation)) {
             finish();
         }
     }

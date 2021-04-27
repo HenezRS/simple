@@ -2,6 +2,7 @@ package com.henez.simple.world.mapobjects;
 
 import com.henez.simple.enums.Animation;
 import com.henez.simple.sprite.SpriteAnimation;
+import com.henez.simple.sprite.animation.AnimationDynamic;
 import com.henez.simple.sprite.animation.AnimationDynamicFactory;
 import com.henez.simple.stats.classes.ClassName;
 
@@ -37,9 +38,18 @@ public final class ActorFactory {
     }
 
     private static void buildSprite(Fighter fighter) {
-        fighter.giveAnimation(Animation.idle, new SpriteAnimation(AnimationDynamicFactory.toActorIdle(fighter.getImgSetFighters())));
-        fighter.giveAnimation(Animation.move, new SpriteAnimation(AnimationDynamicFactory.toActorMove(fighter.getImgSetFighters())));
-        fighter.giveAnimation(Animation.attack, new SpriteAnimation(AnimationDynamicFactory.toActorAttack(fighter.getImgSetFighters())));
-        fighter.getSprite().setCurrent(Animation.idle);
+        giveAnimationIfNotNull(fighter, Animation.idle, AnimationDynamicFactory.toActorIdle(fighter.getImgSetFighters()));
+        giveAnimationIfNotNull(fighter, Animation.move, AnimationDynamicFactory.toActorMove(fighter.getImgSetFighters()));
+        giveAnimationIfNotNull(fighter, Animation.attack, AnimationDynamicFactory.toActorAttack(fighter.getImgSetFighters()));
+        giveAnimationIfNotNull(fighter, Animation.hit, AnimationDynamicFactory.toActorHit(fighter.getImgSetFighters()));
+        giveAnimationIfNotNull(fighter, Animation.channel, AnimationDynamicFactory.toActorChannel(fighter.getImgSetFighters()));
+        giveAnimationIfNotNull(fighter, Animation.cast, AnimationDynamicFactory.toActorCast(fighter.getImgSetFighters()));
+        giveAnimationIfNotNull(fighter, Animation.dead, AnimationDynamicFactory.toActorDead(fighter.getImgSetFighters()));
+    }
+
+    private static void giveAnimationIfNotNull(Fighter fighter, Animation animation, AnimationDynamic dynamic) {
+        if (dynamic != null) {
+            fighter.giveAnimation(animation, new SpriteAnimation(dynamic));
+        }
     }
 }

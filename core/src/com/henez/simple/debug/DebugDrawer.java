@@ -3,6 +3,7 @@ package com.henez.simple.debug;
 import com.henez.simple.Static;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.datastructures.Rect;
+import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.enums.state.WorldState;
@@ -11,10 +12,14 @@ import com.henez.simple.input.In;
 import com.henez.simple.misc.Framerate;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.Shaper;
+import com.henez.simple.sprite.SpriteAnimation;
 import com.henez.simple.text.Text;
 import com.henez.simple.world.World;
 import com.henez.simple.world.battle.BattleMembers;
+import com.henez.simple.world.mapobjects.ControlledPlayer;
 
+import java.util.Arrays;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class DebugDrawer {
@@ -26,6 +31,7 @@ public class DebugDrawer {
     }
 
     public void drawBatch(Batcher batch, World world, Framerate framerate) {
+        drawBatchWorld(batch, world);
         lines.clear();
 
         if (world.getState() == WorldState.BATTLE) {
@@ -84,9 +90,31 @@ public class DebugDrawer {
         });
     }
 
-    public void drawShape(Shaper shape, World world) {
+    public void drawShapeWorld(Shaper shape, World world) {
         //drawMouseSquare(shape);
         //drawEncounterSquares(shape, world);
+    }
+
+    public void drawBatchWorld(Batcher batch, World world) {
+        drawControlledPlayerAnimations(batch, world.getPlayer());
+    }
+
+    private void drawControlledPlayerAnimations(Batcher batch, ControlledPlayer player) {
+        Map<Animation, SpriteAnimation> playerAnimations = player.getSprite().getAnimations();
+        AtomicInteger y = new AtomicInteger();
+        Arrays.stream(Animation.values()).filter(animation -> player.getSprite().hasAnimation(animation)).forEach(animation -> {
+
+            Static.text.drawToCamera(batch,
+                                     String.format("%s: F%s %s/%s *%s",
+                                                   animation.name(),
+                                                   playerAnimations.get(animation).getCurrentFrame(),
+                                                   playerAnimations.get(animation).getTick(),
+                                                   playerAnimations.get(animation).getDelay(),
+                                                   playerAnimations.get(animation).getSpeed()),
+                                     20,
+                                     20 + y.getAndIncrement() * Text.TEXT_LINE_H);
+
+        });
     }
 
     private void drawMouseSquare(Shaper shape) {

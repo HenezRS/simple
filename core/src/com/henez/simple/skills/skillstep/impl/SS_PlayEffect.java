@@ -18,14 +18,14 @@ public class SS_PlayEffect extends SkillStep {
     @Override
     public void update() {
         effect.update();
-        if (effect.isDone()) {
+        if (effect.isDonePlaying()) {
             finish();
         }
     }
 
     @Override
     public void draw(Batcher batch) {
-        if (!effect.isDone()) {
+        if (!effect.isDonePlaying()) {
             batch.setAlpha(effect.getCurrent().getAlpha());
             batch.draw(effect.getCurrent().getTex(), stepTarget.getX(), stepTarget.getY());
             batch.resetAlpha();

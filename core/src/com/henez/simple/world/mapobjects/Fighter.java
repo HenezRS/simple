@@ -40,7 +40,7 @@ public class Fighter extends Actor {
 
     @Override
     public void draw(Batcher batch) {
-        sprite.draw(batch, x, y, facing2, dead);
+        sprite.draw(batch, x, y, facing2);
     }
 
     public void battleStart(int pos, int fighterCount) {
@@ -96,8 +96,10 @@ public class Fighter extends Actor {
         if (cast.isChannelled() && !cast.isChannelStarted()) {
             cast.beginChannel(1);
             fighterState = FighterState.CHANNELLING;
+            sprite.playAnimation(Animation.channel);
         } else {
             fighterState = FighterState.EXECUTING;
+            sprite.stopAnimation(Animation.channel);
             skillExecution.executeSkill(cast.getSkillName(), cast.getSkillTarget());
         }
     }
@@ -120,10 +122,6 @@ public class Fighter extends Actor {
         return Arrays.asList(fighterStates).contains(fighterState);
     }
 
-    public void resetSpriteState() {
-        sprite.setAnimationAndReset(Animation.idle);
-    }
-
     public boolean canAct() {
         return !dead;
     }
@@ -138,6 +136,8 @@ public class Fighter extends Actor {
 
     public void turnEnd() {
         fighterState = FighterState.WAITING;
+        sprite.stopAnimation(Animation.cast);
+        sprite.stopAnimation(Animation.channel);
         statSheet.turnEnd();
         cast.turnEnd();
         turn++;
@@ -146,6 +146,9 @@ public class Fighter extends Actor {
     public void applyDamage(Damage damage) {
         statSheet.applyDamage(damage);
         dead = statSheet.isDead();
+        if (dead) {
+            sprite.playAnimation(Animation.dead);
+        }
     }
 
     public void setIsPlayer() {

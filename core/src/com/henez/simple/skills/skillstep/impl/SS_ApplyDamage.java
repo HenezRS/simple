@@ -1,6 +1,7 @@
 package com.henez.simple.skills.skillstep.impl;
 
 import com.henez.simple.effect.EffectFactory;
+import com.henez.simple.enums.Animation;
 import com.henez.simple.skills.skillcomponent.SkillComponent;
 import com.henez.simple.skills.skillstep.SkillStep;
 import com.henez.simple.stats.damage.Damage;
@@ -10,11 +11,13 @@ public class SS_ApplyDamage extends SkillStep {
     Fighter stepSource;
     Fighter stepTarget;
     SkillComponent skillComponent;
+    boolean hitAnimation;
 
-    public SS_ApplyDamage(Fighter stepSource, Fighter stepTarget, SkillComponent skillComponent) {
+    public SS_ApplyDamage(Fighter stepSource, Fighter stepTarget, SkillComponent skillComponent, boolean hitAnimation) {
         this.stepSource = stepSource;
         this.stepTarget = stepTarget;
         this.skillComponent = skillComponent;
+        this.hitAnimation = hitAnimation;
     }
 
     @Override
@@ -22,6 +25,9 @@ public class SS_ApplyDamage extends SkillStep {
         Damage damage = new Damage(stepSource, stepTarget, skillComponent);
         stepTarget.applyDamage(damage);
         EffectFactory.createDamageText(damage);
+        if (hitAnimation) {
+            stepTarget.getSprite().playAnimationOnce(Animation.hit);
+        }
         finish();
     }
 }

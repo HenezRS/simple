@@ -16,10 +16,12 @@ public class SpriteAnimation {
     private float speedMul;
     private int currentFrame;
     private int frameCount;
-    private boolean done = false;
+    private boolean doneThisFrame = false;
+    private boolean donePlaying;
     private int keyFrame = 0;
     private boolean keyFrameDone = false;
     private boolean keyFrameDoneThisFrame = false;
+    private boolean playOnce = false;
 
     public SpriteAnimation(float delay, TextureRegionEnhanced... textureRegions) {
         init(delay, 1.0f, textureRegions);
@@ -40,7 +42,7 @@ public class SpriteAnimation {
     }
 
     public void update() {
-        done = false;
+        doneThisFrame = false;
         keyFrameDoneThisFrame = false;
         tick += speed * speedMul;
         if (tick >= delay) {
@@ -53,7 +55,11 @@ public class SpriteAnimation {
         currentFrame++;
         if (currentFrame >= frameCount) {
             currentFrame = 0;
-            done = true;
+            doneThisFrame = true;
+
+            if (playOnce) {
+                donePlaying = true;
+            }
         }
 
         if (currentFrame >= keyFrame && !keyFrameDone) {
@@ -62,12 +68,33 @@ public class SpriteAnimation {
         }
     }
 
+    public boolean isInProgress() {
+        return !donePlaying;
+    }
+
+    public void play() {
+        donePlaying = false;
+    }
+
+    public void resetAndPlay() {
+        reset();
+        playOnce = false;
+        donePlaying = false;
+    }
+
+    public void resetAndPlayOnce() {
+        reset();
+        playOnce = true;
+        donePlaying = false;
+    }
+
     public void reset() {
         currentFrame = 0;
         tick = 0;
         speedMul = 1;
-        done = false;
         keyFrameDone = false;
+        doneThisFrame = false;
+        donePlaying = true;
     }
 
     public void setSpeedMul(float mul) {
@@ -80,6 +107,6 @@ public class SpriteAnimation {
     }
 
     public TextureRegionEnhanced getCurrent() {
-        return (TextureRegionEnhanced) texs.get(currentFrame);
+        return texs.get(currentFrame);
     }
 }

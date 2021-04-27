@@ -120,7 +120,7 @@ class Simple {
         //shape 1 ---
         shape.begin(ShapeRenderer.ShapeType.Filled);
         Gdx.gl.glEnable(GL20.GL_BLEND);
-        debugDrawer.drawShape(shape, world);
+        debugDrawer.drawShapeWorld(shape, world);
         if (world.getState() == WorldState.BATTLE) {
             battleDrawer.drawPanelsShape(shape);
         }

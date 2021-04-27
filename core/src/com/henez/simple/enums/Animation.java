@@ -1,16 +1,17 @@
 package com.henez.simple.enums;
 
+//ordered by priority
 public enum Animation {
-    none("none"),
-    _default("default"),
-    idle("idle"),
-    move("move"),
-    attack("attack"),
+    dead,
+    cast,
+    attack,
+    hit,
+    channel,
+    move,
+    idle,
+    none,
     ;
 
-    public final String name;
-
-    Animation(String name) {
-        this.name = name;
+    Animation() {
     }
 }

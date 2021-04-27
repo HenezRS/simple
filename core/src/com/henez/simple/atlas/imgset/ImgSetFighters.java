@@ -7,7 +7,8 @@ import lombok.Getter;
 
 @Getter
 public enum ImgSetFighters {
-    class_kni(ImgActors.kni_idle_0, ImgActors.kni_idle_1, ImgActors.kni_attack_0, ImgActors.kni_attack_1),
+    class_kni(ImgActors.kni_idle_0.asTex(), ImgActors.kni_idle_1.asTex(), ImgActors.kni_attack_0.asTex(), ImgActors.kni_attack_1.asTex(), ImgActors.kni_hit.asTex(),
+              ImgActors.kni_hit.asTexWith(-1, 0), ImgActors.kni_channel_0.asTex(), ImgActors.kni_channel_1.asTex(), ImgActors.kni_cast.asTex(), ImgActors.kni_dead.asTex()),
     class_ran(ImgActors.ran_idle_0, ImgActors.ran_idle_1, ImgActors.ran_attack_0, ImgActors.ran_attack_1),
     class_mag(ImgActors.mag_idle_0, ImgActors.mag_idle_1, ImgActors.mag_attack_0, ImgActors.mag_attack_1),
     class_cle(ImgActors.cle_idle_0, ImgActors.cle_idle_1, ImgActors.cle_attack_0, ImgActors.cle_attack_1),
@@ -28,18 +29,45 @@ public enum ImgSetFighters {
     TextureRegionEnhanced idle2;
     TextureRegionEnhanced attack;
     TextureRegionEnhanced attack2;
+    TextureRegionEnhanced hit;
+    TextureRegionEnhanced hit2;
+    TextureRegionEnhanced channel;
+    TextureRegionEnhanced channel2;
+    TextureRegionEnhanced cast;
+    TextureRegionEnhanced dead;
 
-    ImgSetFighters(ImgActors... imgActors) {
-        this.idle = imgActors[0].asTex();
-        this.idle2 = imgActors[1].asTex();
-        this.attack = imgActors[2].asTex();
-        this.attack2 = imgActors[3].asTex();
+    ImgSetFighters(TextureRegionEnhanced idle, TextureRegionEnhanced idle2, TextureRegionEnhanced attack, TextureRegionEnhanced attack2) {
+        this.idle = idle;
+        this.idle2 = idle2;
+        this.attack = attack;
+        this.attack2 = attack2;
     }
 
-    ImgSetFighters(ImgEnemies... imgActors) {
-        this.idle = imgActors[0].asTex();
-        this.idle2 = imgActors[1].asTex();
-        this.attack = imgActors[2].asTex();
-        this.attack2 = imgActors[3].asTex();
+    ImgSetFighters(ImgActors idle, ImgActors idle2, ImgActors attack, ImgActors attack2) {
+        this.idle = idle.asTex();
+        this.idle2 = idle2.asTex();
+        this.attack = attack.asTex();
+        this.attack2 = attack2.asTex();
+    }
+
+    ImgSetFighters(ImgEnemies idle, ImgEnemies idle2, ImgEnemies attack, ImgEnemies attack2) {
+        this.idle = idle.asTex();
+        this.idle2 = idle2.asTex();
+        this.attack = attack.asTex();
+        this.attack2 = attack2.asTex();
+    }
+
+    ImgSetFighters(TextureRegionEnhanced idle, TextureRegionEnhanced idle2, TextureRegionEnhanced attack, TextureRegionEnhanced attack2, TextureRegionEnhanced hit,
+            TextureRegionEnhanced hit2, TextureRegionEnhanced channel, TextureRegionEnhanced channel2, TextureRegionEnhanced cast, TextureRegionEnhanced dead) {
+        this.idle = idle;
+        this.idle2 = idle2;
+        this.attack = attack;
+        this.attack2 = attack2;
+        this.hit = hit;
+        this.hit2 = hit2;
+        this.channel = channel;
+        this.channel2 = channel2;
+        this.cast = cast;
+        this.dead = dead;
     }
 }

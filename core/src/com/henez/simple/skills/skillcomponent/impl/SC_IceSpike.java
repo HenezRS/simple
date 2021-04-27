@@ -15,6 +15,6 @@ public class SC_IceSpike extends SkillComponent {
         steps.addAll(new SS_PlayAnimUntilKeyFrame(source, Animation.attack, speedMulAnimation),
                      new SS_PlayEffectProjectileUntilCollision(source, target, EffectAtlas.ICE_MISSILE.toDynamicWithSpeed(speedMulEffect), 1),
                      new SS_PlayEffect(target, EffectAtlas.ICE.toDynamicWithSpeed(speedMulEffect)),
-                     new SS_ApplyDamage(source, target, this));
+                     new SS_ApplyDamage(source, target, this, true));
     }
 }

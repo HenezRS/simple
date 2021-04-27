@@ -1,6 +1,7 @@
 package com.henez.simple.data;
 
 import com.henez.simple.datastructures.GameList;
+import com.henez.simple.debug.DebugFlags;
 import com.henez.simple.world.mapobjects.ActorFactory;
 import com.henez.simple.world.mapobjects.ControlledPlayer;
 import com.henez.simple.world.mapobjects.Fighter;
@@ -44,7 +45,9 @@ public class PlayerData {
     }
 
     public void deductEncounterStep() {
-        stepsUntilEncounter--;
+        if (DebugFlags.canEncounterWithSteps) {
+            stepsUntilEncounter--;
+        }
     }
 
     public void resetEncounterSteps() {
