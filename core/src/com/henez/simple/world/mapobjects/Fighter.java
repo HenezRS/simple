@@ -1,6 +1,7 @@
 package com.henez.simple.world.mapobjects;
 
 import com.henez.simple.atlas.imgset.ImgSetFighters;
+import com.henez.simple.debug.DebugFlags;
 import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.renderer.Batcher;
@@ -27,6 +28,7 @@ public class Fighter extends Actor {
     protected boolean dead = false;
     protected boolean isPlayer = false;
     protected boolean isLeader = false;
+    protected boolean isMinor = false;
     protected int turn;
 
     public Fighter(int gx, int gy, ClassName className, int depth) {
@@ -70,7 +72,7 @@ public class Fighter extends Actor {
 
     public void determineSkillCast(SkillTargetBuilder targetBuilder) {
         SkillName chosenSkill = null;
-        if (isLeader) {
+        if (isLeader && (DebugFlags.canEnemiesAct || isPlayer)) {
             chosenSkill = SkillName.ICE_SPIKE;
             if (turn == 1) {
                 chosenSkill = SkillName.ATTACK_CAST;

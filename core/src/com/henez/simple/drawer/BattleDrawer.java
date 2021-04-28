@@ -35,25 +35,33 @@ public class BattleDrawer {
         AtomicInteger padding = new AtomicInteger();
         Static.text.draw(batch, "players:", fighterPanelPlayerX, fighterPanelStartY - Text.TEXT_LINE_H, Colors.text_player.color);
         world.getBattle().getBattleMembers().getPlayerParty().forEach(f -> {
-            fighterPanelDrawer.drawBatch(batch, Static.renderer.getX() + fighterPanelPlayerX, Static.renderer.getY() + fighterPanelStartY + (34 * padding.getAndIncrement()), f);
+            fighterPanelDrawer.drawBatchPlayer(batch, Static.renderer.getX() + fighterPanelPlayerX, Static.renderer.getY() + fighterPanelStartY + (34 * padding.getAndIncrement()), f);
         });
 
         Static.text.draw(batch, "enemies:", fighterPanelEnemyX, fighterPanelStartY - Text.TEXT_LINE_H, Colors.text_enemy.color);
         padding.set(0);
         world.getBattle().getBattleMembers().getEnemyParty().forEach(f -> {
-            fighterPanelDrawer.drawBatch(batch, Static.renderer.getX() + fighterPanelEnemyX, Static.renderer.getY() + fighterPanelStartY + (34 * padding.getAndIncrement()), f);
+            if (f.isMinor()) {
+                fighterPanelDrawer.drawBatchEnemy(batch, Static.renderer.getX() + fighterPanelEnemyX, Static.renderer.getY() + fighterPanelStartY + (34 * padding.getAndIncrement()), f);
+            } else {
+                fighterPanelDrawer.drawBatchEnemy(batch, Static.renderer.getX() + fighterPanelEnemyX, Static.renderer.getY() + fighterPanelStartY + (34 * padding.getAndIncrement()), f);
+            }
         });
     }
 
     public void drawPanelsShape(Shaper shape) {
         AtomicInteger padding = new AtomicInteger();
         world.getBattle().getBattleMembers().getPlayerParty().forEach(f -> {
-            fighterPanelDrawer.drawShape(shape, Static.renderer.getX() + fighterPanelPlayerX, Static.renderer.getY() + fighterPanelStartY + (34 * padding.getAndIncrement()), f, true);
+            fighterPanelDrawer.drawShapePlayer(shape, Static.renderer.getX() + fighterPanelPlayerX, Static.renderer.getY() + fighterPanelStartY + (34 * padding.getAndIncrement()), f);
         });
 
         padding.set(0);
         world.getBattle().getBattleMembers().getEnemyParty().forEach(f -> {
-            fighterPanelDrawer.drawShape(shape, Static.renderer.getX() + fighterPanelEnemyX, Static.renderer.getY() + fighterPanelStartY + (34 * padding.getAndIncrement()), f, false);
+            if (f.isMinor()) {
+                fighterPanelDrawer.drawShapeEnemy(shape, Static.renderer.getX() + fighterPanelEnemyX, Static.renderer.getY() + fighterPanelStartY + (34 * padding.getAndIncrement()), f);
+            } else {
+                fighterPanelDrawer.drawShapeEnemy(shape, Static.renderer.getX() + fighterPanelEnemyX, Static.renderer.getY() + fighterPanelStartY + (34 * padding.getAndIncrement()), f);
+            }
         });
     }
 }

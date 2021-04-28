@@ -96,10 +96,10 @@ public class DebugDrawer {
     }
 
     public void drawBatchWorld(Batcher batch, World world) {
-        drawControlledPlayerAnimations(batch, world.getPlayer());
+        //drawControlledPlayerAnimationsList(batch, world.getPlayer());
     }
 
-    private void drawControlledPlayerAnimations(Batcher batch, ControlledPlayer player) {
+    private void drawControlledPlayerAnimationsList(Batcher batch, ControlledPlayer player) {
         Map<Animation, SpriteAnimation> playerAnimations = player.getSprite().getAnimations();
         AtomicInteger y = new AtomicInteger();
         Arrays.stream(Animation.values()).filter(animation -> player.getSprite().hasAnimation(animation)).forEach(animation -> {

@@ -44,6 +44,9 @@ public class Sprite {
         determineCurrent();
         spriteEffectManager.update();
         animations.get(current).update();
+        if (animations.get(current).isDonePlaying()) {
+            determineCurrent();
+        }
     }
 
     public void draw(Batcher batch, float x, float y, Facing facing) {

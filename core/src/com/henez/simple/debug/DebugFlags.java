@@ -5,4 +5,7 @@ public class DebugFlags {
     }
 
     public static boolean canEncounterWithSteps = true;
+    public static boolean canEnemiesAct = true;
+
+    public static float mulSkillNamePower = 1.0f;
 }

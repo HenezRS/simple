@@ -13,6 +13,7 @@ public class SS_PlayEffect extends SkillStep {
     public SS_PlayEffect(Fighter stepTarget, AnimationDynamic animation) {
         this.stepTarget = stepTarget;
         this.effect = new SpriteAnimation(animation);
+        this.effect.resetAndPlayOnce();
     }
 
     @Override

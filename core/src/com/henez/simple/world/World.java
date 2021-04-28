@@ -95,6 +95,7 @@ public class World {
             enemyParty.add(ActorFactory.createEnemyPositioned(xy.getX(), xy.getY(), depth.getAndIncrement(), classes.get(Numbers.clamp(depth.get() - 1, 0, 3))));
         });
         Collections.reverse(enemyParty);
+        enemyParty.get(0).setIsLeader();
         addToWorld(enemyParty);
 
         battle = new Battle(playerData.getPlayerParty(), enemyParty);
