@@ -48,7 +48,7 @@ public class EncounterService {
                 return false;
             }
         }*/
-        encounterPositions.addAll(map.getWalkableTileCluster(encounterX, encounterY, objects, 2)
+        encounterPositions.addAll(map.getWalkableTileCluster(encounterX, encounterY, objects, 4)
                                      .stream()
                                      .map(tile -> new XY(tile.getGx(), tile.getGy()))
                                      .collect(Collectors.toCollection(GameList::new)));

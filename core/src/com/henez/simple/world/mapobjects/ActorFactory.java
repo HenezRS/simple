@@ -27,6 +27,7 @@ public final class ActorFactory {
     public static Fighter createEnemyPositioned(int startGx, int startGy, int depth, ClassName className) {
         Fighter enemy = new Fighter(0, 0, className, depth);
         enemy.setPosition(startGx, startGy);
+        enemy.isMinor = className.isMinor();
         buildSprite(enemy);
         return enemy;
     }

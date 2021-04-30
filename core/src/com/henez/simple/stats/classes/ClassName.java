@@ -19,7 +19,7 @@ public enum ClassName {
     cul("cul", "cultist", ImgSetFighters.class_cul),
 
     enemy_octo("en", "octo", ImgSetFighters.enemy_octo),
-    enemy_octo2("en", "octo2", ImgSetFighters.enemy_octo2),
+    enemy_octo2("en", "octo2", ImgSetFighters.enemy_octo2, true),
     enemy_octo3("en", "octo3", ImgSetFighters.enemy_octo3),
     enemy_octo4("en", "octo4", ImgSetFighters.enemy_octo4),
     ;
@@ -27,11 +27,19 @@ public enum ClassName {
     private String nameShort;
     private String name;
     private ImgSetFighters imgSet;
+    private boolean isMinor;
 
     ClassName(String nameShort, String name, ImgSetFighters imgSet) {
         this.nameShort = nameShort.toUpperCase();
         this.name = name;
         this.imgSet = imgSet;
+    }
+
+    ClassName(String nameShort, String name, ImgSetFighters imgSet, boolean isMinor) {
+        this.nameShort = nameShort.toUpperCase();
+        this.name = name;
+        this.imgSet = imgSet;
+        this.isMinor = isMinor;
     }
 
     public static ClassName getByName(String name) {

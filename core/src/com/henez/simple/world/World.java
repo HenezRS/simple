@@ -2,12 +2,12 @@ package com.henez.simple.world;
 
 import com.henez.simple.data.PlayerData;
 import com.henez.simple.datastructures.GameList;
-import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.input.In;
+import com.henez.simple.misc.XY;
 import com.henez.simple.renderer.Batcher;
-import com.henez.simple.stats.classes.ClassName;
 import com.henez.simple.world.battle.Battle;
+import com.henez.simple.world.enemies.EnemyPartyName;
 import com.henez.simple.world.map.gamemap.GameMap;
 import com.henez.simple.world.map.gamemap.impl.TestMap;
 import com.henez.simple.world.mapobjects.ActorFactory;
@@ -17,7 +17,6 @@ import com.henez.simple.world.mapobjects.MapObject;
 import lombok.Getter;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -86,15 +85,11 @@ public class World {
         playerData.resetEncounterSteps();
 
         AtomicInteger depth = new AtomicInteger();
-        GameList<ClassName> classes = new GameList<>();
-        classes.addAll(ClassName.enemy_octo,
-                       ClassName.enemy_octo2,
-                       ClassName.enemy_octo3,
-                       ClassName.enemy_octo4);
-        encounterService.getEncounterPositions().forEach(xy -> {
-            enemyParty.add(ActorFactory.createEnemyPositioned(xy.getX(), xy.getY(), depth.getAndIncrement(), classes.get(Numbers.clamp(depth.get() - 1, 0, 3))));
+        EnemyPartyName.octos.getOrdered().forEach(enemyClass -> {
+            XY xy = encounterService.getEncounterPositions().get(depth.get());
+            enemyParty.add(ActorFactory.createEnemyPositioned(xy.getX(), xy.getY(), depth.getAndIncrement(), enemyClass));
         });
-        Collections.reverse(enemyParty);
+        //Collections.reverse(enemyParty);
         enemyParty.get(0).setIsLeader();
         addToWorld(enemyParty);
 

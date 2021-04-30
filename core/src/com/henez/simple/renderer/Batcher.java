@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.Static;
+import com.henez.simple.datastructures.TextureRegionEnhanced;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.global.Global;
-import com.henez.simple.sprite.BatchDrawable;
 
 public class Batcher extends SpriteBatch {
     private int tx;
@@ -50,20 +50,20 @@ public class Batcher extends SpriteBatch {
         }
     }
 
+    public void draw(TextureRegionEnhanced region, float x, float y, Facing facing) {
+        if (facing == Facing.LEFT) {
+            super.draw(region.getTex(), x + tx + Global.tilePixelSize + region.getAddX(), y + ty, -Global.tilePixelSize + region.getAddY(), Global.tilePixelSize);
+        } else {
+            super.draw(region.getTex(), x + tx + region.getAddX(), y + ty + region.getAddY());
+        }
+    }
+
     public void drawToCamera(TextureRegion region, float x, float y, Facing facing) {
         draw(region, x + Static.renderer.getX(), y + Static.renderer.getY(), facing);
     }
 
     public void draw(TextureRegion region, float x, float y, float rotation) {
         super.draw(region, x + tx, y + ty, 8, 8, 16, 16, 1, 1, rotation);
-    }
-
-    public void draw(BatchDrawable drawable) {
-        if (drawable.getFacing() == Facing.LEFT) {
-            super.draw(drawable.getTex(), drawable.getX() + tx + Global.tilePixelSize, drawable.getY() + ty, -Global.tilePixelSize, Global.tilePixelSize);
-        } else {
-            super.draw(drawable.getTex(), drawable.getX() + tx, drawable.getY() + ty);
-        }
     }
 
     public void setAlpha(float a) {

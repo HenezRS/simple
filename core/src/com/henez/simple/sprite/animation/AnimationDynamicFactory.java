@@ -4,6 +4,7 @@ import com.henez.simple.atlas.imgs.ImgTiles;
 import com.henez.simple.atlas.imgset.ImgSetFighters;
 
 import static com.henez.simple.global.Global.SEC2;
+import static com.henez.simple.global.Global.SEC8;
 
 public final class AnimationDynamicFactory {
     private AnimationDynamicFactory() {
@@ -25,7 +26,7 @@ public final class AnimationDynamicFactory {
         if (imgSetFighters.getHit() == null) {
             return null;
         }
-        return new AnimationDynamic(SEC2, 1, imgSetFighters.getHit(), imgSetFighters.getHit2(), imgSetFighters.getHit(), imgSetFighters.getHit2());
+        return new AnimationDynamic(SEC8, 1, imgSetFighters.getHit(), imgSetFighters.getHit2(), imgSetFighters.getHit(), imgSetFighters.getHit2());
     }
 
     public static AnimationDynamic toActorChannel(ImgSetFighters imgSetFighters) {

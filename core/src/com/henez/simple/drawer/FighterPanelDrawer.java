@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.henez.simple.Static;
 import com.henez.simple.atlas.Atlas;
 import com.henez.simple.atlas.imgs.ImgIcon7;
-import com.henez.simple.atlas.imgs.ImgTiles;
 import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Colors;
@@ -21,6 +20,11 @@ import static com.henez.simple.text.Text.TEXT_H;
 public class FighterPanelDrawer {
     private int minorW = 22;
     private int minorH = 24;
+    private int minorBarHpX = 2;
+    private int minorBarHpY = 20;
+    private int minorBarAtbX = 2;
+    private int minorBarAtbY = 22;
+    private int minorBarW = 18;
 
     private int w = 57;
     private int h = 24;
@@ -74,14 +78,13 @@ public class FighterPanelDrawer {
         batch.draw(Atlas.toTex(ImgIcon7.hp), x + iconHpX, y + iconHpY);
         batch.draw(Atlas.toTex(ImgIcon7.mp), x + iconMpX, y + iconMpY);
 
+        batch.draw(fighter.getSprite().getTex(), x + playerX, y + playerY, Facing.RIGHT);
+
         if (!fighter.isDead()) {
-            batch.draw(fighter.getSprite().getTex(), x + playerX, y + playerY, Facing.RIGHT);
 
             if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING, FighterState.CHANNELLING)) {
                 Static.text.draw(batch, fighter.getCast().getName() + "", x + skillNameX, y + skillNameY);
             }
-        } else {
-            batch.draw(ImgTiles.grave.asTex().getTex(), x + playerX, y + playerY, Facing.RIGHT);
         }
     }
 
@@ -130,15 +133,13 @@ public class FighterPanelDrawer {
         Static.text.drawRight(batch, fighter.getStatSheet().getStatCur(StatName.HP) + "", x + textHpX, y + textHpY);
 
         batch.draw(Atlas.toTex(ImgIcon7.hp), x + iconHpX, y + iconHpY);
+        batch.draw(fighter.getSprite().getTex(), x + playerX, y + playerY, Facing.LEFT);
 
         if (!fighter.isDead()) {
-            batch.draw(fighter.getSprite().getTex(), x + playerX, y + playerY, Facing.LEFT);
 
             if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING, FighterState.CHANNELLING)) {
                 Static.text.draw(batch, fighter.getCast().getName() + "", x + skillNameX, y + skillNameY);
             }
-        } else {
-            batch.draw(ImgTiles.grave.asTex().getTex(), x + playerX, y + playerY, Facing.LEFT);
         }
     }
 
@@ -182,10 +183,18 @@ public class FighterPanelDrawer {
     }
 
     public void drawBatchEnemyMinor(Batcher batch, int x, int y, Fighter fighter) {
+        batch.draw(fighter.getSprite().getTex(), x + playerX, y + playerY, Facing.LEFT);
 
     }
 
     public void drawShapeEnemyMinor(Shaper shape, int x, int y, Fighter fighter) {
+        backColor = Colors.ui_back_red.color;
+        frameColor = Colors.ui_frame_red.color;
 
+        shape.rect(x, y, minorW, minorH, backColor);
+        shape.rectOutline(new Rect(x + 1, y + 1, 20, 20), frameColor);
+        shape.barH1(x + minorBarHpX - 1, y + minorBarHpY - 1, minorBarW + 2, 1, Colors.ui_back.color, Colors.ui_back.color);
+        shape.barH1(x + minorBarHpX, y + minorBarHpY, minorBarW, fighter.getStatSheet().getStatPercent(StatName.HP), Colors.hp.color, Colors.hp_bar_back.color);
+        shape.barH1(x + minorBarAtbX, y + minorBarAtbY, minorBarW, fighter.getStatSheet().getAtb().getPercent(), Colors.ui_bar_front.color, Colors.hp_bar_back.color);
     }
 }
