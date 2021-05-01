@@ -8,4 +8,8 @@ public class DebugFlags {
     public static boolean canEnemiesAct = true;
 
     public static float mulSkillNamePower = 1.0f;
+
+    public static void override() {
+        canEnemiesAct = false;
+    }
 }

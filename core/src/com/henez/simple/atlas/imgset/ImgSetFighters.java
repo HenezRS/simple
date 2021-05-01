@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public enum ImgSetFighters {
     class_kni(ImgActors.kni_idle_0.asTex(), ImgActors.kni_idle_1.asTex(), ImgActors.kni_attack_0.asTex(), ImgActors.kni_attack_1.asTex(), ImgActors.kni_hit.asTex(),
-              ImgActors.kni_hit.asTexWith(-1, 0), ImgActors.kni_channel_0.asTex(), ImgActors.kni_channel_1.asTex(), ImgActors.kni_cast.asTex(), ImgActors.kni_dead.asTex()),
+              ImgActors.kni_hit.asTexWith(-1, 0), ImgActors.kni_channel_0.asTex(), ImgActors.kni_channel_1.asTex(), ImgActors.kni_cast.asTex(), ImgActors.kni_dead.asTex(), ImgActors.kni_low.asTex()),
     class_ran(ImgActors.ran_idle_0, ImgActors.ran_idle_1, ImgActors.ran_attack_0, ImgActors.ran_attack_1),
     class_mag(ImgActors.mag_idle_0, ImgActors.mag_idle_1, ImgActors.mag_attack_0, ImgActors.mag_attack_1),
     class_cle(ImgActors.cle_idle_0, ImgActors.cle_idle_1, ImgActors.cle_attack_0, ImgActors.cle_attack_1),
@@ -35,6 +35,7 @@ public enum ImgSetFighters {
     TextureRegionEnhanced channel2;
     TextureRegionEnhanced cast;
     TextureRegionEnhanced dead;
+    TextureRegionEnhanced low;
 
     ImgSetFighters(TextureRegionEnhanced idle, TextureRegionEnhanced idle2, TextureRegionEnhanced attack, TextureRegionEnhanced attack2) {
         this.idle = idle;
@@ -58,7 +59,7 @@ public enum ImgSetFighters {
     }
 
     ImgSetFighters(TextureRegionEnhanced idle, TextureRegionEnhanced idle2, TextureRegionEnhanced attack, TextureRegionEnhanced attack2, TextureRegionEnhanced hit,
-            TextureRegionEnhanced hit2, TextureRegionEnhanced channel, TextureRegionEnhanced channel2, TextureRegionEnhanced cast, TextureRegionEnhanced dead) {
+            TextureRegionEnhanced hit2, TextureRegionEnhanced channel, TextureRegionEnhanced channel2, TextureRegionEnhanced cast, TextureRegionEnhanced dead, TextureRegionEnhanced low) {
         this.idle = idle;
         this.idle2 = idle2;
         this.attack = attack;
@@ -69,5 +70,6 @@ public enum ImgSetFighters {
         this.channel2 = channel2;
         this.cast = cast;
         this.dead = dead;
+        this.low = low;
     }
 }

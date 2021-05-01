@@ -4,17 +4,17 @@ import com.henez.simple.enums.animation.Animation;
 import com.henez.simple.skills.skillstep.SkillStep;
 import com.henez.simple.world.mapobjects.Fighter;
 
-public class SS_PlayAnimUntilKeyFrame extends SkillStep {
+public class SS_PlayAnimAndContinue extends SkillStep {
     private Fighter stepTarget;
     private Animation animation;
     private float speedMulAnimation = 1.0f;
 
-    public SS_PlayAnimUntilKeyFrame(Fighter stepTarget, Animation animation) {
+    public SS_PlayAnimAndContinue(Fighter stepTarget, Animation animation) {
         this.stepTarget = stepTarget;
         this.animation = animation;
     }
 
-    public SS_PlayAnimUntilKeyFrame(Fighter stepTarget, Animation animation, float mul) {
+    public SS_PlayAnimAndContinue(Fighter stepTarget, Animation animation, float mul) {
         this.stepTarget = stepTarget;
         this.animation = animation;
         this.speedMulAnimation = mul;
@@ -22,14 +22,12 @@ public class SS_PlayAnimUntilKeyFrame extends SkillStep {
 
     @Override
     public void init() {
-        stepTarget.getSprite().playAnimationOnce(animation);
+        stepTarget.getSprite().playAnimation(animation);
         stepTarget.getSprite().setAnimationSpeedMul(animation, speedMulAnimation);
+        finish();
     }
 
     @Override
     public void update() {
-        if (stepTarget.getSprite().isKeyFrameDoneThisFrame(animation)) {
-            finish();
-        }
     }
 }

@@ -1,6 +1,5 @@
 package com.henez.simple.world.mapobjects;
 
-import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.global.Global;
@@ -69,8 +68,6 @@ public class Actor extends MapObject {
             return;
         }
         lastMoveDir = facing;
-        ;
-        sprite.playAnimationSync(Animation.move, Animation.idle);
         movement.begin(facing);
         tileDetail = map.getTileDetail(gx + facing.tx, gy + facing.ty);
         if (facing == Facing.LEFT || facing == Facing.RIGHT) {
@@ -80,8 +77,6 @@ public class Actor extends MapObject {
 
     public void completeMove() {
         moveComplete = true;
-        sprite.playAnimationSync(Animation.idle, Animation.move);
-        sprite.stopAnimation(Animation.move);
         snapToGrid();
     }
 }

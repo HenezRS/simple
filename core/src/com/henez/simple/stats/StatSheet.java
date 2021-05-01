@@ -55,6 +55,10 @@ public class StatSheet {
         return stats.get(StatName.HP).isEmpty();
     }
 
+    public boolean isLow() {
+        return stats.get(StatName.HP).getPercent() <= 0.5f;
+    }
+
     public int getStatCur(StatName statName) {
         return stats.get(statName).get();
     }

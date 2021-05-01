@@ -1,7 +1,7 @@
 package com.henez.simple.skills.skillstep.impl;
 
 import com.henez.simple.effect.EffectFactory;
-import com.henez.simple.enums.Animation;
+import com.henez.simple.enums.animation.Animation;
 import com.henez.simple.skills.skillcomponent.SkillComponent;
 import com.henez.simple.skills.skillstep.SkillStep;
 import com.henez.simple.stats.damage.Damage;

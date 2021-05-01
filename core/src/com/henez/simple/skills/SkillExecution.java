@@ -1,7 +1,6 @@
 package com.henez.simple.skills;
 
 import com.henez.simple.renderer.Batcher;
-import com.henez.simple.skills.skillcomponent.SkillComponent;
 import com.henez.simple.skills.skillgroup.SkillGroup;
 import lombok.Getter;
 import lombok.Setter;

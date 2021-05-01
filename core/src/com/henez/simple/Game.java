@@ -2,6 +2,7 @@ package com.henez.simple;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.henez.simple.atlas.Atlas;
+import com.henez.simple.debug.DebugFlags;
 import com.henez.simple.shaders.ShaderLoader;
 
 public class Game extends ApplicationAdapter {
@@ -13,6 +14,7 @@ public class Game extends ApplicationAdapter {
         Static.load();
         Atlas.load();
         ShaderLoader.load();
+        DebugFlags.override();
 
         simple = new Simple();
     }

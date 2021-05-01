@@ -2,8 +2,9 @@ package com.henez.simple.world.mapobjects;
 
 import com.henez.simple.atlas.imgset.ImgSetFighters;
 import com.henez.simple.debug.DebugFlags;
-import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.Colors;
+import com.henez.simple.enums.animation.Animation;
+import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.skills.SkillExecution;
 import com.henez.simple.skills.SkillName;
@@ -13,6 +14,7 @@ import com.henez.simple.stats.Cast;
 import com.henez.simple.stats.StatSheet;
 import com.henez.simple.stats.classes.ClassName;
 import com.henez.simple.stats.damage.Damage;
+import com.henez.simple.world.map.gamemap.GameMap;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -38,6 +40,12 @@ public class Fighter extends Actor {
         statSheet = new StatSheet();
         skillExecution = new SkillExecution();
         cast = new Cast();
+    }
+
+    @Override
+    public void update(WorldState state, GameMap map) {
+        super.update(state, map);
+        Animation.updateFighterAnimationState(this);
     }
 
     @Override
@@ -73,7 +81,7 @@ public class Fighter extends Actor {
     public void determineSkillCast(SkillTargetBuilder targetBuilder) {
         SkillName chosenSkill = null;
         if (isLeader && (DebugFlags.canEnemiesAct || isPlayer)) {
-            chosenSkill = SkillName.ICE_SPIKE;
+            chosenSkill = SkillName.MISSILE_CAST;
             if (turn == 1) {
                 chosenSkill = SkillName.ATTACK_CAST;
             }
@@ -98,10 +106,8 @@ public class Fighter extends Actor {
         if (cast.isChannelled() && !cast.isChannelStarted()) {
             cast.beginChannel(1);
             fighterState = FighterState.CHANNELLING;
-            sprite.playAnimation(Animation.channel);
         } else {
             fighterState = FighterState.EXECUTING;
-            sprite.stopAnimation(Animation.channel);
             skillExecution.executeSkill(cast.getSkillName(), cast.getSkillTarget());
         }
     }
@@ -138,19 +144,15 @@ public class Fighter extends Actor {
 
     public void turnEnd() {
         fighterState = FighterState.WAITING;
-        sprite.stopAnimation(Animation.cast);
-        sprite.stopAnimation(Animation.channel);
         statSheet.turnEnd();
         cast.turnEnd();
+        sprite.stopAnimation(Animation.cast);
         turn++;
     }
 
     public void applyDamage(Damage damage) {
         statSheet.applyDamage(damage);
         dead = statSheet.isDead();
-        if (dead) {
-            sprite.playAnimation(Animation.dead);
-        }
     }
 
     public void setIsPlayer() {

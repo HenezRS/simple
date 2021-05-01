@@ -3,9 +3,10 @@ package com.henez.simple.sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.atlas.Atlas;
 import com.henez.simple.atlas.imgs.ImgTiles;
+import com.henez.simple.datastructures.GameList;
 import com.henez.simple.datastructures.TextureRegionEnhanced;
-import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.Facing;
+import com.henez.simple.enums.animation.Animation;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.shaders.Shader;
 import com.henez.simple.sprite.spriteeffects.SpriteEffectManager;
@@ -14,6 +15,7 @@ import lombok.Getter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Getter
 public class Sprite {
@@ -36,8 +38,12 @@ public class Sprite {
         animations.put(current, new SpriteAnimation(0, tex));
     }
 
+    public boolean isPlaying(Animation animation) {
+        return hasAnimation(animation) && animations.get(animation).isInProgress();
+    }
+
     private void determineCurrent() {
-        current = Arrays.stream(Animation.values()).filter(animation -> hasAnimation(animation) && animations.get(animation).isInProgress()).findFirst().orElse(Animation.idle);
+        current = Arrays.stream(Animation.values()).filter(this::isPlaying).findFirst().orElse(Animation.idle);
     }
 
     public void update() {
@@ -105,5 +111,9 @@ public class Sprite {
             return animations.get(animation).isKeyFrameDoneThisFrame();
         }
         return true;
+    }
+
+    public GameList<Animation> getExistingAnimationsThatRepeat() {
+        return Arrays.stream(Animation.values()).filter(this::hasAnimation).filter(anim -> !anim.isPlayOnce()).collect(Collectors.toCollection(GameList::new));
     }
 }

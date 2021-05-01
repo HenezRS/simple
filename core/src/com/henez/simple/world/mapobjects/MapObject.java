@@ -1,7 +1,7 @@
 package com.henez.simple.world.mapobjects;
 
-import com.henez.simple.enums.Animation;
 import com.henez.simple.enums.Facing;
+import com.henez.simple.enums.animation.Animation;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.global.Global;
 import com.henez.simple.renderer.Batcher;

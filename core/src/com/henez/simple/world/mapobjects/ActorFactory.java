@@ -1,6 +1,6 @@
 package com.henez.simple.world.mapobjects;
 
-import com.henez.simple.enums.Animation;
+import com.henez.simple.enums.animation.Animation;
 import com.henez.simple.sprite.SpriteAnimation;
 import com.henez.simple.sprite.animation.AnimationDynamic;
 import com.henez.simple.sprite.animation.AnimationDynamicFactory;

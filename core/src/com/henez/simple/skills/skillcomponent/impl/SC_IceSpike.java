@@ -1,6 +1,6 @@
 package com.henez.simple.skills.skillcomponent.impl;
 
-import com.henez.simple.enums.Animation;
+import com.henez.simple.enums.animation.Animation;
 import com.henez.simple.skills.skillcomponent.SkillComponent;
 import com.henez.simple.skills.skillstep.impl.SS_ApplyDamage;
 import com.henez.simple.skills.skillstep.impl.SS_PlayAnimUntilKeyFrame;
