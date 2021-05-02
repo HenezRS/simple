@@ -17,6 +17,7 @@ public class In {
     public static Key esc = new Key("ESC");
     public static Key ctrl = new Key("CTRL");
     public static Key space = new Key("SPACE");
+    public static Key tab = new Key("TAB");
     public static Mouse mouse = new Mouse();
 
     public static GameList<Key> keys;
@@ -42,6 +43,7 @@ public class In {
         set(ctrl, Input.Keys.CONTROL_LEFT);
         set(esc, Input.Keys.ESCAPE);
         set(space, Input.Keys.SPACE);
+        set(tab, Input.Keys.TAB);
 
         mouse.setClicked(Gdx.input.justTouched() && Gdx.input.isButtonPressed(Input.Buttons.LEFT));
         mouse.setHeld(Gdx.input.isButtonPressed(Input.Buttons.LEFT));

@@ -56,6 +56,8 @@ public enum ImgIcon7 {
     cspd2,
     blueheart,
     cancel,
+    crown,
+    rankdown,
     ;
 
     private final int x;

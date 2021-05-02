@@ -18,22 +18,16 @@ public final class ActorFactory {
         return player;
     }
 
-    public static Fighter createEnemy(int depth, ClassName className) {
-        Fighter enemy = new Fighter(0, 0, className, depth);
-        buildSprite(enemy);
-        return enemy;
-    }
-
     public static Fighter createEnemyPositioned(int startGx, int startGy, int depth, ClassName className) {
         Fighter enemy = new Fighter(0, 0, className, depth);
         enemy.setPosition(startGx, startGy);
-        enemy.isMinor = className.isMinor();
         buildSprite(enemy);
         return enemy;
     }
 
     public static Fighter createPlayer(int depth, ClassName className) {
-        Fighter player = createEnemy(depth, className);
+        Fighter player = new Fighter(0, 0, className, depth);
+        buildSprite(player);
         player.setIsPlayer();
         return player;
     }

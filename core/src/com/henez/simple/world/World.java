@@ -1,5 +1,6 @@
 package com.henez.simple.world;
 
+import com.henez.simple.atlas.imgs.ImgIcon7;
 import com.henez.simple.data.PlayerData;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.state.WorldState;
@@ -108,6 +109,22 @@ public class World {
 
     public void draw(Batcher batch) {
         objects.forEach(o -> o.draw(batch));
+    }
+
+    //todo: make world drawer
+    public void drawIcons(Batcher batch) {
+        if (state == WorldState.BATTLE && In.tab.isHeld()) {
+            batch.begin();
+            enemyParty.forEach(f -> {
+                if (f.isEnemy() && f.isMajor()) {
+                    batch.draw(ImgIcon7.crown.asTex(), f.getX() + 5, f.getY() - 3);
+                }
+                if (f.isEnemy() && f.isMinor()) {
+                    batch.draw(f.getClassName().getEnemyMinorType().getImg().asTex(), f.getX() + 16 - 7, f.getY());
+                }
+            });
+            batch.end();
+        }
     }
 
     public void addToWorld(MapObject... objectsToAdd) {

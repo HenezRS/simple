@@ -1,6 +1,8 @@
 package com.henez.simple.stats.classes;
 
 import com.henez.simple.atlas.imgset.ImgSetFighters;
+import com.henez.simple.enums.EnemyMinorType;
+import com.henez.simple.enums.EnemyRank;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -19,7 +21,7 @@ public enum ClassName {
     cul("cul", "cultist", ImgSetFighters.class_cul),
 
     enemy_octo("en", "octo", ImgSetFighters.enemy_octo),
-    enemy_octoMinor("en", "octoMinor", ImgSetFighters.enemy_octoMinor, true),
+    enemy_octoMinor("en", "octoMinor", ImgSetFighters.enemy_octoMinor, EnemyMinorType.DAMAGE),
     enemy_octo3("en", "octo3", ImgSetFighters.enemy_octo3),
     enemy_octo4("en", "octo4", ImgSetFighters.enemy_octo4),
     ;
@@ -27,22 +29,29 @@ public enum ClassName {
     private String nameShort;
     private String name;
     private ImgSetFighters imgSet;
-    private boolean isMinor;
+    private EnemyRank enemyRank;
+    private EnemyMinorType enemyMinorType;
 
     ClassName(String nameShort, String name, ImgSetFighters imgSet) {
         this.nameShort = nameShort.toUpperCase();
         this.name = name;
         this.imgSet = imgSet;
+        this.enemyRank = EnemyRank.MAJOR;
     }
 
-    ClassName(String nameShort, String name, ImgSetFighters imgSet, boolean isMinor) {
+    ClassName(String nameShort, String name, ImgSetFighters imgSet, EnemyMinorType enemyMinorType) {
         this.nameShort = nameShort.toUpperCase();
         this.name = name;
         this.imgSet = imgSet;
-        this.isMinor = isMinor;
+        this.enemyRank = EnemyRank.MINOR;
+        this.enemyMinorType = enemyMinorType;
     }
 
     public static ClassName getByName(String name) {
         return Arrays.stream(ClassName.values()).filter(className -> className.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
+    }
+
+    public boolean isMinor() {
+        return enemyRank == EnemyRank.MINOR;
     }
 }

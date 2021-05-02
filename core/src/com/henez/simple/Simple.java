@@ -102,6 +102,7 @@ class Simple {
 
         //batch 1 world objects ---
         world.draw(batch);
+        world.drawIcons(batch);
         // ---
 
         batch.setShader(null);

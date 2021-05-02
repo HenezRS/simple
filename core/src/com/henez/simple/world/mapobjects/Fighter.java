@@ -3,6 +3,7 @@ package com.henez.simple.world.mapobjects;
 import com.henez.simple.atlas.imgset.ImgSetFighters;
 import com.henez.simple.debug.DebugFlags;
 import com.henez.simple.enums.Colors;
+import com.henez.simple.enums.EnemyRank;
 import com.henez.simple.enums.animation.Animation;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.renderer.Batcher;
@@ -30,7 +31,7 @@ public class Fighter extends Actor {
     protected boolean dead = false;
     protected boolean isPlayer = false;
     protected boolean isLeader = false;
-    protected boolean isMinor = false;
+    protected EnemyRank enemyRank;
     protected int turn;
 
     public Fighter(int gx, int gy, ClassName className, int depth) {
@@ -40,6 +41,7 @@ public class Fighter extends Actor {
         statSheet = new StatSheet();
         skillExecution = new SkillExecution();
         cast = new Cast();
+        this.enemyRank = className.getEnemyRank();
     }
 
     @Override
@@ -165,5 +167,13 @@ public class Fighter extends Actor {
 
     public boolean isEnemy() {
         return !isPlayer;
+    }
+
+    public boolean isMinor() {
+        return enemyRank == EnemyRank.MINOR;
+    }
+
+    public boolean isMajor() {
+        return enemyRank == EnemyRank.MAJOR;
     }
 }
