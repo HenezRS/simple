@@ -52,7 +52,7 @@ public class Batcher extends SpriteBatch {
 
     public void draw(TextureRegionEnhanced region, float x, float y, Facing facing) {
         if (facing == Facing.LEFT) {
-            super.draw(region.getTex(), x + tx + Global.tilePixelSize + region.getAddX(), y + ty, -Global.tilePixelSize + region.getAddY(), Global.tilePixelSize);
+            super.draw(region.getTex(), x + tx + Global.tilePixelSize + (-1 * region.getAddX()), y + ty, -Global.tilePixelSize + region.getAddY(), Global.tilePixelSize);
         } else {
             super.draw(region.getTex(), x + tx + region.getAddX(), y + ty + region.getAddY());
         }

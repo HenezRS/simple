@@ -193,7 +193,7 @@ public class FighterPanelDrawer {
 
         shape.rect(x, y, minorW, minorH, backColor);
         shape.rectOutline(new Rect(x + 1, y + 1, 20, 20), frameColor);
-        shape.barH1(x + minorBarHpX - 1, y + minorBarHpY - 1, minorBarW + 2, 1, Colors.ui_back.color, Colors.ui_back.color);
+        shape.rect(x + minorBarHpX - 1, y + minorBarHpY - 1, minorBarW + 2, 3, backColor);
         shape.barH1(x + minorBarHpX, y + minorBarHpY, minorBarW, fighter.getStatSheet().getStatPercent(StatName.HP), Colors.hp.color, Colors.hp_bar_back.color);
         shape.barH1(x + minorBarAtbX, y + minorBarAtbY, minorBarW, fighter.getStatSheet().getAtb().getPercent(), Colors.ui_bar_front.color, Colors.hp_bar_back.color);
     }

@@ -2,8 +2,7 @@ package com.henez.simple.enums.animation;
 
 import com.henez.simple.enums.animation.validators.BaseFighterAnimationValidator;
 import com.henez.simple.enums.animation.validators.FighterAnimationValidator;
-import com.henez.simple.enums.animation.validators.impl.FighterAnimationValidatorCast;
-import com.henez.simple.enums.animation.validators.impl.FighterAnimationValidatorDead;
+import com.henez.simple.enums.animation.validators.impl.*;
 import com.henez.simple.world.mapobjects.Fighter;
 import lombok.Getter;
 
@@ -14,9 +13,9 @@ public enum Animation {
     cast(new FighterAnimationValidatorCast()),
     attack(),
     hit(),
-    channel(new FighterAnimationValidatorDead()),
-    move(new FighterAnimationValidatorDead()),
-    low(new FighterAnimationValidatorDead()),
+    channel(new FighterAnimationValidatorChannel()),
+    move(new FighterAnimationValidatorMove()),
+    low(new FighterAnimationValidatorLow()),
     idle(),
     none(),
     ;
@@ -34,6 +33,6 @@ public enum Animation {
     }
 
     public static void updateFighterAnimationState(Fighter fighter) {
-        fighter.getSprite().getExistingAnimationsThatRepeat().forEach(anim -> ((BaseFighterAnimationValidator) anim.getValidator()).validate(fighter));
+        fighter.getSprite().getExistingAnimationsThatRepeat().forEach(anim -> ((BaseFighterAnimationValidator) anim.getValidator()).validate(fighter, anim));
     }
 }

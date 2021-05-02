@@ -1,6 +1,5 @@
 package com.henez.simple.sprite;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.atlas.Atlas;
 import com.henez.simple.atlas.imgs.ImgTiles;
 import com.henez.simple.datastructures.GameList;
@@ -56,7 +55,7 @@ public class Sprite {
     }
 
     public void draw(Batcher batch, float x, float y, Facing facing) {
-        TextureRegion tex = getTex();
+        TextureRegionEnhanced tex = getTex();
         Shader.sprite.shader.begin();
         Shader.sprite.shader.setUniformf("blinkAlpha", 0.0f);
         spriteEffectManager.applyShaderUniforms();
@@ -66,8 +65,8 @@ public class Sprite {
         batch.end();
     }
 
-    public TextureRegion getTex() {
-        return animations.get(current).getCurrent().getTex();
+    public TextureRegionEnhanced getTex() {
+        return animations.get(current).getCurrent();
     }
 
     public boolean hasAnimation(Animation animation) {

@@ -23,6 +23,7 @@ public enum ImgSetFighters {
     enemy_octo2(ImgEnemies.octo2_idle_0, ImgEnemies.octo2_idle_1, ImgEnemies.octo2_attack_0, ImgEnemies.octo2_attack_1),
     enemy_octo3(ImgEnemies.octo3_idle_0, ImgEnemies.octo3_idle_1, ImgEnemies.octo3_attack_0, ImgEnemies.octo3_attack_1),
     enemy_octo4(ImgEnemies.octo4_idle_0, ImgEnemies.octo4_idle_1, ImgEnemies.octo4_attack_0, ImgEnemies.octo4_attack_1),
+    enemy_octoMinor(ImgEnemies.octoMinor_idle_0, ImgEnemies.octoMinor_idle_1, ImgEnemies.octoMinor_attack_0, ImgEnemies.octoMinor_attack_1),
     ;
 
     TextureRegionEnhanced idle;

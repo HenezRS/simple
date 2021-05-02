@@ -44,8 +44,8 @@ public class Fighter extends Actor {
 
     @Override
     public void update(WorldState state, GameMap map) {
-        super.update(state, map);
         Animation.updateFighterAnimationState(this);
+        super.update(state, map);
     }
 
     @Override

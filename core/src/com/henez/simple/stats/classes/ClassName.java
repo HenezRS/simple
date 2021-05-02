@@ -19,7 +19,7 @@ public enum ClassName {
     cul("cul", "cultist", ImgSetFighters.class_cul),
 
     enemy_octo("en", "octo", ImgSetFighters.enemy_octo),
-    enemy_octo2("en", "octo2", ImgSetFighters.enemy_octo2, true),
+    enemy_octoMinor("en", "octoMinor", ImgSetFighters.enemy_octoMinor, true),
     enemy_octo3("en", "octo3", ImgSetFighters.enemy_octo3),
     enemy_octo4("en", "octo4", ImgSetFighters.enemy_octo4),
     ;

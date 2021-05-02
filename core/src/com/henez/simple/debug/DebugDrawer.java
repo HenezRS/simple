@@ -31,9 +31,21 @@ public class DebugDrawer {
     }
 
     public void drawBatch(Batcher batch, World world, Framerate framerate) {
-        drawBatchWorld(batch, world);
-        lines.clear();
 
+        if (world.getState() == WorldState.BATTLE) {
+            if (DebugFlags.drawBattleQueues) {
+                drawBattleBatch(batch, world);
+            }
+        }
+
+        drawBatchWorld(batch, world);
+        if (DebugFlags.drawBasicInfo) {
+            drawBasicInfo(batch, world, framerate);
+        }
+    }
+
+    private void drawBasicInfo(Batcher batch, World world, Framerate framerate) {
+        lines.clear();
         if (world.getState() == WorldState.BATTLE) {
             lines.add(String.format("BATTLE: %ss", world.getBattle().getBattleTimer().getSeconds()));
         } else {
@@ -64,7 +76,7 @@ public class DebugDrawer {
         });
     }
 
-    public void drawBattleBatch(Batcher batch, World world) {
+    private void drawBattleBatch(Batcher batch, World world) {
         BattleMembers battleMembers = world.getBattle().getBattleMembers();
 
         AtomicInteger x = new AtomicInteger(50);
@@ -72,21 +84,21 @@ public class DebugDrawer {
         AtomicInteger index = new AtomicInteger();
         Static.text.drawToCamera(batch, "waiting", x.get(), y);
         battleMembers.getFightersWaiting().forEach(fighter -> {
-            batch.drawToCamera(fighter.getSprite().getTex(), x.get() + (index.getAndIncrement() * 16), y + Text.TEXT_LINE_H, Facing.LEFT);
+            batch.drawToCamera(fighter.getSprite().getTex().getTex(), x.get() + (index.getAndIncrement() * 16), y + Text.TEXT_LINE_H, Facing.LEFT);
         });
 
         x.set(x.get() + 80);
         index.set(0);
         Static.text.drawToCamera(batch, "casting", x.get(), y);
         battleMembers.getFightersCasting().forEach(fighter -> {
-            batch.drawToCamera(fighter.getSprite().getTex(), x.get() + (index.getAndIncrement() * 16), y + Text.TEXT_LINE_H, Facing.LEFT);
+            batch.drawToCamera(fighter.getSprite().getTex().getTex(), x.get() + (index.getAndIncrement() * 16), y + Text.TEXT_LINE_H, Facing.LEFT);
         });
 
         x.set(x.get() + 80);
         index.set(0);
         Static.text.drawToCamera(batch, "executing", x.get(), y);
         battleMembers.getFightersExecuting().forEach(fighter -> {
-            batch.drawToCamera(fighter.getSprite().getTex(), x.get() + (index.getAndIncrement() * 16), y + Text.TEXT_LINE_H, Facing.LEFT);
+            batch.drawToCamera(fighter.getSprite().getTex().getTex(), x.get() + (index.getAndIncrement() * 16), y + Text.TEXT_LINE_H, Facing.LEFT);
         });
     }
 
@@ -96,7 +108,9 @@ public class DebugDrawer {
     }
 
     public void drawBatchWorld(Batcher batch, World world) {
-        //drawControlledPlayerAnimationsList(batch, world.getPlayer());
+        if (DebugFlags.drawPlayerAnimationInfo) {
+            drawControlledPlayerAnimationsList(batch, world.getPlayer());
+        }
     }
 
     private void drawControlledPlayerAnimationsList(Batcher batch, ControlledPlayer player) {

@@ -33,7 +33,7 @@ public class SpriteEffectManager {
     }
 
     public void createBlink(Color color) {
-        SE_Blink se = new SE_Blink(Global.SEC);
+        SE_Blink se = new SE_Blink(Global.SEC3);
         se.setColor(color);
         spriteEffects.add(se);
     }

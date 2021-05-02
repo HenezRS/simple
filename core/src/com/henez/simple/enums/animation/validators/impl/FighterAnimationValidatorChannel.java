@@ -9,10 +9,8 @@ import com.henez.simple.world.mapobjects.FighterState;
 
 public class FighterAnimationValidatorChannel extends BaseFighterAnimationValidator implements FighterAnimationValidator {
 
-    protected Animation animation = Animation.channel;
-
     @Override
-    public void isPlaying(Fighter fighter) {
+    public void isPlaying(Fighter fighter, Animation animation) {
         Sprite sprite = fighter.getSprite();
         if (!fighter.fighterStateOneOf(FighterState.CHANNELLING, FighterState.CASTING)) {
             sprite.stopAnimation(animation);
@@ -20,7 +18,7 @@ public class FighterAnimationValidatorChannel extends BaseFighterAnimationValida
     }
 
     @Override
-    public void isNotPlaying(Fighter fighter) {
+    public void isNotPlaying(Fighter fighter, Animation animation) {
         Sprite sprite = fighter.getSprite();
         if (fighter.fighterStateOneOf(FighterState.CHANNELLING, FighterState.CASTING)) {
             sprite.playAnimation(animation);

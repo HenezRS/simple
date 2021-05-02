@@ -15,7 +15,7 @@ public enum ImgActors {
     kni_channel_1(6, 0),
     kni_cast(7, 0),
     kni_dead(8, 0),
-    kni_hit(8, 0),
+    kni_hit(9, 0),
 
     ran_idle_0(0, 1),
     ran_idle_1(1, 1),

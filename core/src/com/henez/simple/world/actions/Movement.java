@@ -13,19 +13,24 @@ public class Movement {
     float progress;
     float goal;
     boolean isMoving;
+    boolean wasMoving; //1 frame later
 
     public Movement() {
         isMoving = false;
+        wasMoving = false;
     }
 
     public boolean update() {
         if (isMoving) {
+            wasMoving = true;
             progress += speed;
             if (progress >= goal) {
                 progress = goal;
                 finish();
                 return true;
             }
+        } else {
+            wasMoving = false;
         }
 
         return isMoving;
@@ -33,6 +38,7 @@ public class Movement {
 
     public void begin(Facing facing) {
         isMoving = true;
+        wasMoving = true;
         this.facing = facing;
         progress = 0;
         goal = Global.tilePixelSize;

@@ -9,10 +9,8 @@ import com.henez.simple.world.mapobjects.Fighter;
 
 public class FighterAnimationValidatorDead extends BaseFighterAnimationValidator implements FighterAnimationValidator {
 
-    protected Animation animation = Animation.dead;
-
     @Override
-    public void isPlaying(Fighter fighter) {
+    public void isPlaying(Fighter fighter, Animation animation) {
         Sprite sprite = fighter.getSprite();
         StatSheet statSheet = fighter.getStatSheet();
         if (!statSheet.isDead()) {
@@ -21,7 +19,7 @@ public class FighterAnimationValidatorDead extends BaseFighterAnimationValidator
     }
 
     @Override
-    public void isNotPlaying(Fighter fighter) {
+    public void isNotPlaying(Fighter fighter, Animation animation) {
         Sprite sprite = fighter.getSprite();
         StatSheet statSheet = fighter.getStatSheet();
         if (statSheet.isDead()) {

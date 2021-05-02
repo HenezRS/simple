@@ -47,7 +47,7 @@ public class Battle {
         if (resultScreen) {
             if (victoryTimer.update()) {
                 victoryTimer.setDisabled(true);
-                EffectFactory.createText(player, "victory!", Colors.text_default.color);
+                EffectFactory.createPopText(player, "victory!", Colors.text_default.color);
             }
             if (xpTimer.update()) {
                 xpTimer.setDisabled(true);

@@ -8,22 +8,20 @@ import com.henez.simple.world.mapobjects.Fighter;
 
 public class FighterAnimationValidatorMove extends BaseFighterAnimationValidator implements FighterAnimationValidator {
 
-    protected Animation animation = Animation.move;
-
     @Override
-    public void isPlaying(Fighter fighter) {
+    public void isPlaying(Fighter fighter, Animation animation) {
         Sprite sprite = fighter.getSprite();
-        if (!fighter.getMovement().isMoving()) {
-            sprite.playAnimationSync(Animation.idle, Animation.move);
-            sprite.stopAnimation(Animation.move);
+        if (!fighter.getMovement().isWasMoving()) {
+            sprite.playAnimationSync(Animation.idle, animation);
+            sprite.stopAnimation(animation);
         }
     }
 
     @Override
-    public void isNotPlaying(Fighter fighter) {
+    public void isNotPlaying(Fighter fighter, Animation animation) {
         Sprite sprite = fighter.getSprite();
         if (fighter.getMovement().isMoving()) {
-            sprite.playAnimationSync(Animation.move, Animation.idle);
+            sprite.playAnimationSync(animation, Animation.idle);
         }
     }
 }

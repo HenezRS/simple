@@ -8,10 +8,8 @@ import com.henez.simple.world.mapobjects.Fighter;
 
 public class FighterAnimationValidatorCast extends BaseFighterAnimationValidator implements FighterAnimationValidator {
 
-    protected Animation animation = Animation.cast;
-
     @Override
-    public void isPlaying(Fighter fighter) {
+    public void isPlaying(Fighter fighter, Animation animation) {
         Sprite sprite = fighter.getSprite();
 
         if (fighter.getSkillExecution().isDone()) {
@@ -20,7 +18,7 @@ public class FighterAnimationValidatorCast extends BaseFighterAnimationValidator
     }
 
     @Override
-    public void isNotPlaying(Fighter fighter) {
+    public void isNotPlaying(Fighter fighter, Animation animation) {
         //Cast animation should start in a skillExecution and never disabled here.
     }
 }

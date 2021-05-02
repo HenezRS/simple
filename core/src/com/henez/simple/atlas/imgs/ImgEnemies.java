@@ -25,6 +25,11 @@ public enum ImgEnemies {
     octo4_idle_1(1, 3),
     octo4_attack_0(2, 3),
     octo4_attack_1(3, 3),
+
+    octoMinor_idle_0(0, 4),
+    octoMinor_idle_1(1, 4),
+    octoMinor_attack_0(2, 4),
+    octoMinor_attack_1(3, 4),
     ;
 
     private final int x;

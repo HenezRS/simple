@@ -1,11 +1,11 @@
 package com.henez.simple.skills.skillcomponent;
 
 import com.henez.simple.datastructures.GameList;
-import com.henez.simple.effect.EffectFactory;
+import com.henez.simple.global.Global;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.skills.SkillName;
-import com.henez.simple.skills.SkillTarget;
 import com.henez.simple.skills.skillstep.SkillStep;
+import com.henez.simple.skills.skillstep.impl.SS_Pause;
 import com.henez.simple.world.mapobjects.Fighter;
 import lombok.Getter;
 
@@ -33,6 +33,7 @@ public abstract class SkillComponent {
 
         steps = new GameList<>();
         buildSteps();
+        steps.add(new SS_Pause(Global.SEC2));
         return this;
     }
 

@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public enum EnemyPartyName {
     octo(ClassName.enemy_octo),
-    octos(ClassName.enemy_octo2, ClassName.enemy_octo2, ClassName.enemy_octo2, ClassName.enemy_octo),
+    octos(ClassName.enemy_octoMinor, ClassName.enemy_octoMinor, ClassName.enemy_octoMinor, ClassName.enemy_octo),
     ;
 
     private GameList<ClassName> names;

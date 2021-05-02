@@ -5,13 +5,11 @@ import com.henez.simple.world.mapobjects.Fighter;
 
 public abstract class BaseFighterAnimationValidator implements FighterAnimationValidator {
 
-    protected Animation animation;
-
-    public void validate(Fighter fighter) {
+    public void validate(Fighter fighter, Animation animation) {
         if (fighter.getSprite().isPlaying(animation)) {
-            isPlaying(fighter);
+            isPlaying(fighter, animation);
         } else {
-            isNotPlaying(fighter);
+            isNotPlaying(fighter, animation);
         }
     }
 }

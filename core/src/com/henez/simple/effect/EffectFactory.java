@@ -17,7 +17,11 @@ public final class EffectFactory {
         Static.effects.add(effect);
     }
 
-    public static void createText(MapObject obj, String text, Color color) {
+    public static void createPopText(MapObject obj, String text) {
+        createPopText(obj, text, Colors.text_default.color);
+    }
+
+    public static void createPopText(MapObject obj, String text, Color color) {
         E_PopText effect = new E_PopText();
         effect.setGridPos(obj.getGx(), obj.getGy());
         effect.setText(text);
