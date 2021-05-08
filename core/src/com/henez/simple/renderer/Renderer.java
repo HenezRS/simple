@@ -1,6 +1,7 @@
 package com.henez.simple.renderer;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.henez.simple.datastructures.Rect;
 import com.henez.simple.global.Global;
 import com.henez.simple.world.mapobjects.MapObject;
 
@@ -82,6 +83,18 @@ public class Renderer {
     public void dispose() {
         batcher.dispose();
         shaper.dispose();
+    }
+
+    public Rect toCameraRect(float x, float y) {
+        return toCameraRect((int) x + getX(), (int) y + getY(), Global.tilePixelSize, Global.tilePixelSize);
+    }
+
+    public Rect toCameraRect(int x, int y) {
+        return toCameraRect(x + getX(), y + getY(), Global.tilePixelSize, Global.tilePixelSize);
+    }
+
+    public Rect toCameraRect(int x, int y, int w, int h) {
+        return new Rect(x + getX(), y + getY(), w, h);
     }
 
     public int getX() {

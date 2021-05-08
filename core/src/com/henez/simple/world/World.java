@@ -3,6 +3,7 @@ package com.henez.simple.world;
 import com.henez.simple.atlas.imgs.ImgIcon7;
 import com.henez.simple.data.PlayerData;
 import com.henez.simple.datastructures.GameList;
+import com.henez.simple.debug.DebugFlags;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.input.In;
 import com.henez.simple.misc.XY;
@@ -68,7 +69,7 @@ public class World {
 
         player.beginMoveIfAble(currentMap);
 
-        if (In.mouse.isClicked()) {
+        if (DebugFlags.canLeftClickToTeleport && In.mouse.isClicked()) {
             playerData.setPartyPosition(In.mouse.getGx(), In.mouse.getGy());
         }
     }
@@ -90,7 +91,6 @@ public class World {
             XY xy = encounterService.getEncounterPositions().get(depth.get());
             enemyParty.add(ActorFactory.createEnemyPositioned(xy.getX(), xy.getY(), depth.getAndIncrement(), enemyClass));
         });
-        //Collections.reverse(enemyParty);
         enemyParty.get(0).setIsLeader();
         addToWorld(enemyParty);
 

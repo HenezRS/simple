@@ -4,8 +4,9 @@ import com.badlogic.gdx.graphics.Color;
 
 public enum Colors {
     white(new Color(0xffffffff)),
+    white_50(white.withAlpha(0.5f)),
+    white_30(white.withAlpha(0.3f)),
     black(new Color(0x000000ff)),
-    green(new Color(0x00ff00ff)),
     black_50(black.withAlpha(0.5f)),
     text_default(new Color(0xe5c79eff)),
     text_hover(new Color(0xffffefff)),
@@ -43,8 +44,11 @@ public enum Colors {
     pal_dark_3(new Color(0x997577ff)),
 
     red(new Color(0xffaa77ff)),
+    red_50(red.withAlpha(0.5f)),
     blue(new Color(0x77aaffff)),
     yellow(new Color(0xffff77ff)),
+    green(new Color(0xa7ff78ff)),
+    green_50(green.withAlpha(0.5f)),
     ;
 
     public Color color;

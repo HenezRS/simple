@@ -20,6 +20,8 @@ import lombok.Getter;
 
 import java.util.Arrays;
 
+import static com.henez.simple.debug.DebugFlags.canNonLeadersAct;
+
 @Getter
 public class Fighter extends Actor {
     protected StatSheet statSheet;
@@ -82,7 +84,7 @@ public class Fighter extends Actor {
 
     public void determineSkillCast(SkillTargetBuilder targetBuilder) {
         SkillName chosenSkill = null;
-        if (isLeader && (DebugFlags.canEnemiesAct || isPlayer)) {
+        if ((canNonLeadersAct || isLeader) && (DebugFlags.canEnemiesAct || (DebugFlags.canPlayersAct && isPlayer))) {
             chosenSkill = SkillName.MISSILE_CAST;
             if (turn == 1) {
                 chosenSkill = SkillName.ATTACK_CAST;

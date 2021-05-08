@@ -1,0 +1,7 @@
+~|===||~ SIMPLE: GAME STRUCTURE ~||===|~
+
+=-=-= Zone Types
+1. towns
+2. overworld
+3. area
+4. twisted area

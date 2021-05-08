@@ -46,3 +46,53 @@ Equipment: Light, Magical
 Equipment: Heavy, Melee
 
 ==
+
+
+
+
+=-=-= Alignments 2D
+STR:
+- pow: Ruthlessdebug
+- def: Fortitude
+DEX:
+- pow: Deadly
+- def: Artful
+INT:
+- pow: Destruction
+- def: Spiritual
+
+
+Ruthless: Warrior (str, blades, phys)
+Fortitude: Templar (str, staffs, heals, bolt, fire)
+Deadly: Assassin (dex, blades, crit, phys)
+Artful: Archer (dex, bows, phys, elemental)
+Destruction: Mage (int, staffs, heals, elemental)
+Spiritual: Spirit Deadeye (int, bows, cold, dark, phys)
+
+- gaps:
+Str: Siege Bowman (str, bows)
+Dex: Monk (dex, staffs, unarmed, heals, phys, holy)
+Int: Moonblade (int, blades, dark, holy)
+
+
+=-=-= Alignments 3D
+STR:
+- str-dex: Ruthless
+- str: Fortitude
+- str-mag:
+DEX:
+- dex-str: Deadly
+- dex: Artful
+- dex-mag: Artful
+INT:
+- int-str: Destruction
+- int: Spiritual
+- int-dex:
+
+
+Ruthless: Warrior
+Fortitude: Templar
+Deadly: Assassin
+Artful: Archer
+Destruction: Mage
+Spiritual: Cleric

@@ -4,6 +4,7 @@ import com.henez.simple.enums.Facing;
 import com.henez.simple.enums.animation.Animation;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.global.Global;
+import com.henez.simple.input.In;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.sprite.SpriteAnimation;
@@ -49,5 +50,13 @@ public class MapObject {
 
     public void giveAnimation(Animation animation, SpriteAnimation spriteAnimation) {
         sprite.getAnimations().put(animation, spriteAnimation);
+    }
+
+    public boolean isMouseOver() {
+        return In.mouse.isMouseWithinGrid(gx, gy);
+    }
+
+    public boolean isClickedOn() {
+        return In.mouse.isClicked() && In.mouse.isMouseWithinGrid(gx, gy);
     }
 }

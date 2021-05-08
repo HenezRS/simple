@@ -50,4 +50,8 @@ public class Mouse {
     public boolean isMouseWithinInclusive(int xx, int yy, int w, int h) {
         return x > xx - 1 && x < xx + w + 1 && y > yy - 1 && y < yy + h + 1;
     }
+
+    public boolean isMouseWithinGrid(int xx, int yy) {
+        return gx > xx - 1 && gx < xx + 1 && gy > yy - 1 && gy < yy + 1;
+    }
 }

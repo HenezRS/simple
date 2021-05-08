@@ -95,6 +95,10 @@ public class Shaper extends ShapeRenderer {
         bar(new Rect(x, y, w, 1), percent, color, colorUnder);
     }
 
+    public void barH(int x, int y, int h, int w, float percent, Color color, Color colorUnder) {
+        bar(new Rect(x, y, w, h), percent, color, colorUnder);
+    }
+
     public void bar2(Rectangle rect, float percent, Color color, Color color2, Color colorUnder) {
         float w = rect.width;
         bar(rect, percent, color, colorUnder);

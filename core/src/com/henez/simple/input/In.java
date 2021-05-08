@@ -20,10 +20,16 @@ public class In {
     public static Key tab = new Key("TAB");
     public static Mouse mouse = new Mouse();
 
+    public static Key skill1 = new Key("Q");
+    public static Key skill2 = new Key("W");
+    public static Key skill3 = new Key("E");
+    public static Key skill4 = new Key("R");
+
     public static GameList<Key> keys;
 
     public In() {
-        keys = Stream.of(right, up, left, down, esc, ctrl, space).collect(Collectors.toCollection(GameList::new));
+        keys = Stream.of(right, up, left, down, esc, ctrl, space,
+                         tab, skill1, skill2, skill3, skill4).collect(Collectors.toCollection(GameList::new));
     }
 
     public static String showHeld() {
@@ -44,6 +50,11 @@ public class In {
         set(esc, Input.Keys.ESCAPE);
         set(space, Input.Keys.SPACE);
         set(tab, Input.Keys.TAB);
+
+        set(skill1, Input.Keys.Q);
+        set(skill2, Input.Keys.W);
+        set(skill3, Input.Keys.E);
+        set(skill4, Input.Keys.R);
 
         mouse.setClicked(Gdx.input.justTouched() && Gdx.input.isButtonPressed(Input.Buttons.LEFT));
         mouse.setHeld(Gdx.input.isButtonPressed(Input.Buttons.LEFT));

@@ -1,0 +1,18 @@
+~|===||~ ISSUES ~||===|~
+
+-- Class Weapons
+Issue: Class sprites have static weapons drawn (e.g. knight has a sword). This limits weapon pool for classes
+Answer:
+ - Common weapons will be generic ('Steel' instead of 'Steel Sword')
+ - Special / Unique weapons can be locked to a slot only usable by their class
+
+ -- Class Skills
+ Issue: Class sprites have static weapons drawn (e.g. knight has a sword). This limits skill animation pool for classes
+ Answer:
+ - Each class has a generic cast and channel animation so magic is OK
+ - For missile vs slash/bash skills:
+    -- default to restricting to class weapons
+    -- abundance of buff effects that allow cross-weapon skilling. examples:
+        --- Bow users can shoot blades for melee slash skills
+        --- Sword uses can conjure throwing weapons for bow skills
+        --- Mages can use magic arrows/throwing knives

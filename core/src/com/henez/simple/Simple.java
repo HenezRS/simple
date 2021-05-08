@@ -92,7 +92,19 @@ class Simple {
         //batch 0 map ---
         batch.begin();
         batch.draw(world.getCurrentMap().getMapTex(), 0, 0);
+        if (world.getState() == WorldState.BATTLE) {
+            battleDrawer.drawUnderActorsBatch(batch);
+        }
         batch.end();
+        // ---
+
+        //shape 0 map ---
+        shape.begin(ShapeRenderer.ShapeType.Filled);
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        if (world.getState() == WorldState.BATTLE) {
+            battleDrawer.drawUnderActorsShape(shape);
+        }
+        shape.end();
         // ---
 
         batch.setShader(Shader.sprite.shader);
@@ -110,7 +122,7 @@ class Simple {
         //batch 2 effects ---
         batch.begin();
         if (world.getState() == WorldState.BATTLE) {
-            battleDrawer.drawBattle(batch);
+            battleDrawer.drawBattleActorsExecuting(batch);
         }
         Static.effects.draw(batch);
         batch.end();
@@ -121,7 +133,7 @@ class Simple {
         Gdx.gl.glEnable(GL20.GL_BLEND);
         debugDrawer.drawShapeWorld(shape, world);
         if (world.getState() == WorldState.BATTLE) {
-            battleDrawer.drawPanelsShape(shape);
+            battleDrawer.drawUiShape(shape);
         }
         shape.end();
         // ---
@@ -129,7 +141,7 @@ class Simple {
         //batch 3 ---
         batch.begin();
         if (world.getState() == WorldState.BATTLE) {
-            battleDrawer.drawPanelsBatch(batch);
+            battleDrawer.drawUiBatch(batch);
         }
         debugDrawer.drawBatch(batch, world, framerate);
         batch.end();

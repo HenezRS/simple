@@ -1,0 +1,5 @@
+~|===||~ MIRROR ANGELS PARADISE 2 ~||===|~
+- DQ overworld, MAP combat instances with wild encounters
+- Party of 4 but only 1 active at a time in combat
+- Using abilities rotates to another party member
+- RotMG / NES aesthetic, minimal animation, interesting enemy movement/patterns

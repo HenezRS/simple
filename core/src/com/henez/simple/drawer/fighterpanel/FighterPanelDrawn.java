@@ -1,4 +1,4 @@
-package com.henez.simple.drawer;
+package com.henez.simple.drawer.fighterpanel;
 
 import com.badlogic.gdx.graphics.Color;
 import com.henez.simple.Static;
@@ -17,7 +17,7 @@ import com.henez.simple.world.mapobjects.FighterState;
 
 import static com.henez.simple.text.Text.TEXT_H;
 
-public class FighterPanelDrawer {
+public class FighterPanelDrawn {
     private int minorW = 22;
     private int minorH = 24;
     private int minorBarHpX = 2;
@@ -68,7 +68,7 @@ public class FighterPanelDrawer {
     private Color backColor;
     private Color frameColor;
 
-    public FighterPanelDrawer() {
+    public FighterPanelDrawn() {
     }
 
     public void drawBatchPlayer(Batcher batch, int x, int y, Fighter fighter) {
