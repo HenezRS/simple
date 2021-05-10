@@ -3,6 +3,7 @@ package com.henez.simple.renderer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.henez.simple.Static;
 import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Colors;
@@ -24,6 +25,11 @@ public class Shaper extends ShapeRenderer {
         ty = y;
     }
 
+    public void addCameraTransform() {
+        tx = Static.renderer.getX();
+        ty = Static.renderer.getY();
+    }
+
     public void resetTransform() {
         tx = 0;
         ty = 0;
@@ -40,7 +46,7 @@ public class Shaper extends ShapeRenderer {
 
     public void rect(int x, int y, int w, int h, Color color) {
         setColor(color);
-        rect(x, y, w, h);
+        rect(x + tx, y + ty, w, h);
     }
 
     public void rectGrid(int gx, int gy, Color color) {
@@ -95,7 +101,7 @@ public class Shaper extends ShapeRenderer {
         bar(new Rect(x, y, w, 1), percent, color, colorUnder);
     }
 
-    public void barH(int x, int y, int h, int w, float percent, Color color, Color colorUnder) {
+    public void barH(int x, int y, int w, int h, float percent, Color color, Color colorUnder) {
         bar(new Rect(x, y, w, h), percent, color, colorUnder);
     }
 

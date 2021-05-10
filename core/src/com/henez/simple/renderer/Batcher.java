@@ -58,7 +58,15 @@ public class Batcher extends SpriteBatch {
         }
     }
 
+    public void drawToCamera(TextureRegion region, float x, float y) {
+        draw(region, x + Static.renderer.getX(), y + Static.renderer.getY());
+    }
+
     public void drawToCamera(TextureRegion region, float x, float y, Facing facing) {
+        draw(region, x + Static.renderer.getX(), y + Static.renderer.getY(), facing);
+    }
+
+    public void drawToCamera(TextureRegionEnhanced region, float x, float y, Facing facing) {
         draw(region, x + Static.renderer.getX(), y + Static.renderer.getY(), facing);
     }
 

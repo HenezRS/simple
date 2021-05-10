@@ -3,6 +3,7 @@ package com.henez.simple.world.battle;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.input.In;
 import com.henez.simple.input.Key;
+import com.henez.simple.skills.SkillName;
 import com.henez.simple.world.mapobjects.Fighter;
 import lombok.Getter;
 
@@ -10,23 +11,28 @@ import lombok.Getter;
 public class BattleControl {
     private GameList<Key> skillKeys;
     private int nextSkillIndex;
+    private Fighter controlledPlayer;
     private Fighter enemyTarget;
     private Fighter playerTarget;
     private Fighter mouseOverTarget;
+    private SkillName selectedSkill;
 
-    public BattleControl(Fighter firstPlayerTarget, Fighter firstEnemyTarget) {
+    public BattleControl(Fighter controlledPlayer, Fighter firstPlayerTarget, Fighter firstEnemyTarget) {
         skillKeys = new GameList<>();
         skillKeys.addAll(In.skill1, In.skill2, In.skill3, In.skill4);
+        this.controlledPlayer = controlledPlayer;
         this.playerTarget = firstPlayerTarget;
         this.enemyTarget = firstEnemyTarget;
+
+        nextSkillIndex = 0;
+        selectedSkill = controlledPlayer.getSkillSheet().getSkills().get(nextSkillIndex);
     }
 
     public void captureInput(GameList<Fighter> fighters) {
-        nextSkillIndex = 0;
-
         for (int i = 0; i < skillKeys.size(); ++i) {
-            if (skillKeys.get(i).isHeld()) {
+            if (skillKeys.get(i).isHeld() && controlledPlayer.getSkillSheet().hasValidSkillInSlotIndex(i)) {
                 nextSkillIndex = i;
+                selectedSkill = controlledPlayer.getSkillSheet().getSkills().get(i);
                 i = skillKeys.size();
             }
         }

@@ -25,5 +25,6 @@ public class DebugFlags {
         //canPlayersAct = false;
         //canEncounterWithSteps = false;
         //drawPlayerAnimationInfo = true;
+        mulSkillNamePower = 0.1f;
     }
 }

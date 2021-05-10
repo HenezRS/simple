@@ -9,6 +9,7 @@ import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.skills.SkillExecution;
 import com.henez.simple.skills.SkillName;
+import com.henez.simple.skills.SkillSheet;
 import com.henez.simple.skills.SkillTargetBuilder;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.stats.Cast;
@@ -25,6 +26,7 @@ import static com.henez.simple.debug.DebugFlags.canNonLeadersAct;
 @Getter
 public class Fighter extends Actor {
     protected StatSheet statSheet;
+    protected SkillSheet skillSheet;
     protected SkillExecution skillExecution;
     protected Cast cast;
     protected FighterState fighterState;
@@ -41,6 +43,7 @@ public class Fighter extends Actor {
         this.className = className;
         this.imgSetFighters = className.getImgSet();
         statSheet = new StatSheet();
+        skillSheet = new SkillSheet();
         skillExecution = new SkillExecution();
         cast = new Cast();
         this.enemyRank = className.getEnemyRank();

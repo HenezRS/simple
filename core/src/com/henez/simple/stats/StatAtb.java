@@ -16,7 +16,7 @@ public class StatAtb {
         current = 0;
         max = 1000f;
         ready = false;
-        add = 100f / Global.SEC;
+        add = 100f / (Global.SEC * 1.5f);
     }
 
     public boolean update() {

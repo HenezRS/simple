@@ -1,5 +1,7 @@
 package com.henez.simple.skills;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.henez.simple.atlas.imgs.ImgIconSkills;
 import com.henez.simple.debug.DebugFlags;
 import com.henez.simple.global.Global;
 import com.henez.simple.skills.skillgroup.SkillGroup;
@@ -11,24 +13,25 @@ import lombok.Getter;
 @Getter
 @SuppressWarnings("all")
 public enum SkillName {
-    ERROR("[error: missing skill]", 0, 0, 0, 0, 0, SkillTargetName.SINGLE),
-    DO_NOTHING("do nothing", 0, 0, 0, 0, 0, SkillTargetName.SINGLE),
-    ATTACK("attack", 1, 0, 0, 0, 0, SkillTargetName.SINGLE),
-    ATTACK_ALL("attack all", 3.2f, 2, Global.SEC * 2, 0, 0, SkillTargetName.ALL),
-    ATTACK_CAST_SLOW("attack cast slow", 3.2f, 2, Global.SEC * 2, 0, 0, SkillTargetName.SINGLE),
-    ATTACK_CAST("attack cast", 3.2f, 2, Global.SEC * 2, 0, 0, SkillTargetName.SINGLE),
-    ATTACK_CAST_FAST("attack cast fast", 3.2f, 2, Global.SEC * 2, 0, 0, SkillTargetName.SINGLE),
-    ATTACK_CHANNEL("attack channel", 0.4f, 2, 0, Global.SEC * 4, 4, SkillTargetName.SINGLE),
-    ATTACK_CAST_CHANNEL("attack cast channel", 0.4f, 2, Global.SEC * 2, Global.SEC * 4, 8, SkillTargetName.SINGLE),
-    ATTACK_CAST_CHANNEL_RAPID("attack rapid", 0.3f, 2, Global.SEC * 1.2f, Global.SEC * 4, 24, SkillTargetName.SINGLE),
-    MISSILE_CAST("missile", 3.2f, 2, Global.SEC * 1, 0, 0, SkillTargetName.SINGLE),
-    MISSILE_CAST_ALL("missile all", 3.2f, 2, Global.SEC * 1, 0, 0, SkillTargetName.ALL),
-    MISSILE_CAST_ALL_INSTANT("missile all insta", 3.2f, 2, Global.SEC * 1, 0, 0, SkillTargetName.ALL),
-    MISSILE_CAST_ALLSEQ("missile all seq", 3.2f, 2, Global.SEC * 1, 0, 0, SkillTargetName.ALL),
-    ICE_SPIKE("ice spike", 3.2f, 2, Global.SEC * 2, 0, 0, SkillTargetName.SINGLE),
+    ERROR("[error: missing skill]", ImgIconSkills.missing, 0, 0, 0, 0, 0, SkillTargetName.SINGLE),
+    DO_NOTHING("do nothing", ImgIconSkills.missing, 0, 0, 0, 0, 0, SkillTargetName.SINGLE),
+    ATTACK("attack", ImgIconSkills.attack, 1, 0, 0, 0, 0, SkillTargetName.SINGLE),
+    ATTACK_ALL("attack all", ImgIconSkills.missing, 3.2f, 2, Global.SEC * 2, 0, 0, SkillTargetName.ALL),
+    ATTACK_CAST_SLOW("attack cast slow", ImgIconSkills.missing, 3.2f, 2, Global.SEC * 2, 0, 0, SkillTargetName.SINGLE),
+    ATTACK_CAST("attack cast", ImgIconSkills.missing, 3.2f, 2, Global.SEC * 2, 0, 0, SkillTargetName.SINGLE),
+    ATTACK_CAST_FAST("attack cast fast", ImgIconSkills.missing, 3.2f, 2, Global.SEC * 2, 0, 0, SkillTargetName.SINGLE),
+    ATTACK_CHANNEL("attack channel", ImgIconSkills.missing, 0.4f, 2, 0, Global.SEC * 4, 4, SkillTargetName.SINGLE),
+    ATTACK_CAST_CHANNEL("attack cast channel", ImgIconSkills.missing, 0.4f, 2, Global.SEC * 2, Global.SEC * 4, 8, SkillTargetName.SINGLE),
+    ATTACK_CAST_CHANNEL_RAPID("attack rapid", ImgIconSkills.missing, 0.3f, 2, Global.SEC * 1.2f, Global.SEC * 4, 24, SkillTargetName.SINGLE),
+    MISSILE_CAST("missile", ImgIconSkills.flame, 3.2f, 2, Global.SEC * 3, 0, 0, SkillTargetName.SINGLE),
+    MISSILE_CAST_ALL("missile all", ImgIconSkills.missing, 3.2f, 2, Global.SEC * 1, 0, 0, SkillTargetName.ALL),
+    MISSILE_CAST_ALL_INSTANT("missile all insta", ImgIconSkills.missing, 3.2f, 2, Global.SEC * 1, 0, 0, SkillTargetName.ALL),
+    MISSILE_CAST_ALLSEQ("missile all seq", ImgIconSkills.missing, 3.2f, 2, Global.SEC * 1, 0, 0, SkillTargetName.ALL),
+    ICE_SPIKE("ice spike", ImgIconSkills.ice_spike, 3.2f, 2, Global.SEC * 2, 0, 0, SkillTargetName.SINGLE),
     ;
 
     private String name;
+    private TextureRegion tex;
     private float power;
     private int cost;
     private int castDelay;
@@ -36,8 +39,9 @@ public enum SkillName {
     private int channelExecutionCount;
     private SkillTargetName target;
 
-    SkillName(String name, float power, int cost, float castDelay, float channelDelay, int channelExecutionCount, SkillTargetName target) {
+    SkillName(String name, ImgIconSkills img, float power, int cost, float castDelay, float channelDelay, int channelExecutionCount, SkillTargetName target) {
         this.name = name;
+        this.tex = img.asTex().getTex();
         this.power = power * DebugFlags.mulSkillNamePower;
         this.cost = cost;
         this.castDelay = (int) castDelay;

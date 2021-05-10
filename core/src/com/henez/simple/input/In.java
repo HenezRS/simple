@@ -26,10 +26,12 @@ public class In {
     public static Key skill4 = new Key("R");
 
     public static GameList<Key> keys;
+    public static GameList<Key> skillKeys;
 
     public In() {
         keys = Stream.of(right, up, left, down, esc, ctrl, space,
                          tab, skill1, skill2, skill3, skill4).collect(Collectors.toCollection(GameList::new));
+        skillKeys = Stream.of(skill1, skill2, skill3, skill4).collect(Collectors.toCollection(GameList::new));
     }
 
     public static String showHeld() {
@@ -74,5 +76,9 @@ public class In {
     private void set(Key key, int code) {
         boolean wasPressed = key.isPressed();
         key.set(Gdx.input.isKeyJustPressed(code), Gdx.input.isKeyPressed(code), !Gdx.input.isKeyPressed(code) && wasPressed);
+    }
+
+    public static String getSkillKeyNameByIndex(int i) {
+        return skillKeys.get(i).getName();
     }
 }

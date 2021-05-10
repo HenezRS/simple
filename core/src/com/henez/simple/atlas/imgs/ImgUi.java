@@ -9,7 +9,8 @@ public enum ImgUi {
     button(0, 0, 20, 20),
     button_active(20, 0, 20, 20),
     button_hover(40, 0, 20, 20),
-    arrow_right(60, 0, 15, 8);
+    arrow_right(60, 0, 15, 8),
+    arrow_right_grey(60, 8, 15, 8);
 
     private final int x;
     private final int y;

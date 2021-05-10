@@ -32,7 +32,7 @@ public class Battle {
         playerWin = false;
         turnTimer = new Timer(1);
         battleTimer = new Timer();
-        battleControl = new BattleControl(playerParty.first(), enemyParty.first());
+        battleControl = new BattleControl(playerParty.first(), playerParty.first(), enemyParty.first());
         battleMembers = new BattleMembers(playerParty, enemyParty);
         this.playerParty = playerParty;
         player = playerParty.first();

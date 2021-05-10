@@ -16,6 +16,7 @@ public class Atlas {
     private static TextureRegion[][] texActors;
     private static TextureRegion[][] texEnemies;
     private static TextureRegion[][] texEffects;
+    private static TextureRegion[][] texIconSkills;
     private static TextureRegion[][] texIcon7;
     private static Map<ImgUi, TextureRegion> texUi;
 
@@ -24,6 +25,7 @@ public class Atlas {
         texActors = loadTilesFromFile("png/actors.png", Global.tilePixelSize);
         texEnemies = loadTilesFromFile("png/enemies.png", Global.tilePixelSize);
         texEffects = loadTilesFromFile("png/effects.png", Global.tilePixelSize);
+        texIconSkills = loadTilesFromFile("png/iconSkills.png", Global.tilePixelSize);
         texIcon7 = loadTilesFromFile("png/icon7.png", 7);
         texUi = loadTilesUi();
     }
@@ -42,6 +44,10 @@ public class Atlas {
 
     public static TextureRegionEnhanced toTex(ImgEffects img) {
         return new TextureRegionEnhanced(texEffects[img.getY()][img.getX()]);
+    }
+
+    public static TextureRegionEnhanced toTex(ImgIconSkills img) {
+        return new TextureRegionEnhanced(texIconSkills[img.getY()][img.getX()]);
     }
 
     public static TextureRegion toTex(ImgIcon7 img) {

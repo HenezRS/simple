@@ -136,7 +136,6 @@ public class FighterPanelDrawn {
         batch.draw(fighter.getSprite().getTex(), x + playerX, y + playerY, Facing.LEFT);
 
         if (!fighter.isDead()) {
-
             if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING, FighterState.CHANNELLING)) {
                 Static.text.draw(batch, fighter.getCast().getName() + "", x + skillNameX, y + skillNameY);
             }
