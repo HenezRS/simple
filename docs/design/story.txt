@@ -1,0 +1,26 @@
+~|===||~ SIMPLE: STORY ~||===|~
+
+== Characters
+W: Wise but delirious wizard. Creates portal
+G: General warlord ruled over the land. Destroys portal
+E: Son of G. Kills father once he succumbs to the calling of power from the portal. Repairs Portal
+M: Crystal maiden/God.
+H: Heroic party. No personality. Bear crystal shards from the Maiden
+H2: Heroic party 2nd playthrough/hard mode. No crystal powers (cant change jobs)
+
+== Concepts
+Harmonies: Areas that resonate with the crystal shards. H goal.
+Act 1: first half of game. Customisable party
+Act 2: time replay of Act 1 with new heroes set in stone
+
+== Super High Level Plot
+- H finds each other through plot characters and searches for Harmonies
+- E searches for H / the shards needing them to complete portal repair
+-
+
+== Plot
+- Wise but delirious wizard hears callings from another world.
+-
+
+
+== Progression

@@ -5,6 +5,7 @@ import com.henez.simple.effect.EffectFactory;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.global.Global;
 import com.henez.simple.misc.timer.Timer;
+import com.henez.simple.world.mapobjects.ControlledPlayer;
 import com.henez.simple.world.mapobjects.Fighter;
 import lombok.Getter;
 
@@ -36,6 +37,7 @@ public class Battle {
         battleMembers = new BattleMembers(playerParty, enemyParty);
         this.playerParty = playerParty;
         player = playerParty.first();
+        ((ControlledPlayer) player).setBattleControl(battleControl);
 
         victoryTimer = new Timer(Global.SEC2);
         xpTimer = new Timer(Global.SEC + Global.SEC2);

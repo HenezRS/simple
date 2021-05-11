@@ -7,6 +7,9 @@ import com.henez.simple.sprite.animation.AnimationDynamicFactory;
 import com.henez.simple.stats.classes.ClassName;
 
 public final class ActorFactory {
+
+    private static int nextId = 0;
+
     private ActorFactory() {
     }
 
@@ -46,5 +49,9 @@ public final class ActorFactory {
         if (dynamic != null) {
             fighter.giveAnimation(animation, new SpriteAnimation(dynamic));
         }
+    }
+
+    public static int getNextIdAndIncrement() {
+        return nextId++;
     }
 }

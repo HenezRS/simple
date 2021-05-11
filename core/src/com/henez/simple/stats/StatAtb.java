@@ -1,6 +1,7 @@
 package com.henez.simple.stats;
 
 import com.henez.simple.datastructures.Numbers;
+import com.henez.simple.debug.DebugFlags;
 import com.henez.simple.global.Global;
 import lombok.Getter;
 
@@ -17,6 +18,7 @@ public class StatAtb {
         max = 1000f;
         ready = false;
         add = 100f / (Global.SEC * 1.5f);
+        add *= DebugFlags.mulBattleSpeed;
     }
 
     public boolean update() {

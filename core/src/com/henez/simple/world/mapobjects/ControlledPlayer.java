@@ -1,10 +1,15 @@
 package com.henez.simple.world.mapobjects;
 
 import com.henez.simple.datastructures.GameList;
+import com.henez.simple.debug.DebugFlags;
+import com.henez.simple.enums.Colors;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.input.In;
+import com.henez.simple.skills.SkillName;
+import com.henez.simple.skills.SkillTargetBuilder;
 import com.henez.simple.stats.classes.ClassName;
+import com.henez.simple.world.battle.BattleControl;
 import com.henez.simple.world.map.gamemap.GameMap;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,9 +22,11 @@ import java.util.stream.Collectors;
 public class ControlledPlayer extends Fighter {
     private boolean moveAble;
     private GameList<Fighter> party;
+    private BattleControl battleControl;
 
     public ControlledPlayer(int gx, int gy, ClassName className, int depth) {
         super(gx, gy, className, depth);
+        isBattleControlled = true;
     }
 
     @Override
@@ -35,6 +42,25 @@ public class ControlledPlayer extends Fighter {
                     beginMoveParty(facing, map);
                 }
             });
+        }
+    }
+
+    @Override
+    public void determineSkillCast(SkillTargetBuilder targetBuilder) {
+        SkillName chosenSkill = null;
+        if (DebugFlags.canPlayersAct) {
+            chosenSkill = battleControl.getSelectedSkill();
+        }
+
+        if (chosenSkill != null && targetBuilder.isTargetsAvailable()) {
+            cast.begin(chosenSkill, targetBuilder.createTargetWithPrimary(chosenSkill, battleControl.getEnemyTarget()), 1);
+            sprite.getSpriteEffectManager().createBlink(Colors.white.color);
+
+            if (cast.isInstant()) {
+                skillBeginCastExecution();
+            } else {
+                fighterState = FighterState.CASTING;
+            }
         }
     }
 

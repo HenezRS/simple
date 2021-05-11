@@ -2,7 +2,6 @@ package com.henez.simple.skills;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.atlas.imgs.ImgIconSkills;
-import com.henez.simple.debug.DebugFlags;
 import com.henez.simple.global.Global;
 import com.henez.simple.skills.skillgroup.SkillGroup;
 import com.henez.simple.skills.skillgroup.impl.SG_All;
@@ -42,7 +41,7 @@ public enum SkillName {
     SkillName(String name, ImgIconSkills img, float power, int cost, float castDelay, float channelDelay, int channelExecutionCount, SkillTargetName target) {
         this.name = name;
         this.tex = img.asTex().getTex();
-        this.power = power * DebugFlags.mulSkillNamePower;
+        this.power = power;
         this.cost = cost;
         this.castDelay = (int) castDelay;
         this.channelDelay = (int) channelDelay;

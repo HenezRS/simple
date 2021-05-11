@@ -14,17 +14,21 @@ public class DebugFlags {
     public static boolean drawPlayerAnimationInfo = false;
     public static boolean drawBattleQueues = false;
 
-    public static float mulSkillNamePower = 1.0f;
+    public static float mulSkillNamePowerPlayer = 1.0f;
+    public static float mulSkillNamePowerEnemy = 1.0f;
+    public static float mulBattleSpeed = 1.0f;
 
     //cheats
     public static boolean canLeftClickToTeleport = false;
 
     public static void override() {
         //canNonLeadersAct = false;
-        //canEnemiesAct = false;
+        canEnemiesAct = false;
         //canPlayersAct = false;
         //canEncounterWithSteps = false;
         //drawPlayerAnimationInfo = true;
-        mulSkillNamePower = 0.1f;
+        mulSkillNamePowerPlayer = 10.1f;
+        mulSkillNamePowerEnemy = 0.1f;
+        mulBattleSpeed = 10.0f;
     }
 }

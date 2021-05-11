@@ -37,6 +37,7 @@ public class Fighter extends Actor {
     protected boolean isLeader = false;
     protected EnemyRank enemyRank;
     protected int turn;
+    protected boolean isBattleControlled = false;
 
     public Fighter(int gx, int gy, ClassName className, int depth) {
         super(gx, gy, new Sprite(), depth);
@@ -98,7 +99,7 @@ public class Fighter extends Actor {
         }
 
         if (chosenSkill != null && targetBuilder.isTargetsAvailable()) {
-            cast.begin(chosenSkill, targetBuilder.createTarget(chosenSkill), 1);
+            cast.begin(chosenSkill, targetBuilder.createTargetIntelligent(chosenSkill), 1);
             sprite.getSpriteEffectManager().createBlink(Colors.white.color);
 
             if (cast.isInstant()) {

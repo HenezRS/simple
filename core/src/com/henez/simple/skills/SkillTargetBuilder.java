@@ -28,10 +28,26 @@ public class SkillTargetBuilder {
         targetsAvailable = targets.size() > 0;
     }
 
-    public SkillTarget createTarget(SkillName skillName) {
+    public SkillTarget createTargetIntelligent(SkillName skillName) {
         switch (skillName.getTarget()) {
-        case SINGLE: singleRandomEnemy();
-        case ALL: allEnemies();
+        case SINGLE:
+            singleRandomEnemy();
+            break;
+        case ALL:
+            allEnemies();
+            break;
+        }
+        return new SkillTarget(source, selectedTargets);
+    }
+
+    public SkillTarget createTargetWithPrimary(SkillName skillName, Fighter target) {
+        switch (skillName.getTarget()) {
+        case SINGLE:
+            addTargetOrAddFirstValid(target);
+            break;
+        case ALL:
+            allEnemiesWithPrimary(target);
+            break;
         }
         return new SkillTarget(source, selectedTargets);
     }
@@ -44,7 +60,16 @@ public class SkillTargetBuilder {
         selectedTargets.addAll(targets);
     }
 
+    private void allEnemiesWithPrimary(Fighter target) {
+        selectedTargets.addAll(targets.stream().filter(t -> t.getId() != target.getId()).collect(Collectors.toCollection(GameList::new)));
+        selectedTargets.add(0, target);
+    }
+
     private void addRandomTarget() {
         selectedTargets.add(targets.random());
+    }
+
+    private void addTargetOrAddFirstValid(Fighter target) {
+        selectedTargets.add(target.canBeTarget() ? target : targets.get(0));
     }
 }

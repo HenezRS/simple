@@ -1,6 +1,7 @@
 package com.henez.simple.stats.damage;
 
 import com.henez.simple.datastructures.Numbers;
+import com.henez.simple.debug.DebugFlags;
 import com.henez.simple.enums.StatName;
 import com.henez.simple.skills.skillcomponent.SkillComponent;
 import com.henez.simple.world.mapobjects.Fighter;
@@ -23,6 +24,7 @@ public class Damage {
 
     private void calc() {
         dmg = skillComponent.getSkillName().getPower();
+        dmg *= source.isPlayer() ? DebugFlags.mulSkillNamePowerPlayer : DebugFlags.mulSkillNamePowerEnemy;
         dmg *= 6; //wep
         dmg *= 1 + ((float) this.source.getStatSheet().getStatCur(StatName.STR) / 10.0f);
         //dmg *= 1 - ((float) this.target.getStatSheet().getStatCur(StatName.DEF) / 10.0f);

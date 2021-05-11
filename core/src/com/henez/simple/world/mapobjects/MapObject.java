@@ -19,10 +19,12 @@ public class MapObject {
     protected int gy;
     protected Sprite sprite;
     protected int depth;
+    protected int id;
 
     public MapObject(int gx, int gy, Sprite sprite, int depth) {
         resetPosition(gx, gy, depth);
         this.sprite = sprite;
+        this.id = ActorFactory.getNextIdAndIncrement();
     }
 
     public void resetPosition(int gx, int gy, int depth) {
