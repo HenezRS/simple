@@ -18,7 +18,7 @@ public class SkillExecution {
     public void executeSkill(SkillName skillName, SkillTarget skillTarget) {
         this.skillName = skillName;
         executing = true;
-        skillGroup = skillName.create(skillTarget);
+        skillGroup = skillName.createGroup(skillTarget);
     }
 
     public void update() {

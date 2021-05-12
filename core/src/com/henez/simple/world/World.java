@@ -48,29 +48,35 @@ public class World {
     }
 
     public void update() {
-        objects.forEach(obj -> obj.update(state, currentMap));
-        if (player.isMoveComplete()) {
-            playerData.deductEncounterStep();
-            encounterService.reset();
-            if (player.getTileDetail().isExit()) {
-                player.setMoveAble(false);
-                nextFloor();
-            } else if (playerData.readyForEncounter() && encounterService.canEncounter(player.getGx(), player.getGy(), player.getLastMoveDir(), currentMap)) {
-                if (encounterService.setEncounterPositionsAndReturnValid(currentMap, objects)) {
+        if (!battleIsPaused()) {
+            objects.forEach(obj -> obj.update(state, currentMap));
+            if (player.isMoveComplete()) {
+                playerData.deductEncounterStep();
+                encounterService.reset();
+                if (player.getTileDetail().isExit()) {
                     player.setMoveAble(false);
-                    beginEncounter();
+                    nextFloor();
+                } else if (playerData.readyForEncounter() && encounterService.canEncounter(player.getGx(), player.getGy(), player.getLastMoveDir(), currentMap)) {
+                    if (encounterService.setEncounterPositionsAndReturnValid(currentMap, objects)) {
+                        player.setMoveAble(false);
+                        beginEncounter();
+                    }
                 }
+            }
+
+            if (state == WorldState.BATTLE) {
+                updateBattle();
+            }
+
+            player.beginMoveIfAble(currentMap);
+
+            if (DebugFlags.canLeftClickToTeleport && In.mouse.isClicked()) {
+                playerData.setPartyPosition(In.mouse.getGx(), In.mouse.getGy());
             }
         }
 
         if (state == WorldState.BATTLE) {
-            updateBattle();
-        }
-
-        player.beginMoveIfAble(currentMap);
-
-        if (DebugFlags.canLeftClickToTeleport && In.mouse.isClicked()) {
-            playerData.setPartyPosition(In.mouse.getGx(), In.mouse.getGy());
+            battle.getBattleControl().capturePausingInput();
         }
     }
 
@@ -143,5 +149,9 @@ public class World {
 
     private void orderWorldByDepth() {
         objects.sort(Comparator.comparing(MapObject::getDepth).reversed());
+    }
+
+    public boolean battleIsPaused() {
+        return state == WorldState.BATTLE && battle.getBattleControl().isPaused() && !battle.isEnded();
     }
 }

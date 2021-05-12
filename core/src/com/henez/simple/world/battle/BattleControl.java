@@ -16,6 +16,7 @@ public class BattleControl {
     private Fighter playerTarget;
     private Fighter mouseOverTarget;
     private SkillName selectedSkill;
+    private boolean paused;
 
     public BattleControl(Fighter controlledPlayer, Fighter firstPlayerTarget, Fighter firstEnemyTarget) {
         skillKeys = new GameList<>();
@@ -31,8 +32,7 @@ public class BattleControl {
     public void captureInput(GameList<Fighter> fighters) {
         for (int i = 0; i < skillKeys.size(); ++i) {
             if (skillKeys.get(i).isHeld() && controlledPlayer.getSkillSheet().hasValidSkillInSlotIndex(i)) {
-                nextSkillIndex = i;
-                selectedSkill = controlledPlayer.getSkillSheet().getSkills().get(i);
+                setSelectedSkill(i);
                 i = skillKeys.size();
             }
         }
@@ -50,5 +50,24 @@ public class BattleControl {
                 }
             }
         });
+    }
+
+    public void setSelectedSkill(int i) {
+        nextSkillIndex = i;
+        selectedSkill = controlledPlayer.getSkillSheet().getSkills().get(i);
+    }
+
+    public void capturePausingInput() {
+        if (In.getPauseKeyPressed()) {
+            paused = !paused;
+        }
+    }
+
+    private void pause() {
+        paused = true;
+    }
+
+    private void unpause() {
+        paused = false;
     }
 }

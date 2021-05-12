@@ -89,23 +89,26 @@ public class Fighter extends Actor {
     public void determineSkillCast(SkillTargetBuilder targetBuilder) {
         SkillName chosenSkill = null;
         if ((canNonLeadersAct || isLeader) && (DebugFlags.canEnemiesAct || (DebugFlags.canPlayersAct && isPlayer))) {
-            chosenSkill = SkillName.MISSILE_CAST;
+            chosenSkill = SkillName.ATTACK;
             if (turn == 1) {
-                chosenSkill = SkillName.ATTACK_CAST;
+                chosenSkill = SkillName.ATTACK;
             }
             if (turn == 2) {
-                chosenSkill = SkillName.ATTACK_CAST_FAST;
+                chosenSkill = SkillName.ATTACK;
             }
         }
 
-        if (chosenSkill != null && targetBuilder.isTargetsAvailable()) {
-            cast.begin(chosenSkill, targetBuilder.createTargetIntelligent(chosenSkill), 1);
-            sprite.getSpriteEffectManager().createBlink(Colors.white.color);
+        if (chosenSkill != null) {
+            targetBuilder.createTargetIntelligent(chosenSkill);
+            if (targetBuilder.isTargetsAvailable()) {
+                cast.begin(chosenSkill, targetBuilder.getPreparedTargets(), 1);
+                sprite.getSpriteEffectManager().createBlink(Colors.white.color);
 
-            if (cast.isInstant()) {
-                skillBeginCastExecution();
-            } else {
-                fighterState = FighterState.CASTING;
+                if (cast.isInstant()) {
+                    skillBeginCastExecution();
+                } else {
+                    fighterState = FighterState.CASTING;
+                }
             }
         }
     }

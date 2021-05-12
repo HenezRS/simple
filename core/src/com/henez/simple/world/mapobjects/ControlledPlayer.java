@@ -52,14 +52,17 @@ public class ControlledPlayer extends Fighter {
             chosenSkill = battleControl.getSelectedSkill();
         }
 
-        if (chosenSkill != null && targetBuilder.isTargetsAvailable()) {
-            cast.begin(chosenSkill, targetBuilder.createTargetWithPrimary(chosenSkill, battleControl.getEnemyTarget()), 1);
-            sprite.getSpriteEffectManager().createBlink(Colors.white.color);
+        if (chosenSkill != null) {
+            targetBuilder.createTargetWithPrimary(chosenSkill, battleControl.getEnemyTarget());
+            if (targetBuilder.isTargetsAvailable()) {
+                cast.begin(chosenSkill, targetBuilder.getPreparedTargets(), 1);
+                sprite.getSpriteEffectManager().createBlink(Colors.white.color);
 
-            if (cast.isInstant()) {
-                skillBeginCastExecution();
-            } else {
-                fighterState = FighterState.CASTING;
+                if (cast.isInstant()) {
+                    skillBeginCastExecution();
+                } else {
+                    fighterState = FighterState.CASTING;
+                }
             }
         }
     }

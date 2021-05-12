@@ -59,6 +59,11 @@ public class Text {
         text.draw(batch, str.toString(), x + 1, y, 0, Align.right, true);
     }
 
+    public void drawCenter(Batch batch, CharSequence str, float x, float y) {
+        text.setColor(colorDefault);
+        text.draw(batch, str.toString(), x + 1, y, 0, Align.center, true);
+    }
+
     public GlyphLayout draw(Batch batch, CharSequence str, float x, float y, int width, boolean wrap) {
         text.setColor(colorDefault);
         return text.draw(batch, str.toString(), x + 1, y, width, Align.left, wrap);

@@ -81,4 +81,8 @@ public class In {
     public static String getSkillKeyNameByIndex(int i) {
         return skillKeys.get(i).getName();
     }
+
+    public static boolean getPauseKeyPressed() {
+        return space.isPressed() || esc.isPressed();
+    }
 }

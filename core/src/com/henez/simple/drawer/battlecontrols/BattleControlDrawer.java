@@ -63,18 +63,27 @@ public class BattleControlDrawer {
         Cast cast = fighter.getCast();
 
         if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING, FighterState.CHANNELLING)) {
-            batch.drawToCamera(cast.getSkillName().getTex(), selectedX + 2, selectedY + 2);
+            batch.drawToCamera(cast.getSkillName().getTex(), selectedX + 3, selectedY + 3);
             batch.drawToCamera(ImgUi.arrow_right_grey.asTex(), arrowX, arrowY);
-            batch.drawToCamera(cast.getSkillTarget().getTarget().getSprite().getTex(), selectedX + 2 + selectedWW, selectedY + 2, Facing.LEFT);
+            batch.drawToCamera(cast.getSkillTarget().getTarget().getSprite().getTex(), selectedX + 3 + selectedWW, selectedY + 3, Facing.LEFT);
         } else {
-            batch.drawToCamera(selectedSkill.getTex(), selectedX + 2, selectedY + 2);
+            batch.drawToCamera(selectedSkill.getTex(), selectedX + 3, selectedY + 3);
             batch.drawToCamera(ImgUi.arrow_right.asTex(), arrowX, arrowY);
-            batch.drawToCamera(control.getEnemyTarget().getSprite().getTex(), selectedX + 2 + selectedWW, selectedY + 2, Facing.LEFT);
+            batch.drawToCamera(control.getEnemyTarget().getSprite().getTex(), selectedX + 3 + selectedWW, selectedY + 3, Facing.LEFT);
         }
         for (int i = 0; i < 4; ++i) {
             SkillName skillName = skillSheet.getSkills().getOrNull(i);
             if (skillName != null) {
                 batch.drawToCamera(skillName.getTex(), skillX + 1 + (i * skillWW), skillY + 1);
+
+                //todo: these should be buttons handled elsewhere
+                if (In.mouse.isMouseWithinInclusive(skillX + 1 + (skillWW * i), skillY + 1, skillWH - 2, skillWH - 2)) {
+                    batch.drawToCamera(ImgUi.button_hover.asTex(), skillX + (i * skillWW) - 1, skillY - 1);
+                    if (In.mouse.isClicked()) {
+                        world.getBattle().getBattleControl().setSelectedSkill(i);
+                    }
+                }
+
                 Static.text.drawToCamera(batch, In.getSkillKeyNameByIndex(i), skillX + 1 + (i * skillWW) + 6, skillY + 20);
             }
 
@@ -123,7 +132,7 @@ public class BattleControlDrawer {
     private void drawAtb(Shaper shape, Fighter fighter) {
         shape.rect(skillBarX - 1, skillBarY - 1, skillBarW + 2, skillBarH + 2, Colors.ui_back.color);
         if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING, FighterState.CHANNELLING)) {
-            shape.rect(skillBarX - 1, skillNameY - 1, skillBarW + 2, skillNameH, Colors.ui_back.color);
+            //shape.rect(skillBarX - 1, skillNameY - 1, skillBarW + 2, skillNameH, Colors.ui_back.color);
             if (fighter.fighterStateIs(FighterState.CASTING)) {
                 float percent = fighter.getCast().getPercent();
                 shape.barH(skillBarX,

@@ -14,12 +14,19 @@ public class SkillTargetBuilder {
     private GameList<Fighter> targets;
     private GameList<Fighter> selectedTargets;
     private boolean targetsAvailable;
+    private SkillTarget preparedTargets;
 
     public SkillTargetBuilder(Fighter source, GameList<Fighter> fighters) {
         this.source = source;
         this.fighters = fighters;
         selectedTargets = new GameList<>();
-        if (source.isPlayer()) {
+        targetsAvailable = false;
+    }
+
+    private void determinePotentialTargetList(SkillName skillName) {
+        boolean shouldTargetEnemies = ((source.isPlayer() && skillName.isTargetEnemies()) || (source.isEnemy() && !skillName.isTargetEnemies()));
+
+        if (shouldTargetEnemies) {
             targets = fighters.stream().filter(Fighter::isEnemy).filter(Fighter::canBeTarget).collect(Collectors.toCollection(GameList::new));
         } else {
             targets = fighters.stream().filter(Fighter::isPlayer).filter(Fighter::canBeTarget).collect(Collectors.toCollection(GameList::new));
@@ -28,8 +35,9 @@ public class SkillTargetBuilder {
         targetsAvailable = targets.size() > 0;
     }
 
-    public SkillTarget createTargetIntelligent(SkillName skillName) {
-        switch (skillName.getTarget()) {
+    public void createTargetIntelligent(SkillName skillName) {
+        determinePotentialTargetList(skillName);
+        switch (skillName.getTargetType()) {
         case SINGLE:
             singleRandomEnemy();
             break;
@@ -37,11 +45,12 @@ public class SkillTargetBuilder {
             allEnemies();
             break;
         }
-        return new SkillTarget(source, selectedTargets);
+        preparedTargets = new SkillTarget(source, selectedTargets);
     }
 
-    public SkillTarget createTargetWithPrimary(SkillName skillName, Fighter target) {
-        switch (skillName.getTarget()) {
+    public void createTargetWithPrimary(SkillName skillName, Fighter target) {
+        determinePotentialTargetList(skillName);
+        switch (skillName.getTargetType()) {
         case SINGLE:
             addTargetOrAddFirstValid(target);
             break;
@@ -49,7 +58,7 @@ public class SkillTargetBuilder {
             allEnemiesWithPrimary(target);
             break;
         }
-        return new SkillTarget(source, selectedTargets);
+        preparedTargets = new SkillTarget(source, selectedTargets);
     }
 
     private void singleRandomEnemy() {

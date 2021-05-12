@@ -15,6 +15,7 @@ import com.henez.simple.misc.screenshotter.Screenshotter;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.Shaper;
 import com.henez.simple.shaders.Shader;
+import com.henez.simple.text.Text;
 import com.henez.simple.world.World;
 import com.henez.simple.world.map.gamemap.impl.TestMap;
 
@@ -131,6 +132,11 @@ class Simple {
         //shape 1 ---
         shape.begin(ShapeRenderer.ShapeType.Filled);
         Gdx.gl.glEnable(GL20.GL_BLEND);
+
+        if (world.getState() == WorldState.BATTLE && world.getBattle().getBattleControl().isPaused()) {
+            shape.rect(0, 0, Static.renderer.getXX(), Static.renderer.getYY(), Colors.black_50.color);
+        }
+
         debugDrawer.drawShapeWorld(shape, world);
         if (world.getState() == WorldState.BATTLE) {
             battleDrawer.drawUiShape(shape);
@@ -143,6 +149,11 @@ class Simple {
         if (world.getState() == WorldState.BATTLE) {
             battleDrawer.drawUiBatch(batch);
         }
+
+        if (world.getState() == WorldState.BATTLE && world.getBattle().getBattleControl().isPaused()) {
+            Static.text.drawCenter(batch, "paused", Static.renderer.getCenterX(), Static.renderer.getCenterY() - Text.TEXT_H);
+        }
+
         debugDrawer.drawBatch(batch, world, framerate);
         batch.end();
         // ---
