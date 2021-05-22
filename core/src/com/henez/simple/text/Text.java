@@ -61,7 +61,18 @@ public class Text {
 
     public void drawCenter(Batch batch, CharSequence str, float x, float y) {
         text.setColor(colorDefault);
-        text.draw(batch, str.toString(), x + 1, y, 0, Align.center, true);
+        text.draw(batch, str.toString(), x, y, 0, Align.center, true);
+    }
+
+    public void drawToCameraCenter(Batch batch, CharSequence str, float x, float y) {
+        text.setColor(colorDefault);
+        text.draw(batch, str.toString(), x + Static.renderer.getX(), y + Static.renderer.getY(), 0, Align.center, true);
+    }
+
+    public void drawToCameraCenter(Batch batch, CharSequence str, float x, float y, Color color) {
+        text.setColor(color);
+        text.draw(batch, str.toString(), x + Static.renderer.getX(), y + Static.renderer.getY(), 0, Align.center, true);
+        text.setColor(colorDefault);
     }
 
     public GlyphLayout draw(Batch batch, CharSequence str, float x, float y, int width, boolean wrap) {

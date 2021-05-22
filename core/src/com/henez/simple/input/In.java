@@ -18,6 +18,7 @@ public class In {
     public static Key ctrl = new Key("CTRL");
     public static Key space = new Key("SPACE");
     public static Key tab = new Key("TAB");
+    public static Key c = new Key("C");
     public static Mouse mouse = new Mouse();
 
     public static Key skill1 = new Key("Q");
@@ -30,7 +31,7 @@ public class In {
 
     public In() {
         keys = Stream.of(right, up, left, down, esc, ctrl, space,
-                         tab, skill1, skill2, skill3, skill4).collect(Collectors.toCollection(GameList::new));
+                         tab, c, skill1, skill2, skill3, skill4).collect(Collectors.toCollection(GameList::new));
         skillKeys = Stream.of(skill1, skill2, skill3, skill4).collect(Collectors.toCollection(GameList::new));
     }
 
@@ -52,6 +53,7 @@ public class In {
         set(esc, Input.Keys.ESCAPE);
         set(space, Input.Keys.SPACE);
         set(tab, Input.Keys.TAB);
+        set(c, Input.Keys.C);
 
         set(skill1, Input.Keys.Q);
         set(skill2, Input.Keys.W);

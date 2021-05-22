@@ -6,7 +6,11 @@ import lombok.Getter;
 
 @Getter
 public enum ImgBackground {
-    menu_gear("menu_equip");
+    menu_gear("menu_equip"),
+    menu_skills("menu_skills"),
+    menu_tree("menu_tree"),
+
+    ;
 
     private final String pathName;
 

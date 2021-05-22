@@ -18,12 +18,14 @@ public class PlayerData {
     private ControlledPlayer controlledPlayer;
     private GameList<Fighter> playerParty;
     private Inventory inventory;
+    private PlayerMenu playerMenu;
     private int stepsUntilEncounter;
     private int stepsUntilEncounterMax = 8;
     private int gold;
 
     public PlayerData() {
         inventory = new Inventory();
+        playerMenu = new PlayerMenu();
     }
 
     public void beginNewGame(NewGameData newGameData) {
@@ -45,6 +47,7 @@ public class PlayerData {
 
     public void update() {
         inventory.update();
+        playerMenu.update();
     }
 
     public void setPartyPosition(int gx, int gy) {

@@ -25,4 +25,16 @@ public final class ButtonFactory {
         });
         return buttonGroup;
     }
+
+    public static ButtonGroup createPlayerMenuTabs() {
+        final int parentX = 35;
+        final int parentY = 47;
+        final int parentWW = 48;
+        int i = 0;
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.addButton(new TabButton("gear", parentX + (i++ * parentWW), parentY));
+        buttonGroup.addButton(new TabButton("skills", parentX + (i++ * parentWW), parentY));
+        buttonGroup.addButton(new TabButton("tree", parentX + (i++ * parentWW), parentY));
+        return buttonGroup;
+    }
 }

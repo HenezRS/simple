@@ -9,7 +9,8 @@ import static com.henez.simple.atlas.imgs.ImgUi.inv_slot;
 @Getter
 public enum ImageButtonDefinitions {
     box20(ImgUi.button.asTex(), ImgUi.button_hover.asTex(), ImgUi.button_active.asTex()),
-    inv_slot(ImgUi.inv_slot.asTex(), ImgUi.inv_slot_hover.asTex(), null);
+    inv_slot(ImgUi.inv_slot.asTex(), ImgUi.inv_slot_hover.asTex(), null),
+    player_menu_tab(ImgUi.tab_inactive.asTex(), ImgUi.tab_inactive_hover.asTex(), null);
 
     private TextureRegion back;
     private TextureRegion hover;

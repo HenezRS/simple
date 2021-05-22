@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.henez.simple.debug.DebugDrawer;
 import com.henez.simple.drawer.BattleDrawer;
 import com.henez.simple.drawer.playerdata.InventoryDrawer;
+import com.henez.simple.drawer.playerdata.PlayerMenuDrawer;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.enums.state.GameState;
 import com.henez.simple.enums.state.WorldState;
@@ -31,6 +32,7 @@ class Simple {
     private World world;
     private BattleDrawer battleDrawer;
     private InventoryDrawer inventoryDrawer;
+    private PlayerMenuDrawer playerMenuDrawer;
     private MenuTitle menuTitle;
 
     Simple() {
@@ -40,6 +42,7 @@ class Simple {
         world = new World();
         battleDrawer = new BattleDrawer(world);
         inventoryDrawer = new InventoryDrawer();
+        playerMenuDrawer = new PlayerMenuDrawer();
         menuTitle = new MenuTitle();
 
         init();
@@ -156,7 +159,10 @@ class Simple {
                 Static.text.drawCenter(batch, "paused", Static.renderer.getCenterX(), Static.renderer.getCenterY() - Text.TEXT_H);
             }
         } else {
-            inventoryDrawer.drawBatch(world.getPlayerData().getInventory(),batch);
+            playerMenuDrawer.drawBatch(world.getPlayerData().getPlayerMenu(),batch);
+            if(world.getPlayerData().getPlayerMenu().isShowBag()) {
+                inventoryDrawer.drawBatch(world.getPlayerData().getInventory(), batch);
+            }
         }
 
         debugDrawer.drawBatch(batch, world, framerate);
