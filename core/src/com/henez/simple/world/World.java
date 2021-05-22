@@ -78,6 +78,8 @@ public class World {
         if (state == WorldState.BATTLE) {
             battle.getBattleControl().capturePausingInput();
         }
+
+        playerData.update();
     }
 
     private void updateBattle() {

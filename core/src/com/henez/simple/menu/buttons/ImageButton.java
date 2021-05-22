@@ -21,13 +21,17 @@ public class ImageButton extends Button {
 
     @Override
     public void draw(Batcher batch) {
-        batch.draw(group.getBack(), x, y);
+        drawTo(batch,x,y);
+    }
+
+    public void drawTo(Batcher batch, int x, int y) {
+        batch.drawToCamera(group.getBack(), x, y);
         if (hover) {
-            batch.draw(group.getHover(), x, y);
+            batch.drawToCamera(group.getHover(), x, y);
         }
-        batch.draw(tex, x + texAddX, y + texAddY);
-        if (clicked) {
-            batch.draw(group.getClicked(), x, y);
+        batch.drawToCamera(tex, x + texAddX, y + texAddY);
+        if (clicked && group.getClicked()!=null) {
+            batch.drawToCamera(group.getClicked(), x, y);
         }
     }
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.henez.simple.debug.DebugDrawer;
 import com.henez.simple.drawer.BattleDrawer;
+import com.henez.simple.drawer.playerdata.InventoryDrawer;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.enums.state.GameState;
 import com.henez.simple.enums.state.WorldState;
@@ -29,6 +30,7 @@ class Simple {
     private Framerate framerate;
     private World world;
     private BattleDrawer battleDrawer;
+    private InventoryDrawer inventoryDrawer;
     private MenuTitle menuTitle;
 
     Simple() {
@@ -37,6 +39,7 @@ class Simple {
         framerate = new Framerate();
         world = new World();
         battleDrawer = new BattleDrawer(world);
+        inventoryDrawer = new InventoryDrawer();
         menuTitle = new MenuTitle();
 
         init();
@@ -144,14 +147,16 @@ class Simple {
         shape.end();
         // ---
 
-        //batch 3 ---
+        //batch 3 ui ---
         batch.begin();
         if (world.getState() == WorldState.BATTLE) {
             battleDrawer.drawUiBatch(batch);
-        }
 
-        if (world.getState() == WorldState.BATTLE && world.getBattle().getBattleControl().isPaused()) {
-            Static.text.drawCenter(batch, "paused", Static.renderer.getCenterX(), Static.renderer.getCenterY() - Text.TEXT_H);
+            if (world.getBattle().getBattleControl().isPaused()) {
+                Static.text.drawCenter(batch, "paused", Static.renderer.getCenterX(), Static.renderer.getCenterY() - Text.TEXT_H);
+            }
+        } else {
+            inventoryDrawer.drawBatch(world.getPlayerData().getInventory(),batch);
         }
 
         debugDrawer.drawBatch(batch, world, framerate);

@@ -25,6 +25,11 @@ public abstract class Button {
         setState();
     }
 
+    public void setPos(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
     abstract void draw(Batcher batch);
 
     private void setState() {

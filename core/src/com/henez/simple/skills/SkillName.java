@@ -95,6 +95,8 @@ public enum SkillName {
         //return new SG_All(this, skillTarget, SkillComponentName.FLAME, Global.SEC2, 16.0f, 1.5f);
         //case MISSILE_CAST_ALL_INSTANT:
         //return new SG_All(this, skillTarget, SkillComponentName.FLAME, Global.SEC32);
+        case FLAME:
+            return new SG_Single(this, skillTarget, SkillComponentName.FLAME);
         case ICE_SPIKE:
             return new SG_Single(this, skillTarget, SkillComponentName.ICE_SPIKE);
         default:

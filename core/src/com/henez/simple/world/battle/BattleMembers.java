@@ -52,11 +52,11 @@ public class BattleMembers {
     }
 
     public boolean playerWin() {
-        return playerParty.stream().allMatch(Fighter::isDead);
+        return enemyParty.stream().allMatch(Fighter::isDead);
     }
 
     public boolean enemyWin() {
-        return enemyParty.stream().allMatch(Fighter::isDead);
+        return playerParty.stream().allMatch(Fighter::isDead);
     }
 
     public void processTurn() {

@@ -23,6 +23,7 @@ public class PlayerData {
     private int gold;
 
     public PlayerData() {
+        inventory = new Inventory();
     }
 
     public void beginNewGame(NewGameData newGameData) {
@@ -40,6 +41,10 @@ public class PlayerData {
         });
         controlledPlayer.setParty(playerParty);
 
+    }
+
+    public void update() {
+        inventory.update();
     }
 
     public void setPartyPosition(int gx, int gy) {

@@ -3,6 +3,7 @@ package com.henez.simple.world.battle;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.effect.EffectFactory;
 import com.henez.simple.enums.Colors;
+import com.henez.simple.enums.animation.Animation;
 import com.henez.simple.global.Global;
 import com.henez.simple.misc.timer.Timer;
 import com.henez.simple.world.mapobjects.ControlledPlayer;
@@ -52,6 +53,7 @@ public class Battle {
             if (victoryTimer.update()) {
                 victoryTimer.setDisabled(true);
                 EffectFactory.createPopText(player, "victory!", Colors.text_default.color);
+                playerParty.forEach(fighter -> fighter.getSprite().stopAnimation(Animation.cast));
             }
             if (xpTimer.update()) {
                 xpTimer.setDisabled(true);

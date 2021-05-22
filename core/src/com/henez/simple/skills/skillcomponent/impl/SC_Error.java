@@ -6,6 +6,6 @@ public class SC_Error extends SkillComponent {
 
     @Override
     public void buildSteps() {
-        System.out.println("Error: skill missing cast");
+        System.out.println("Error: skill missing group. Check SkillName::createGroup");
     }
 }
