@@ -1,5 +1,6 @@
 package com.henez.simple.data;
 
+import com.henez.simple.data.inventory.Inventory;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.debug.DebugFlags;
 import com.henez.simple.world.mapobjects.ActorFactory;
@@ -16,6 +17,7 @@ public class PlayerData {
     private NewGameData newGameData;
     private ControlledPlayer controlledPlayer;
     private GameList<Fighter> playerParty;
+    private Inventory inventory;
     private int stepsUntilEncounter;
     private int stepsUntilEncounterMax = 8;
     private int gold;

@@ -18,7 +18,9 @@ public class Atlas {
     private static TextureRegion[][] texEffects;
     private static TextureRegion[][] texIconSkills;
     private static TextureRegion[][] texIcon7;
+    private static TextureRegion[][] texIcon14;
     private static Map<ImgUi, TextureRegion> texUi;
+    private static Map<ImgBackground, TextureRegion> texBackground;
 
     public static void load() {
         texTiles = loadTilesFromFile("png/tiles.png", Global.tilePixelSize);
@@ -27,7 +29,9 @@ public class Atlas {
         texEffects = loadTilesFromFile("png/effects.png", Global.tilePixelSize);
         texIconSkills = loadTilesFromFile("png/iconSkills.png", Global.tilePixelSize);
         texIcon7 = loadTilesFromFile("png/icon7.png", 7);
+        texIcon14 = loadTilesFromFile("png/icon14.png", 14);
         texUi = loadTilesUi();
+        texBackground = loadTilesBackground();
     }
 
     public static TextureRegionEnhanced toTex(ImgTiles img) {
@@ -54,8 +58,16 @@ public class Atlas {
         return texIcon7[img.getY()][img.getX()];
     }
 
+    public static TextureRegion toTex(ImgIcon14 img) {
+        return texIcon14[img.getY()][img.getX()];
+    }
+
     public static TextureRegion toTex(ImgUi img) {
         return texUi.get(img);
+    }
+
+    public static TextureRegion toTex(ImgBackground img) {
+        return texBackground.get(img);
     }
 
     private static TextureRegion[][] loadTilesFromFile(String path, int tileSize) {
@@ -71,6 +83,19 @@ public class Atlas {
 
         Arrays.stream(ImgUi.values()).forEach(img -> {
             dest.put(img, new TextureRegion(tex, img.getX(), img.getY(), img.getW(), img.getH()));
+            dest.get(img).flip(false, true);
+        });
+
+        return dest;
+    }
+
+    private static Map<ImgBackground, TextureRegion> loadTilesBackground() {
+        String path = "png/{name}.png";
+        Map<ImgBackground, TextureRegion> dest = new EnumMap<>(ImgBackground.class);
+
+        Arrays.stream(ImgBackground.values()).forEach(img -> {
+            Texture tex = new Texture(Gdx.files.internal(path.replace("{name}",img.getPathName())));
+            dest.put(img, new TextureRegion(tex, 0, 0, Global.cameraPixelW, Global.cameraPixelH));
             dest.get(img).flip(false, true);
         });
 
