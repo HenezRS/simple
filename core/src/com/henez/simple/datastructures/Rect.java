@@ -1,6 +1,7 @@
 package com.henez.simple.datastructures;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.henez.simple.Static;
 import com.henez.simple.global.Global;
 
 public class Rect extends Rectangle {
@@ -38,5 +39,11 @@ public class Rect extends Rectangle {
         yy = (int) y + (int) height;
         w = (int) width;
         h = (int) height;
+    }
+
+    public Rect withCam() {
+        x += Static.renderer.getX();
+        y += Static.renderer.getY();
+        return this;
     }
 }

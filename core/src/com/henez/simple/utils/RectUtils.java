@@ -29,32 +29,32 @@ public class RectUtils {
         return new Rect(rect.x + 1, rect.yy - 1, rect.w - 2, 1);
     }
 
-    public static Rect borderLeftFull(Rect rect) {
-        return new Rect(rect.x - 1, rect.y - 0, 1, rect.h + 0);
+    public static Rect borderLeftCornered(Rect rect) {
+        return new Rect(rect.x, rect.y + 1, 1, rect.h - 2);
     }
 
-    public static Rect borderRightFull(Rect rect) {
-        return new Rect(rect.xx - 0, rect.y, 1, rect.h - 0);
+    public static Rect borderRightCornered(Rect rect) {
+        return new Rect(rect.xx - 1, rect.y +1, 1, rect.h - 2);
     }
 
-    public static Rect borderUpFull(Rect rect) {
-        return new Rect(rect.x + 0, rect.y - 1, rect.w + 0, 1);
+    public static Rect borderUpCornered(Rect rect) {
+        return new Rect(rect.x + 0 +1, rect.y, rect.w - 2, 1);
     }
 
-    public static Rect borderDownFull(Rect rect) {
-        return new Rect(rect.x + 0, rect.yy - 0, rect.w, 1);
+    public static Rect borderDownCornered(Rect rect) {
+        return new Rect(rect.x + 0 +1, rect.yy - 1, rect.w - 2, 1);
     }
 
-    public static Rect borderFull(Rect rect, Facing facing) {
+    public static Rect borderCornered(Rect rect, Facing facing) {
         switch (facing) {
         case RIGHT:
-            return borderRightFull(rect);
+            return borderRightCornered(rect);
         case UP:
-            return borderUpFull(rect);
+            return borderUpCornered(rect);
         case LEFT:
-            return borderLeftFull(rect);
+            return borderLeftCornered(rect);
         case DOWN:
-            return borderDownFull(rect);
+            return borderDownCornered(rect);
         }
         return new Rect(0, 0);
     }

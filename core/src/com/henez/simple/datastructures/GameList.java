@@ -24,6 +24,11 @@ public class GameList<T> extends ArrayList<T> {
         this.addAll(Arrays.asList(item));
     }
 
+    public GameList<T> addAllAndReturn(T... item) {
+        this.addAll(Arrays.asList(item));
+        return this;
+    }
+
     public T first() {
         return get(0);
     }

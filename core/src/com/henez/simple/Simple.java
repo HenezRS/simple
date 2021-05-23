@@ -171,6 +171,11 @@ class Simple {
 
         //shape 2 ---
         shape.begin(ShapeRenderer.ShapeType.Filled);
+
+        if (world.getState() == WorldState.MAP) {
+            playerMenuDrawer.drawShape(world.getPlayerData().getPlayerMenu(), shape);
+        }
+
         shape.end();
         // ---
     }

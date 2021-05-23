@@ -18,6 +18,7 @@ public enum Colors {
 
     ui_back(new Color(0x261c18ff)),
     ui_bar_back(new Color(0x665742ff)),
+    ui_frame_darker(new Color(0x423422ff)),
     ui_frame(new Color(0x998042ff)),
     ui_bar_front(new Color(0xffb8aeff)),
 

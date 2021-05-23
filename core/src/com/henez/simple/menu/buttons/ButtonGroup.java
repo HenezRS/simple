@@ -2,6 +2,7 @@ package com.henez.simple.menu.buttons;
 
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.renderer.Batcher;
+import com.henez.simple.renderer.Shaper;
 import lombok.Getter;
 
 import java.util.Optional;
@@ -30,6 +31,10 @@ public class ButtonGroup {
 
     public void draw(Batcher batch) {
         buttons.forEach(button -> button.draw(batch));
+    }
+
+    public void draw(Shaper shape) {
+        buttons.forEach(button -> button.draw(shape));
     }
 
     public Button getByName(String name) {

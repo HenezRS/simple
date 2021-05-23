@@ -25,6 +25,7 @@ import static com.henez.simple.debug.DebugFlags.canNonLeadersAct;
 
 @Getter
 public class Fighter extends Actor {
+    protected String name;
     protected StatSheet statSheet;
     protected SkillSheet skillSheet;
     protected SkillExecution skillExecution;
@@ -172,6 +173,10 @@ public class Fighter extends Actor {
 
     public void setIsLeader() {
         isLeader = true;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isEnemy() {

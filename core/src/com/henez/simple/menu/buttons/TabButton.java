@@ -11,7 +11,6 @@ import lombok.Getter;
 public class TabButton extends Button {
     private int textAddX;
     private int textAddY;
-    private boolean isActive = false;
     private TextureRegion inactive;
     private TextureRegion inactiveHover;
     private TextureRegion active;
@@ -50,13 +49,5 @@ public class TabButton extends Button {
             }
             Static.text.drawToCameraCenter(batch, name, x+textAddX, y+textAddY, Colors.text_faded.color);
         }
-    }
-
-    public void setActive() {
-        isActive = true;
-    }
-
-    public void setInactive() {
-        isActive = false;
     }
 }

@@ -1,6 +1,7 @@
 package com.henez.simple.data;
 
 import com.henez.simple.data.inventory.Inventory;
+import com.henez.simple.data.playermenu.PlayerMenu;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.debug.DebugFlags;
 import com.henez.simple.world.mapobjects.ActorFactory;
@@ -42,6 +43,7 @@ public class PlayerData {
             playerParty.add(ActorFactory.createPlayer(depth.getAndIncrement(), className));
         });
         controlledPlayer.setParty(playerParty);
+        playerMenu.updateParty(playerParty);
 
     }
 

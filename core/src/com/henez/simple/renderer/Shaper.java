@@ -60,11 +60,11 @@ public class Shaper extends ShapeRenderer {
         rect(RectUtils.borderDown(rect));
     }
 
-    public void rectOutlineFull(Rect rect) {
-        rect(RectUtils.borderRightFull(rect));
-        rect(RectUtils.borderUpFull(rect));
-        rect(RectUtils.borderLeftFull(rect));
-        rect(RectUtils.borderDownFull(rect));
+    public void rectOutlineCornered(Rect rect) {
+        rect(RectUtils.borderRightCornered(rect));
+        rect(RectUtils.borderUpCornered(rect));
+        rect(RectUtils.borderLeftCornered(rect));
+        rect(RectUtils.borderDownCornered(rect));
     }
 
     public void rectOutline(Rect rect, Color color) {
@@ -77,9 +77,9 @@ public class Shaper extends ShapeRenderer {
         rectOutline(rect);
     }
 
-    public void rectOutlineFull(Rect rect, Color color) {
+    public void rectOutlineCornered(Rect rect, Color color) {
         setColor(color);
-        rectOutlineFull(rect);
+        rectOutlineCornered(rect);
     }
 
     public void bar(Rectangle rect, float percent, Color color, Color colorUnder) {
