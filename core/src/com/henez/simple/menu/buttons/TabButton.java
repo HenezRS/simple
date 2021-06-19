@@ -30,24 +30,29 @@ public class TabButton extends Button {
 
     @Override
     public void draw(Batcher batch) {
-        drawTo(batch,x,y);
+        drawTo(batch, x, y);
+    }
+
+    public void drawBasic(Batcher batch) {
+        batch.drawToCamera(inactive, x, y);
+        Static.text.drawToCameraCenter(batch, name, x + textAddX, y + textAddY, Colors.text_faded.color);
     }
 
     public void drawTo(Batcher batch, int x, int y) {
-        if(isActive) {
+        if (isActive) {
             if (hover) {
-                batch.drawToCamera(activeHover, x-1, y-1);
+                batch.drawToCamera(activeHover, x - 1, y - 1);
             } else {
-                batch.drawToCamera(active, x-1, y-1);
+                batch.drawToCamera(active, x - 1, y - 1);
             }
-            Static.text.drawToCameraCenter(batch, name, x+textAddX, y+textAddY);
+            Static.text.drawToCameraCenter(batch, name, x + textAddX, y + textAddY);
         } else {
             if (hover) {
                 batch.drawToCamera(inactiveHover, x, y);
             } else {
                 batch.drawToCamera(inactive, x, y);
             }
-            Static.text.drawToCameraCenter(batch, name, x+textAddX, y+textAddY, Colors.text_faded.color);
+            Static.text.drawToCameraCenter(batch, name, x + textAddX, y + textAddY, Colors.text_faded.color);
         }
     }
 }

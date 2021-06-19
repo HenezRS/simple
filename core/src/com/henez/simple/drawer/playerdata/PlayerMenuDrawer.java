@@ -5,6 +5,7 @@ import com.henez.simple.atlas.imgs.ImgBackground;
 import com.henez.simple.data.playermenu.PlayerMenu;
 import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Colors;
+import com.henez.simple.menu.buttons.TabButton;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.Shaper;
 import com.henez.simple.world.mapobjects.Fighter;
@@ -30,8 +31,8 @@ public class PlayerMenuDrawer {
                 }
             }
 
-            menu.getTabs().getButtons().stream().filter(b -> !b.isActive() && !b.isHover()).forEach(b -> b.draw(batch));
-            if (menu.getTabHover() != null) {
+            menu.getTabs().getButtons().forEach(b -> ((TabButton) b).drawBasic(batch));
+            if (menu.getTabHover() != null && !menu.getTabSelected().isHover()) {
                 menu.getTabHover().draw(batch);
             }
             menu.getTabSelected().draw(batch);
@@ -67,13 +68,13 @@ public class PlayerMenuDrawer {
         if (menu.isShowPlayerMenu()) {
             switch (menu.getPlayerMenuState()) {
             case gear:
-                drawShapeGear(menu,shape);
+                drawShapeGear(menu, shape);
                 break;
             case skills:
-                drawShapeSkills(menu,shape);
+                drawShapeSkills(menu, shape);
                 break;
             case tree:
-                drawShapeTree(menu,shape);
+                drawShapeTree(menu, shape);
                 break;
             }
 
