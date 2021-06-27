@@ -89,7 +89,7 @@ public class Atlas {
         TextureRegion[][] dest = new TextureRegion[w][h];
         for (int i = 0; i < w; ++i) {
             for (int j = 0; j < h; ++j) {
-                dest[i][j] = new TextureRegion(t, 8 + (i * 32), 8 + (j * 32), 16, 16);
+                dest[i][j] = new TextureRegion(t, (13) + (i * 32), (7) + (j * 32), 16, 16);
                 dest[i][j].flip(false, true);
             }
         }

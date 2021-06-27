@@ -24,8 +24,8 @@ public class SS_PlayEffectProjectileUntilCollision extends SkillStep {
 
         curX = stepSource.getX() + 8;
         curY = stepSource.getY() + 8;
-        goalX = stepTarget.getX() + 8;
-        goalY = stepTarget.getY() + 8;
+        goalX = stepTarget.getTargetingX() + 8;
+        goalY = stepTarget.getTargetingYLow() + 8;
     }
 
     @Override

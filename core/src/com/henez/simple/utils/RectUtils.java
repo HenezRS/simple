@@ -2,7 +2,6 @@ package com.henez.simple.utils;
 
 import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Facing;
-import com.henez.simple.global.Global;
 import com.henez.simple.world.mapobjects.MapObject;
 
 public class RectUtils {
@@ -10,7 +9,7 @@ public class RectUtils {
     }
 
     public static Rect get(MapObject mapObject) {
-        return new Rect(mapObject.getX(), mapObject.getY(), Global.tilePixelSize, Global.tilePixelSize);
+        return new Rect(mapObject.getX(), mapObject.getY(), mapObject.getSize(), mapObject.getSize());
     }
 
     public static Rect borderLeft(Rect rect) {
@@ -34,15 +33,15 @@ public class RectUtils {
     }
 
     public static Rect borderRightCornered(Rect rect) {
-        return new Rect(rect.xx - 1, rect.y +1, 1, rect.h - 2);
+        return new Rect(rect.xx - 1, rect.y + 1, 1, rect.h - 2);
     }
 
     public static Rect borderUpCornered(Rect rect) {
-        return new Rect(rect.x + 0 +1, rect.y, rect.w - 2, 1);
+        return new Rect(rect.x + 0 + 1, rect.y, rect.w - 2, 1);
     }
 
     public static Rect borderDownCornered(Rect rect) {
-        return new Rect(rect.x + 0 +1, rect.yy - 1, rect.w - 2, 1);
+        return new Rect(rect.x + 0 + 1, rect.yy - 1, rect.w - 2, 1);
     }
 
     public static Rect borderCornered(Rect rect, Facing facing) {

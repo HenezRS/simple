@@ -105,7 +105,7 @@ public class DebugDrawer {
 
     public void drawShapeWorld(Shaper shape, World world) {
         //drawMouseSquare(shape);
-        drawEncounterSquares(shape, world);
+        //drawEncounterSquares(shape, world);
     }
 
     public void drawBatchWorld(Batcher batch, World world) {
@@ -139,7 +139,7 @@ public class DebugDrawer {
     private void drawEncounterSquares(Shaper shape, World world) {
         AtomicInteger atomicInteger = new AtomicInteger(0);
         world.getEncounterService()
-             .getEncounterPositionsOptional()
+             .getEncounterPositionsFinalOptional()
              .ifPresent(positions -> positions.forEach(xy -> shape.rect(new Rect(xy.getX() * ts, xy.getY() * ts),
                                                                         Colors.red.mul(0.75f - (0.10f * Numbers.clamp(atomicInteger.getAndIncrement(), 0, 4)),
                                                                                        0.70f - (0.10f * Numbers.clamp(atomicInteger.get(), 0, 4))))));

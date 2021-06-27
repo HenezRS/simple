@@ -54,4 +54,8 @@ public class Mouse {
     public boolean isMouseWithinGrid(int xx, int yy) {
         return gx > xx - 1 && gx < xx + 1 && gy > yy - 1 && gy < yy + 1;
     }
+
+    public boolean isMouseWithinGridLarge(int xx, int yy) {
+        return isMouseWithinGrid(xx, yy) || isMouseWithinGrid(xx + 1, yy) || isMouseWithinGrid(xx, yy + 1) || isMouseWithinGrid(xx + 1, yy + 1);
+    }
 }

@@ -8,6 +8,7 @@ import com.henez.simple.enums.EnemyRank;
 import com.henez.simple.enums.animation.Animation;
 import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.global.Global;
+import com.henez.simple.input.In;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.skills.SkillExecution;
 import com.henez.simple.skills.SkillName;
@@ -90,6 +91,11 @@ public class Fighter extends Actor {
         } else {
             skillExecution.update();
         }
+    }
+
+    @Override
+    public boolean isMouseOver() {
+        return isLarge() ? In.mouse.isMouseWithinGridLarge(gx, gy) : In.mouse.isMouseWithinGrid(gx, gy);
     }
 
     public void determineSkillCast(SkillTargetBuilder targetBuilder) {

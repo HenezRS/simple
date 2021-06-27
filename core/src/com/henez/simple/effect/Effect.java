@@ -25,6 +25,11 @@ public abstract class Effect {
         y = gy * Global.tilePixelSize;
     }
 
+    public void setPos(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
     protected void finish() {
         done = true;
     }

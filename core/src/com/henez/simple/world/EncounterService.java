@@ -20,6 +20,7 @@ public class EncounterService {
     private GameList<XY> encounterPositions;
     private GameList<XY> encounterBigPositions;
     private GameList<XY> usedPositions;
+    private GameList<XY> encounterPositionsFinal;
 
     public EncounterService() {
     }
@@ -42,24 +43,39 @@ public class EncounterService {
 
     public boolean setEncounterPositionsAndReturnValid(GameMap map, GameList<MapObject> objects, GameList<ClassName> enemies) {
         int bigTilesRequires = (int) enemies.stream().filter(ClassName::isLarge).count();
+        boolean valid = bigTilesRequires < 1;
         encounterPositions = new GameList<>();
         encounterBigPositions = new GameList<>();
         usedPositions = new GameList<>();
+        encounterPositionsFinal = new GameList<>();
         encounterPositions.addAll(map.getWalkableTileCluster(encounterX, encounterY, objects, 10)
                                      .stream()
                                      .map(tile -> new XY(tile.getGx(), tile.getGy()))
                                      .collect(Collectors.toCollection(GameList::new)));
 
         int bigTilesFound = 0;
-        for (XY pos : encounterPositions) {
-            if (hasFreeNeighbours(pos, encounterPositions)) {
-                encounterBigPositions.add(pos);
-                addUsedPositions(pos, encounterPositions);
-                bigTilesFound++;
+        if (bigTilesRequires > 0) {
+            for (XY pos : encounterPositions) {
+                if (hasFreeNeighbours(pos, encounterPositions)) {
+                    encounterBigPositions.add(pos);
+                    addUsedPositions(pos, encounterPositions);
+                    bigTilesFound++;
+                }
+
+                if (bigTilesFound >= bigTilesRequires) {
+                    valid = true;
+                    break;
+                }
             }
         }
         System.out.println("big tiles found " + bigTilesFound);
-        return true;
+
+        for (int i = 0; i < bigTilesRequires; ++i) {
+            encounterPositionsFinal.add(encounterBigPositions.get(i));
+        }
+        encounterPositionsFinal.addAll(encounterPositions.stream().filter(this::notExcluded).collect(Collectors.toList()));
+
+        return valid;
     }
 
     private boolean hasFreeNeighbours(XY pos, GameList<XY> positions) {
@@ -95,6 +111,10 @@ public class EncounterService {
 
     public Optional<GameList<XY>> getEncounterBigPositionsOptional() {
         return Optional.ofNullable(encounterBigPositions);
+    }
+
+    public Optional<GameList<XY>> getEncounterPositionsFinalOptional() {
+        return Optional.ofNullable(encounterPositionsFinal);
     }
 
 }

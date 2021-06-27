@@ -31,7 +31,7 @@ public final class EffectFactory {
 
     public static void createDamageText(Damage damage) {
         E_PopText effect = new E_PopText();
-        effect.setGridPos(damage.getTarget().getGx(), damage.getTarget().getGy());
+        effect.setPos((int) damage.getTarget().getTargetingX(), (int) damage.getTarget().getTargetingYHigh());
         effect.setText(damage.getDmgFinal() + "");
         addEffect(effect);
     }

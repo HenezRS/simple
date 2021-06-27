@@ -95,7 +95,7 @@ public class World {
 
         AtomicInteger depth = new AtomicInteger();
         DebugFlags.debugEncounter.getOrdered().forEach(enemyClass -> {
-            XY xy = encounterService.getEncounterPositions().get(depth.get());
+            XY xy = encounterService.getEncounterPositionsFinal().get(depth.get());
             enemyParty.add(ActorFactory.createEnemyPositioned(xy.getX(), xy.getY(), depth.getAndIncrement(), enemyClass));
         });
         enemyParty.get(0).setIsLeader();

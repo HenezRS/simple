@@ -60,6 +60,22 @@ public class MapObject {
     }
 
     public boolean isClickedOn() {
-        return In.mouse.isClicked() && In.mouse.isMouseWithinGrid(gx, gy);
+        return In.mouse.isClicked() && isMouseOver();
+    }
+
+    public float getTargetingX() {
+        return x + ((size - 16) * 0.5f);
+    }
+
+    public float getTargetingY() {
+        return y + ((size - 16) * 0.5f);
+    }
+
+    public float getTargetingYHigh() {
+        return y + ((size - 16) * 0.2f);
+    }
+
+    public float getTargetingYLow() {
+        return y + ((size - 16) * 0.8f);
     }
 }
