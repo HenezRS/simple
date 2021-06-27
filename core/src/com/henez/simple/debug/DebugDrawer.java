@@ -144,6 +144,10 @@ public class DebugDrawer {
                                                                         Colors.red.mul(0.75f - (0.10f * Numbers.clamp(atomicInteger.getAndIncrement(), 0, 4)),
                                                                                        0.70f - (0.10f * Numbers.clamp(atomicInteger.get(), 0, 4))))));
 
-        shape.rectOutline(new Rect(world.getEncounterService().getEncounterX() * ts, world.getEncounterService().getEncounterY() * ts), Colors.blue.color);
+        world.getEncounterService()
+             .getEncounterBigPositionsOptional()
+             .ifPresent(positions -> positions.forEach(xy -> shape.rectOutline(new Rect(xy.getX() * ts, xy.getY() * ts, 32, 32), Colors.purple_raw.color)));
+
+        //shape.rectOutline(new Rect(world.getEncounterService().getEncounterX() * ts, world.getEncounterService().getEncounterY() * ts), Colors.blue.color);
     }
 }

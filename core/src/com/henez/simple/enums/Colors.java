@@ -55,6 +55,8 @@ public enum Colors {
     yellow(new Color(0xffff77ff)),
     green(new Color(0xa7ff78ff)),
     green_50(green.withAlpha(0.5f)),
+
+    purple_raw(new Color(0xff00ffff)),
     ;
 
     public Color color;

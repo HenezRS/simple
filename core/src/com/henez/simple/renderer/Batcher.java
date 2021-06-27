@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.Static;
 import com.henez.simple.datastructures.TextureRegionEnhanced;
 import com.henez.simple.enums.Facing;
-import com.henez.simple.global.Global;
 
 public class Batcher extends SpriteBatch {
     private int tx;
@@ -44,7 +43,7 @@ public class Batcher extends SpriteBatch {
 
     public void draw(TextureRegion region, float x, float y, Facing facing, int size) {
         if (facing == Facing.LEFT) {
-            super.draw(region, x + tx + Global.tilePixelSize, y + ty, -size, size);
+            super.draw(region, x + tx + size, y + ty, -size, size);
         } else {
             super.draw(region, x + tx, y + ty);
         }
@@ -52,7 +51,7 @@ public class Batcher extends SpriteBatch {
 
     public void draw(TextureRegionEnhanced region, float x, float y, Facing facing, int size) {
         if (facing == Facing.LEFT) {
-            super.draw(region.getTex(), x + tx + Global.tilePixelSize + (-1 * region.getAddX()), y + ty, -size + region.getAddY(), size);
+            super.draw(region.getTex(), x + tx + size + (-1 * region.getAddX()), y + ty, -size + region.getAddY(), size);
         } else {
             super.draw(region.getTex(), x + tx + region.getAddX(), y + ty + region.getAddY());
         }

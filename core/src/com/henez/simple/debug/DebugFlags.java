@@ -10,7 +10,7 @@ public class DebugFlags {
     public static boolean canEnemiesAct = true;
     public static boolean canPlayersAct = true;
     public static boolean canNonLeadersAct = true;
-    public static EnemyPartyName debugEncounter = EnemyPartyName.octosMany;
+    public static EnemyPartyName debugEncounter = EnemyPartyName.octoBig;
 
     //visual
     public static boolean drawBasicInfo = false;

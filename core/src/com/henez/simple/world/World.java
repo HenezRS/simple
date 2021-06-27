@@ -56,7 +56,7 @@ public class World {
                     player.setMoveAble(false);
                     nextFloor();
                 } else if (playerData.readyForEncounter() && encounterService.canEncounter(player.getGx(), player.getGy(), player.getLastMoveDir(), currentMap)) {
-                    if (encounterService.setEncounterPositionsAndReturnValid(currentMap, objects)) {
+                    if (encounterService.setEncounterPositionsAndReturnValid(currentMap, objects, DebugFlags.debugEncounter.getOrdered())) {
                         player.setMoveAble(false);
                         beginEncounter();
                     }

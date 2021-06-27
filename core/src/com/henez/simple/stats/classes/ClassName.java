@@ -58,4 +58,8 @@ public enum ClassName {
     public boolean isMinor() {
         return enemyRank == EnemyRank.MINOR;
     }
+
+    public boolean isMajor() {
+        return enemyRank == EnemyRank.MAJOR && !isLarge;
+    }
 }

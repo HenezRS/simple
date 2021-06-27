@@ -12,17 +12,19 @@ public enum EnemyPartyName {
     octosMany(ClassName.enemy_octoMinor, ClassName.enemy_octoMinor, ClassName.enemy_octo, ClassName.enemy_octoMinor, ClassName.enemy_octoMinor
             , ClassName.enemy_octoMinor, ClassName.enemy_octoMinor, ClassName.enemy_octoMinor, ClassName.enemy_octoMinor
             , ClassName.enemy_octoMinor, ClassName.enemy_octoMinor, ClassName.enemy_octoMinor, ClassName.enemy_octoMinor),
-    octoBig(ClassName.enemy_octoBig, ClassName.enemy_octoMinor, ClassName.enemy_octoMinor, ClassName.enemy_octoMinor),
+    octoBig(ClassName.enemy_octoMinor, ClassName.enemy_octoBig, ClassName.enemy_octoMinor, ClassName.enemy_octo),
     ;
 
     private GameList<ClassName> names;
 
     EnemyPartyName(ClassName... names) {
-        this.names = Arrays.stream(names).filter(n -> !n.isMinor()).collect(Collectors.toCollection(GameList::new));
+        this.names = Arrays.stream(names).filter(ClassName::isLarge).collect(Collectors.toCollection(GameList::new));
+        this.names.addAll(Arrays.stream(names).filter(ClassName::isMajor).collect(Collectors.toCollection(GameList::new)));
         this.names.addAll(Arrays.stream(names).filter(ClassName::isMinor).collect(Collectors.toCollection(GameList::new)));
     }
 
     public GameList<ClassName> getOrdered() {
+        //boss > big > major > minor
         return names;
     }
 }
