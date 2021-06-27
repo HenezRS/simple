@@ -2,6 +2,7 @@ package com.henez.simple.debug;
 
 import com.henez.simple.Static;
 import com.henez.simple.datastructures.GameList;
+import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.enums.Facing;
@@ -84,27 +85,27 @@ public class DebugDrawer {
         AtomicInteger index = new AtomicInteger();
         Static.text.drawToCamera(batch, "waiting", x.get(), y);
         battleMembers.getFightersWaiting().forEach(fighter -> {
-            batch.drawToCamera(fighter.getSprite().getTex().getTex(), x.get() + (index.getAndIncrement() * 16), y + Text.TEXT_LINE_H, Facing.LEFT);
+            batch.drawToCamera(fighter.getSprite().getTex().getTex(), x.get() + (index.getAndIncrement() * 16), y + Text.TEXT_LINE_H, Facing.LEFT, fighter.getSize());
         });
 
         x.set(x.get() + 80);
         index.set(0);
         Static.text.drawToCamera(batch, "casting", x.get(), y);
         battleMembers.getFightersCasting().forEach(fighter -> {
-            batch.drawToCamera(fighter.getSprite().getTex().getTex(), x.get() + (index.getAndIncrement() * 16), y + Text.TEXT_LINE_H, Facing.LEFT);
+            batch.drawToCamera(fighter.getSprite().getTex().getTex(), x.get() + (index.getAndIncrement() * 16), y + Text.TEXT_LINE_H, Facing.LEFT, fighter.getSize());
         });
 
         x.set(x.get() + 80);
         index.set(0);
         Static.text.drawToCamera(batch, "executing", x.get(), y);
         battleMembers.getFightersExecuting().forEach(fighter -> {
-            batch.drawToCamera(fighter.getSprite().getTex().getTex(), x.get() + (index.getAndIncrement() * 16), y + Text.TEXT_LINE_H, Facing.LEFT);
+            batch.drawToCamera(fighter.getSprite().getTex().getTex(), x.get() + (index.getAndIncrement() * 16), y + Text.TEXT_LINE_H, Facing.LEFT, fighter.getSize());
         });
     }
 
     public void drawShapeWorld(Shaper shape, World world) {
         //drawMouseSquare(shape);
-        //drawEncounterSquares(shape, world);
+        drawEncounterSquares(shape, world);
     }
 
     public void drawBatchWorld(Batcher batch, World world) {
@@ -140,7 +141,8 @@ public class DebugDrawer {
         world.getEncounterService()
              .getEncounterPositionsOptional()
              .ifPresent(positions -> positions.forEach(xy -> shape.rect(new Rect(xy.getX() * ts, xy.getY() * ts),
-                                                                        Colors.red.mul(0.75f - (0.10f * atomicInteger.getAndIncrement()), 0.70f - (0.10f * atomicInteger.get())))));
+                                                                        Colors.red.mul(0.75f - (0.10f * Numbers.clamp(atomicInteger.getAndIncrement(), 0, 4)),
+                                                                                       0.70f - (0.10f * Numbers.clamp(atomicInteger.get(), 0, 4))))));
 
         shape.rectOutline(new Rect(world.getEncounterService().getEncounterX() * ts, world.getEncounterService().getEncounterY() * ts), Colors.blue.color);
     }

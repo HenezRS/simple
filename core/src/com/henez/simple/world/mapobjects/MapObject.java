@@ -20,6 +20,7 @@ public class MapObject {
     protected Sprite sprite;
     protected int depth;
     protected int id;
+    protected int size = Global.tilePixelSize;
 
     public MapObject(int gx, int gy, Sprite sprite, int depth) {
         resetPosition(gx, gy, depth);
@@ -47,7 +48,7 @@ public class MapObject {
     }
 
     public void draw(Batcher batch) {
-        sprite.draw(batch, x, y, Facing.actorDefault());
+        sprite.draw(batch, x, y, Facing.actorDefault(), size);
     }
 
     public void giveAnimation(Animation animation, SpriteAnimation spriteAnimation) {

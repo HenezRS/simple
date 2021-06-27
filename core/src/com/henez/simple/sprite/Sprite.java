@@ -54,14 +54,14 @@ public class Sprite {
         }
     }
 
-    public void draw(Batcher batch, float x, float y, Facing facing) {
+    public void draw(Batcher batch, float x, float y, Facing facing, int size) {
         TextureRegionEnhanced tex = getTex();
         Shader.sprite.shader.begin();
         Shader.sprite.shader.setUniformf("blinkAlpha", 0.0f);
         spriteEffectManager.applyShaderUniforms();
         Shader.sprite.shader.end();
         batch.begin();
-        batch.draw(tex, x, y, facing);
+        batch.draw(tex, x, y, facing, size);
         batch.end();
     }
 

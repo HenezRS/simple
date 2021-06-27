@@ -1,7 +1,6 @@
 package com.henez.simple.menu.buttons;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.Static;
 import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Colors;
@@ -29,35 +28,36 @@ public class PlayerCardButton extends Button {
         this.h = 33;
         this.fighter = fighter;
 
-        rect = new Rect(x,y,w,h);
-        rectPicture = new Rect(x+3,y+10,20,20);
+        rect = new Rect(x, y, w, h);
+        rectPicture = new Rect(x + 3, y + 10, 20, 20);
     }
 
     @Override
     public void draw(Batcher batch) {
-        drawTo(batch,x,y);
+        drawTo(batch, x, y);
     }
 
+    @Override
     public void draw(Shaper shape) {
         Color borderColor = borderColorDefault;
         if (hover) {
             borderColor = borderColorHover;
-        } else if (isActive){
+        } else if (isActive) {
             borderColor = borderColorActive;
         }
 
-        shape.rectOutlineCornered(rect,borderColor);
-        shape.rectOutlineCornered(rectPicture,borderColor);
+        shape.rectOutlineCornered(rect, borderColor);
+        shape.rectOutlineCornered(rectPicture, borderColor);
     }
 
     public void drawTo(Batcher batch, int x, int y) {
         Color textColor = textColorDefault;
         if (hover) {
             textColor = textColorHover;
-        } else if (isActive){
+        } else if (isActive) {
             textColor = textColorActive;
         }
-        Static.text.drawToCamera(batch,fighter.getName(), x+3,y+3);
-        batch.drawToCamera(fighter.getSprite().getTex().getTex(), x+5, y+12, Facing.RIGHT);
+        Static.text.drawToCamera(batch, fighter.getName(), x + 3, y + 3);
+        batch.drawToCamera(fighter.getSprite().getTex().getTex(), x + 5, y + 12, Facing.RIGHT, fighter.getSize());
     }
 }

@@ -46,7 +46,7 @@ public class Actor extends MapObject {
 
     @Override
     public void draw(Batcher batch) {
-        sprite.draw(batch, x, y, facing2);
+        sprite.draw(batch, x, y, facing2, size);
     }
 
     public boolean canMove(Facing facing, GameMap map) {

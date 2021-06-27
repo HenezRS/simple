@@ -9,7 +9,6 @@ import com.henez.simple.input.In;
 import com.henez.simple.misc.XY;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.world.battle.Battle;
-import com.henez.simple.world.enemies.EnemyPartyName;
 import com.henez.simple.world.map.gamemap.GameMap;
 import com.henez.simple.world.map.gamemap.impl.TestMap;
 import com.henez.simple.world.mapobjects.ActorFactory;
@@ -95,7 +94,7 @@ public class World {
         playerData.resetEncounterSteps();
 
         AtomicInteger depth = new AtomicInteger();
-        EnemyPartyName.octos.getOrdered().forEach(enemyClass -> {
+        DebugFlags.debugEncounter.getOrdered().forEach(enemyClass -> {
             XY xy = encounterService.getEncounterPositions().get(depth.get());
             enemyParty.add(ActorFactory.createEnemyPositioned(xy.getX(), xy.getY(), depth.getAndIncrement(), enemyClass));
         });

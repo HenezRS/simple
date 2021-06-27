@@ -6,6 +6,7 @@ import com.henez.simple.atlas.imgs.ImgUi;
 import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.enums.Facing;
+import com.henez.simple.global.Global;
 import com.henez.simple.input.In;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.ShapeFactory;
@@ -65,11 +66,11 @@ public class BattleControlDrawer {
         if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING, FighterState.CHANNELLING)) {
             batch.drawToCamera(cast.getSkillName().getTex(), selectedX + 3, selectedY + 3);
             batch.drawToCamera(ImgUi.arrow_right_grey.asTex(), arrowX, arrowY);
-            batch.drawToCamera(cast.getSkillTarget().getTarget().getSprite().getTex(), selectedX + 3 + selectedWW, selectedY + 3, Facing.LEFT);
+            batch.drawToCamera(cast.getSkillTarget().getTarget().getPortrait(), selectedX + 3 + selectedWW, selectedY + 3, Facing.LEFT, Global.tilePixelSize);
         } else {
             batch.drawToCamera(selectedSkill.getTex(), selectedX + 3, selectedY + 3);
             batch.drawToCamera(ImgUi.arrow_right.asTex(), arrowX, arrowY);
-            batch.drawToCamera(control.getEnemyTarget().getSprite().getTex(), selectedX + 3 + selectedWW, selectedY + 3, Facing.LEFT);
+            batch.drawToCamera(control.getEnemyTarget().getPortrait(), selectedX + 3 + selectedWW, selectedY + 3, Facing.LEFT, Global.tilePixelSize);
         }
         for (int i = 0; i < 4; ++i) {
             SkillName skillName = skillSheet.getSkills().getOrNull(i);

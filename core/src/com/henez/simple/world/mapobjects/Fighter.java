@@ -1,11 +1,13 @@
 package com.henez.simple.world.mapobjects;
 
 import com.henez.simple.atlas.imgset.ImgSetFighters;
+import com.henez.simple.datastructures.TextureRegionEnhanced;
 import com.henez.simple.debug.DebugFlags;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.enums.EnemyRank;
 import com.henez.simple.enums.animation.Animation;
 import com.henez.simple.enums.state.WorldState;
+import com.henez.simple.global.Global;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.skills.SkillExecution;
 import com.henez.simple.skills.SkillName;
@@ -39,11 +41,14 @@ public class Fighter extends Actor {
     protected EnemyRank enemyRank;
     protected int turn;
     protected boolean isBattleControlled = false;
+    protected boolean isLarge;
 
     public Fighter(int gx, int gy, ClassName className, int depth) {
         super(gx, gy, new Sprite(), depth);
         this.className = className;
         this.imgSetFighters = className.getImgSet();
+        this.isLarge = this.imgSetFighters.isLarge();
+        this.size = this.isLarge ? Global.tilePixelSize * 2 : Global.tilePixelSize;
         statSheet = new StatSheet();
         skillSheet = new SkillSheet();
         skillExecution = new SkillExecution();
@@ -59,7 +64,7 @@ public class Fighter extends Actor {
 
     @Override
     public void draw(Batcher batch) {
-        sprite.draw(batch, x, y, facing2);
+        sprite.draw(batch, x, y, facing2, size);
     }
 
     public void battleStart(int pos, int fighterCount) {
@@ -189,5 +194,9 @@ public class Fighter extends Actor {
 
     public boolean isMajor() {
         return enemyRank == EnemyRank.MAJOR;
+    }
+
+    public TextureRegionEnhanced getPortrait() {
+        return isLarge ? imgSetFighters.getPortrait() : sprite.getTex();
     }
 }

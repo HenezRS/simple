@@ -15,6 +15,8 @@ public class Atlas {
     private static TextureRegion[][] texTiles;
     private static TextureRegion[][] texActors;
     private static TextureRegion[][] texEnemies;
+    private static TextureRegion[][] texEnemies32;
+    private static TextureRegion[][] texEnemies32Portrait;
     private static TextureRegion[][] texEffects;
     private static TextureRegion[][] texIconSkills;
     private static TextureRegion[][] texIcon7;
@@ -26,6 +28,8 @@ public class Atlas {
         texTiles = loadTilesFromFile("png/tiles.png", Global.tilePixelSize);
         texActors = loadTilesFromFile("png/actors.png", Global.tilePixelSize);
         texEnemies = loadTilesFromFile("png/enemies.png", Global.tilePixelSize);
+        texEnemies32 = loadTilesFromFile("png/enemies32.png", Global.tilePixelSize * 2);
+        texEnemies32Portrait = createPortraits("png/enemies32.png");
         texEffects = loadTilesFromFile("png/effects.png", Global.tilePixelSize);
         texIconSkills = loadTilesFromFile("png/iconSkills.png", Global.tilePixelSize);
         texIcon7 = loadTilesFromFile("png/icon7.png", 7);
@@ -44,6 +48,14 @@ public class Atlas {
 
     public static TextureRegionEnhanced toTex(ImgEnemies img) {
         return new TextureRegionEnhanced(texEnemies[img.getY()][img.getX()]);
+    }
+
+    public static TextureRegionEnhanced toTex(ImgEnemies32 img) {
+        return new TextureRegionEnhanced(texEnemies32[img.getY()][img.getX()]);
+    }
+
+    public static TextureRegionEnhanced toTexPortrait(ImgEnemies32 img) {
+        return new TextureRegionEnhanced(texEnemies32Portrait[img.getY()][img.getX()]);
     }
 
     public static TextureRegionEnhanced toTex(ImgEffects img) {
@@ -70,6 +82,20 @@ public class Atlas {
         return texBackground.get(img);
     }
 
+    private static TextureRegion[][] createPortraits(String path) {
+        Texture t = new Texture(Gdx.files.internal(path));
+        int w = texEnemies32.length;
+        int h = texEnemies32[0].length;
+        TextureRegion[][] dest = new TextureRegion[w][h];
+        for (int i = 0; i < w; ++i) {
+            for (int j = 0; j < h; ++j) {
+                dest[i][j] = new TextureRegion(t, 8 + (i * 32), 8 + (j * 32), 16, 16);
+                dest[i][j].flip(false, true);
+            }
+        }
+        return dest;
+    }
+
     private static TextureRegion[][] loadTilesFromFile(String path, int tileSize) {
         TextureRegion[][] dest = TextureRegion.split(new Texture(Gdx.files.internal(path)), tileSize, tileSize);
         Arrays.stream(dest).forEach(texArray -> Arrays.stream(texArray).forEach(tex -> tex.flip(false, true)));
@@ -94,7 +120,7 @@ public class Atlas {
         Map<ImgBackground, TextureRegion> dest = new EnumMap<>(ImgBackground.class);
 
         Arrays.stream(ImgBackground.values()).forEach(img -> {
-            Texture tex = new Texture(Gdx.files.internal(path.replace("{name}",img.getPathName())));
+            Texture tex = new Texture(Gdx.files.internal(path.replace("{name}", img.getPathName())));
             dest.put(img, new TextureRegion(tex, 0, 0, Global.cameraPixelW, Global.cameraPixelH));
             dest.get(img).flip(false, true);
         });

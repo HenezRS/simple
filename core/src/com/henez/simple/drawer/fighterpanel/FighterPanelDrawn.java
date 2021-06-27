@@ -9,6 +9,7 @@ import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.enums.StatName;
+import com.henez.simple.global.Global;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.ShapeFactory;
 import com.henez.simple.renderer.Shaper;
@@ -26,12 +27,12 @@ public class FighterPanelDrawn {
     private int minorBarAtbY = 22;
     private int minorBarW = 18;
 
-    private int w = 57;
+    private int w = 56;
     private int h = 24;
 
     private int skillX = 0;
     private int skillY = h;
-    private int skillW = w;
+    private int skillW = w + 1;
     private int skillH = TEXT_H + 4;
 
     private int playerX = 3;
@@ -78,7 +79,7 @@ public class FighterPanelDrawn {
         batch.draw(Atlas.toTex(ImgIcon7.hp), x + iconHpX, y + iconHpY);
         batch.draw(Atlas.toTex(ImgIcon7.mp), x + iconMpX, y + iconMpY);
 
-        batch.draw(fighter.getSprite().getTex(), x + playerX, y + playerY, Facing.RIGHT);
+        batch.draw(fighter.getSprite().getTex(), x + playerX, y + playerY, Facing.RIGHT, fighter.getSize());
 
         if (!fighter.isDead()) {
 
@@ -133,7 +134,7 @@ public class FighterPanelDrawn {
         Static.text.drawRight(batch, fighter.getStatSheet().getStatCur(StatName.HP) + "", x + textHpX, y + textHpY);
 
         batch.draw(Atlas.toTex(ImgIcon7.hp), x + iconHpX, y + iconHpY);
-        batch.draw(fighter.getSprite().getTex(), x + playerX, y + playerY, Facing.LEFT);
+        batch.draw(fighter.getPortrait(), x + playerX, y + playerY, Facing.LEFT, Global.tilePixelSize);
 
         if (!fighter.isDead()) {
             if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING, FighterState.CHANNELLING)) {
@@ -182,7 +183,7 @@ public class FighterPanelDrawn {
     }
 
     public void drawBatchEnemyMinor(Batcher batch, int x, int y, Fighter fighter) {
-        batch.draw(fighter.getSprite().getTex(), x + playerX, y + playerY, Facing.LEFT);
+        batch.draw(fighter.getSprite().getTex(), x + playerX, y + playerY, Facing.LEFT, fighter.getSize());
 
     }
 

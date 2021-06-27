@@ -42,17 +42,17 @@ public class Batcher extends SpriteBatch {
         super.draw(region, x + tx, y + ty);
     }
 
-    public void draw(TextureRegion region, float x, float y, Facing facing) {
+    public void draw(TextureRegion region, float x, float y, Facing facing, int size) {
         if (facing == Facing.LEFT) {
-            super.draw(region, x + tx + Global.tilePixelSize, y + ty, -Global.tilePixelSize, Global.tilePixelSize);
+            super.draw(region, x + tx + Global.tilePixelSize, y + ty, -size, size);
         } else {
             super.draw(region, x + tx, y + ty);
         }
     }
 
-    public void draw(TextureRegionEnhanced region, float x, float y, Facing facing) {
+    public void draw(TextureRegionEnhanced region, float x, float y, Facing facing, int size) {
         if (facing == Facing.LEFT) {
-            super.draw(region.getTex(), x + tx + Global.tilePixelSize + (-1 * region.getAddX()), y + ty, -Global.tilePixelSize + region.getAddY(), Global.tilePixelSize);
+            super.draw(region.getTex(), x + tx + Global.tilePixelSize + (-1 * region.getAddX()), y + ty, -size + region.getAddY(), size);
         } else {
             super.draw(region.getTex(), x + tx + region.getAddX(), y + ty + region.getAddY());
         }
@@ -62,12 +62,12 @@ public class Batcher extends SpriteBatch {
         draw(region, x + Static.renderer.getX(), y + Static.renderer.getY());
     }
 
-    public void drawToCamera(TextureRegion region, float x, float y, Facing facing) {
-        draw(region, x + Static.renderer.getX(), y + Static.renderer.getY(), facing);
+    public void drawToCamera(TextureRegion region, float x, float y, Facing facing, int size) {
+        draw(region, x + Static.renderer.getX(), y + Static.renderer.getY(), facing, size);
     }
 
-    public void drawToCamera(TextureRegionEnhanced region, float x, float y, Facing facing) {
-        draw(region, x + Static.renderer.getX(), y + Static.renderer.getY(), facing);
+    public void drawToCamera(TextureRegionEnhanced region, float x, float y, Facing facing, int size) {
+        draw(region, x + Static.renderer.getX(), y + Static.renderer.getY(), facing, size);
     }
 
     public void draw(TextureRegion region, float x, float y, float rotation) {

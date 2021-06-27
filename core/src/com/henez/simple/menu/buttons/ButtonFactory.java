@@ -19,7 +19,7 @@ public final class ButtonFactory {
         AtomicInteger x = new AtomicInteger();
         AtomicInteger y = new AtomicInteger();
         Arrays.stream(ClassName.values()).forEach(job -> {
-            buttonGroup.addButton(new ImageButton(job.getName(), parentX + (x.getAndIncrement() * 22), parentY + (y.get() * 22), job.getImgSet().getIdle().getTex(), ImageButtonDefinitions.box20));
+            buttonGroup.addButton(new ImageButton(job.getName(), parentX + (x.getAndIncrement() * 22), parentY + (y.get() * 22), job.getImgSet().getPortrait().getTex(), ImageButtonDefinitions.box20));
             if (x.get() == 5) {
                 y.getAndIncrement();
                 x.set(0);

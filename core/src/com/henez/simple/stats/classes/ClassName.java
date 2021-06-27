@@ -24,19 +24,22 @@ public enum ClassName {
     enemy_octoMinor("en", "octoMinor", ImgSetFighters.enemy_octoMinor, EnemyMinorType.DAMAGE),
     enemy_octo3("en", "octo3", ImgSetFighters.enemy_octo3),
     enemy_octo4("en", "octo4", ImgSetFighters.enemy_octo4),
-    ;
+
+    enemy_octoBig("en", "octoBig", ImgSetFighters.enemy_octoBig);
 
     private String nameShort;
     private String name;
     private ImgSetFighters imgSet;
     private EnemyRank enemyRank;
     private EnemyMinorType enemyMinorType;
+    private boolean isLarge;
 
     ClassName(String nameShort, String name, ImgSetFighters imgSet) {
         this.nameShort = nameShort.toUpperCase();
         this.name = name;
         this.imgSet = imgSet;
         this.enemyRank = EnemyRank.MAJOR;
+        this.isLarge = imgSet.isLarge();
     }
 
     ClassName(String nameShort, String name, ImgSetFighters imgSet, EnemyMinorType enemyMinorType) {
@@ -45,6 +48,7 @@ public enum ClassName {
         this.imgSet = imgSet;
         this.enemyRank = EnemyRank.MINOR;
         this.enemyMinorType = enemyMinorType;
+        this.isLarge = imgSet.isLarge();
     }
 
     public static ClassName getByName(String name) {

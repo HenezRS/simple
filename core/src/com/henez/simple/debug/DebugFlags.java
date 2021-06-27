@@ -1,5 +1,7 @@
 package com.henez.simple.debug;
 
+import com.henez.simple.world.enemies.EnemyPartyName;
+
 public class DebugFlags {
     private DebugFlags() {
     }
@@ -8,6 +10,7 @@ public class DebugFlags {
     public static boolean canEnemiesAct = true;
     public static boolean canPlayersAct = true;
     public static boolean canNonLeadersAct = true;
+    public static EnemyPartyName debugEncounter = EnemyPartyName.octosMany;
 
     //visual
     public static boolean drawBasicInfo = false;
@@ -23,12 +26,12 @@ public class DebugFlags {
 
     public static void override() {
         //canNonLeadersAct = false;
-        canEnemiesAct = false;
+        //canEnemiesAct = false;
         //canPlayersAct = false;
         //canEncounterWithSteps = false;
         //drawPlayerAnimationInfo = true;
-        mulSkillNamePowerPlayer = 10.1f;
+        mulSkillNamePowerPlayer = 0.1f;
         mulSkillNamePowerEnemy = 0.1f;
-        mulBattleSpeed = 10.0f;
+        mulBattleSpeed = 1.0f;
     }
 }
