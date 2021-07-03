@@ -53,6 +53,9 @@ public class BattleControlDrawer {
         if (control.getMouseOverTarget() != null) {
             shape.rectOutline(RectUtils.get(control.getMouseOverTarget()), Colors.white_30.color);
         }
+        if (control.getMouseOverPos() != null) {
+            shape.rect(RectUtils.get(control.getMouseOverPos()), Colors.white_15.color);
+        }
 
     }
 

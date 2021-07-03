@@ -1,6 +1,7 @@
 package com.henez.simple.skills.skillnamedefinition;
 
 import com.henez.simple.atlas.imgs.ImgIconSkills;
+import com.henez.simple.skills.SkillTargetName;
 
 public final class SkillNameDefinitionFactory {
 
@@ -26,6 +27,14 @@ public final class SkillNameDefinitionFactory {
         return new SkillNameDefinition.Builder("ice spike", ImgIconSkills.ice_spike)
                 .withPower(4)
                 .withCast(4.0f)
+                .build();
+    }
+
+    public static SkillNameDefinition createFlame4() {
+        return new SkillNameDefinition.Builder("flame 4", ImgIconSkills.flame)
+                .withPower(2)
+                .withCast(2.0f)
+                .withTarget(SkillTargetName.SQU, true)
                 .build();
     }
 }

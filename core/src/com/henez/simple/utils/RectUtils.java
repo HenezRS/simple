@@ -2,6 +2,8 @@ package com.henez.simple.utils;
 
 import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Facing;
+import com.henez.simple.global.Global;
+import com.henez.simple.misc.XY;
 import com.henez.simple.world.mapobjects.MapObject;
 
 public class RectUtils {
@@ -10,6 +12,10 @@ public class RectUtils {
 
     public static Rect get(MapObject mapObject) {
         return new Rect(mapObject.getX(), mapObject.getY(), mapObject.getSize(), mapObject.getSize());
+    }
+
+    public static Rect get(XY xy) {
+        return new Rect(xy.getX() * Global.tilePixelSize, xy.getY() * Global.tilePixelSize, Global.tilePixelSize, Global.tilePixelSize);
     }
 
     public static Rect borderLeft(Rect rect) {

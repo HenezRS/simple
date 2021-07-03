@@ -4,6 +4,7 @@ import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.Facing;
 import com.henez.simple.misc.XY;
 import com.henez.simple.stats.classes.ClassName;
+import com.henez.simple.utils.XYUtils;
 import com.henez.simple.world.map.gamemap.GameMap;
 import com.henez.simple.world.mapobjects.MapObject;
 import lombok.Getter;
@@ -89,7 +90,7 @@ public class EncounterService {
     }
 
     private boolean notExcluded(XY pos) {
-        return usedPositions.stream().noneMatch(p -> p.getX() == pos.getX() && p.getY() == pos.getY());
+        return usedPositions.stream().noneMatch(p -> XYUtils.equal(p, pos));
     }
 
     private void addUsedPositions(XY pos, GameList<XY> positions) {

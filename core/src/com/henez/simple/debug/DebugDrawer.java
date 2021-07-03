@@ -11,13 +11,16 @@ import com.henez.simple.enums.state.WorldState;
 import com.henez.simple.global.Global;
 import com.henez.simple.input.In;
 import com.henez.simple.misc.Framerate;
+import com.henez.simple.misc.XY;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.Shaper;
 import com.henez.simple.sprite.SpriteAnimation;
 import com.henez.simple.text.Text;
+import com.henez.simple.utils.FighterUtils;
 import com.henez.simple.world.World;
 import com.henez.simple.world.battle.BattleMembers;
 import com.henez.simple.world.mapobjects.ControlledPlayer;
+import com.henez.simple.world.mapobjects.Fighter;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -34,9 +37,7 @@ public class DebugDrawer {
     public void drawBatch(Batcher batch, World world, Framerate framerate) {
 
         if (world.getState() == WorldState.BATTLE) {
-            if (DebugFlags.drawBattleQueues) {
-                drawBattleBatch(batch, world);
-            }
+            drawBattleBatch(batch, world);
         }
 
         drawBatchWorld(batch, world);
@@ -44,6 +45,32 @@ public class DebugDrawer {
             drawBasicInfo(batch, world, framerate);
         }
     }
+
+    public void drawShape(Shaper shape, World world) {
+        drawShapeWorld(shape, world);
+    }
+
+    public void drawBatchWorld(Batcher batch, World world) {
+        if (DebugFlags.drawPlayerAnimationInfo) {
+            drawControlledPlayerAnimationsList(batch, world.getPlayer());
+        }
+    }
+
+    public void drawShapeWorld(Shaper shape, World world) {
+        //drawMouseSquare(shape);
+        //drawEncounterSquares(shape, world);
+        if (world.getState() == WorldState.BATTLE) {
+            drawBattleShape(shape, world);
+        }
+    }
+
+    // ----------------------------------------------
+    // ----------------------------------------------
+    // ----------------------------------------------
+    // ----------------------------------------------
+    // ----------------------------------------------
+    // ----------------------------------------------
+    // ----------------------------------------------
 
     private void drawBasicInfo(Batcher batch, World world, Framerate framerate) {
         lines.clear();
@@ -78,6 +105,21 @@ public class DebugDrawer {
     }
 
     private void drawBattleBatch(Batcher batch, World world) {
+        if (DebugFlags.drawBattleQueues) {
+            drawBattleBatchQueues(batch, world);
+        }
+        if (DebugFlags.drawEnemyPartyMap) {
+            drawBattleBatchEnemyPartyMap(batch, world);
+        }
+    }
+
+    private void drawBattleShape(Shaper shape, World world) {
+        if (DebugFlags.drawEnemyPartyMap) {
+            drawBattleShapeEnemyPartyMap(shape, world);
+        }
+    }
+
+    private void drawBattleBatchQueues(Batcher batch, World world) {
         BattleMembers battleMembers = world.getBattle().getBattleMembers();
 
         AtomicInteger x = new AtomicInteger(50);
@@ -103,15 +145,20 @@ public class DebugDrawer {
         });
     }
 
-    public void drawShapeWorld(Shaper shape, World world) {
-        //drawMouseSquare(shape);
-        //drawEncounterSquares(shape, world);
+    private void drawBattleBatchEnemyPartyMap(Batcher batch, World world) {
+        Map<XY, Fighter> partyMap = world.getBattle().getBattleMembers().getEnemyPartyMap();
+        partyMap.forEach((xy, fighter) -> {
+            batch.draw(fighter.getPortrait(), (xy.getX() + 8) * Global.tilePixelSize, (xy.getY() + 5) * Global.tilePixelSize, Facing.LEFT, Global.tilePixelSize);
+        });
     }
 
-    public void drawBatchWorld(Batcher batch, World world) {
-        if (DebugFlags.drawPlayerAnimationInfo) {
-            drawControlledPlayerAnimationsList(batch, world.getPlayer());
-        }
+    private void drawBattleShapeEnemyPartyMap(Shaper shape, World world) {
+        Map<XY, Fighter> partyMap = world.getBattle().getBattleMembers().getEnemyPartyMap();
+        Rect rect = FighterUtils.getPartyMapRect(partyMap);
+        rect.x += (8 * Global.tilePixelSize);
+        rect.y += (5 * Global.tilePixelSize);
+        rect.snap();
+        shape.rectOutline(rect, Colors.red_raw.color);
     }
 
     private void drawControlledPlayerAnimationsList(Batcher batch, ControlledPlayer player) {

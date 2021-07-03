@@ -143,7 +143,7 @@ class Simple {
             shape.rect(0, 0, Static.renderer.getXX(), Static.renderer.getYY(), Colors.black_50.color);
         }
 
-        debugDrawer.drawShapeWorld(shape, world);
+        debugDrawer.drawShape(shape, world);
         if (world.getState() == WorldState.BATTLE) {
             battleDrawer.drawUiShape(shape);
         }
@@ -159,8 +159,8 @@ class Simple {
                 Static.text.drawCenter(batch, "paused", Static.renderer.getCenterX(), Static.renderer.getCenterY() - Text.TEXT_H);
             }
         } else {
-            playerMenuDrawer.drawBatch(world.getPlayerData().getPlayerMenu(),batch);
-            if(world.getPlayerData().getPlayerMenu().isShowBag()) {
+            playerMenuDrawer.drawBatch(world.getPlayerData().getPlayerMenu(), batch);
+            if (world.getPlayerData().getPlayerMenu().isShowBag()) {
                 inventoryDrawer.drawBatch(world.getPlayerData().getInventory(), batch);
             }
         }

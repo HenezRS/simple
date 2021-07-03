@@ -2,13 +2,16 @@ package com.henez.simple.world.battle;
 
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.Facing;
+import com.henez.simple.misc.XY;
 import com.henez.simple.misc.timer.Timer;
 import com.henez.simple.skills.SkillTargetBuilder;
+import com.henez.simple.utils.FighterUtils;
 import com.henez.simple.world.mapobjects.Fighter;
 import com.henez.simple.world.mapobjects.FighterState;
 import lombok.Getter;
 
 import java.util.Collections;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -16,6 +19,7 @@ import java.util.stream.Collectors;
 public class BattleMembers {
     private GameList<Fighter> playerParty;
     private GameList<Fighter> enemyParty;
+    private Map<XY, Fighter> enemyPartyMap;
     private GameList<Fighter> fighters;
     private GameList<Fighter> fightersShuffled;
     private GameList<Fighter> fightersWaiting;
@@ -29,6 +33,8 @@ public class BattleMembers {
     public BattleMembers(GameList<Fighter> playerParty, GameList<Fighter> enemyParty) {
         this.playerParty = playerParty;
         this.enemyParty = enemyParty;
+
+        enemyPartyMap = FighterUtils.createFighterMap(this.enemyParty);
 
         fighters = new GameList<>();
         fighters.addAll(playerParty);

@@ -6,6 +6,7 @@ public enum Colors {
     white(new Color(0xffffffff)),
     white_50(white.withAlpha(0.5f)),
     white_30(white.withAlpha(0.3f)),
+    white_15(white.withAlpha(0.15f)),
     black(new Color(0x000000ff)),
     black_50(black.withAlpha(0.5f)),
 
@@ -57,6 +58,7 @@ public enum Colors {
     green_50(green.withAlpha(0.5f)),
 
     purple_raw(new Color(0xff00ffff)),
+    red_raw(new Color(0xff0000ff)),
     ;
 
     public Color color;

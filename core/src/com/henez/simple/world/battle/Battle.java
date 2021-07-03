@@ -71,7 +71,7 @@ public class Battle {
                 endBattle();
             }
         } else if (!ended) {
-            battleControl.captureInput(battleMembers.getFighters());
+            battleControl.captureInput(battleMembers.getEnemyPartyMap());
             battleTimer.update();
             tickBattle();
         }

@@ -16,6 +16,7 @@ public class DebugFlags {
     public static boolean drawBasicInfo = false;
     public static boolean drawPlayerAnimationInfo = false;
     public static boolean drawBattleQueues = false;
+    public static boolean drawEnemyPartyMap = false;
 
     public static float mulSkillNamePowerPlayer = 1.0f;
     public static float mulSkillNamePowerEnemy = 1.0f;
@@ -30,6 +31,7 @@ public class DebugFlags {
         //canPlayersAct = false;
         //canEncounterWithSteps = false;
         //drawPlayerAnimationInfo = true;
+        drawEnemyPartyMap = true;
         mulSkillNamePowerPlayer = 0.1f;
         mulSkillNamePowerEnemy = 0.1f;
         mulBattleSpeed = 1.0f;

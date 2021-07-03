@@ -49,9 +49,9 @@ public class FighterPanelDrawn {
     private int textMpY = 12;
 
     private int barHpX = 23;
-    private int barHpY = 9;
+    private int barHpY = 9 - 1;
     private int barMpX = barHpX;
-    private int barMpY = 19;
+    private int barMpY = 19 - 1;
     private int barW = 32;
 
     private int skillNameX = 1;
@@ -93,10 +93,10 @@ public class FighterPanelDrawn {
         backColor = Colors.ui_back_blue.color;
         frameColor = Colors.ui_frame_blue.color;
 
-        shape.rect(x, y, w, h, backColor);
+        shape.rect(x, y, w, h + 2, backColor);
         shape.rectOutline(new Rect(x + 1, y + 1, 20, 20), frameColor);
-        shape.barH1(x + barHpX, y + barHpY, barW, fighter.getStatSheet().getStatPercent(StatName.HP), Colors.hp.color, Colors.hp_bar_back.color);
-        shape.barH1(x + barMpX, y + barMpY, barW, fighter.getStatSheet().getStatPercent(StatName.MP), Colors.mp.color, Colors.hp_bar_back.color);
+        shape.barH(x + barHpX, y + barHpY, barW, 3, fighter.getStatSheet().getStatPercent(StatName.HP), Colors.hp.color, Colors.hp_bar_back.color);
+        shape.barH(x + barMpX, y + barMpY, barW, 3, fighter.getStatSheet().getStatPercent(StatName.MP), Colors.mp.color, Colors.hp_bar_back.color);
 
         if (!fighter.isDead()) {
             if (fighter.fighterStateOneOf(FighterState.CASTING, FighterState.EXECUTING, FighterState.CHANNELLING)) {
@@ -106,18 +106,18 @@ public class FighterPanelDrawn {
 
                 if (fighter.fighterStateIs(FighterState.CASTING)) {
                     float percent = fighter.getCast().getPercent();
-                    shape.barH1(x + skillBarX,
-                                y + skillBarY,
-                                skillBarVarW,
-                                percent,
-                                Colors.castbar.color, Colors.hp_bar_back.color);
+                    shape.barH(x + skillBarX,
+                               y + skillBarY,
+                               skillBarVarW, 3,
+                               percent,
+                               Colors.castbar.color, Colors.hp_bar_back.color);
                 } else if (fighter.fighterStateIs(FighterState.CHANNELLING)) {
                     float percent = 1 - fighter.getCast().getPercent();
-                    shape.barH1(x + skillBarX,
-                                y + skillBarY,
-                                skillBarVarW,
-                                percent,
-                                Colors.channelbar.color, Colors.hp_bar_back.color);
+                    shape.barH(x + skillBarX,
+                               y + skillBarY,
+                               skillBarVarW, 3,
+                               percent,
+                               Colors.channelbar.color, Colors.hp_bar_back.color);
 
                     int max = fighter.getCast().getChannelExecutionMaxCount();
                     for (int i = 0; i < max; ++i) {
@@ -125,7 +125,7 @@ public class FighterPanelDrawn {
                     }
                 }
             } else {
-                shape.barH1(x + atbBarX, y + atbBarY, atbBarW, fighter.getStatSheet().getAtb().getPercent(), Colors.ui_bar_front.color, Colors.hp_bar_back.color);
+                shape.barH(x + atbBarX, y + atbBarY, atbBarW, 3, fighter.getStatSheet().getAtb().getPercent(), Colors.ui_bar_front.color, Colors.hp_bar_back.color);
             }
         }
     }

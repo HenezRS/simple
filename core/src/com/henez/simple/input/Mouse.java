@@ -1,5 +1,6 @@
 package com.henez.simple.input;
 
+import com.henez.simple.misc.XY;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -53,6 +54,10 @@ public class Mouse {
 
     public boolean isMouseWithinGrid(int xx, int yy) {
         return gx > xx - 1 && gx < xx + 1 && gy > yy - 1 && gy < yy + 1;
+    }
+
+    public boolean isMouseWithinGrid(XY xy) {
+        return isMouseWithinGrid(xy.getX(), xy.getY());
     }
 
     public boolean isMouseWithinGridLarge(int xx, int yy) {

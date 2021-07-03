@@ -11,6 +11,7 @@ public enum SkillName {
     ATTACK(SkillNameDefinitionFactory.createAttack()),
     FLAME(SkillNameDefinitionFactory.createFlame()),
     ICE_SPIKE(SkillNameDefinitionFactory.createIceSpike()),
+    FLAME_4(SkillNameDefinitionFactory.createFlame4()),
     /*ERROR("[error: missing skill]", ImgIconSkills.missing, 0, 0, 0, 0, 0, SkillTargetName.SINGLE),
     DO_NOTHING("do nothing", ImgIconSkills.missing, 0, 0, 0, 0, 0, SkillTargetName.SINGLE),
     ATTACK("attack", ImgIconSkills.attack, 1, 0, 0, 0, 0, SkillTargetName.SINGLE),

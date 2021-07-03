@@ -9,7 +9,7 @@ public class SkillSheet {
 
     public SkillSheet() {
         skills = new GameList<>();
-        skills.addAll(SkillName.ATTACK, SkillName.FLAME, SkillName.ICE_SPIKE);
+        skills.addAll(SkillName.ATTACK, SkillName.FLAME, SkillName.ICE_SPIKE, SkillName.FLAME_4);
     }
 
     public boolean hasValidSkillInSlotIndex(int i) {

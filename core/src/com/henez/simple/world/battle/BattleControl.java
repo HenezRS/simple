@@ -3,9 +3,12 @@ package com.henez.simple.world.battle;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.input.In;
 import com.henez.simple.input.Key;
+import com.henez.simple.misc.XY;
 import com.henez.simple.skills.SkillName;
 import com.henez.simple.world.mapobjects.Fighter;
 import lombok.Getter;
+
+import java.util.Map;
 
 @Getter
 public class BattleControl {
@@ -15,6 +18,7 @@ public class BattleControl {
     private Fighter enemyTarget;
     private Fighter playerTarget;
     private Fighter mouseOverTarget;
+    private XY mouseOverPos;
     private SkillName selectedSkill;
     private boolean paused;
 
@@ -29,7 +33,7 @@ public class BattleControl {
         selectedSkill = controlledPlayer.getSkillSheet().getSkills().get(nextSkillIndex);
     }
 
-    public void captureInput(GameList<Fighter> fighters) {
+    public void captureInput(Map<XY, Fighter> enemyMap) {
         for (int i = 0; i < skillKeys.size(); ++i) {
             if (skillKeys.get(i).isHeld() && controlledPlayer.getSkillSheet().hasValidSkillInSlotIndex(i)) {
                 setSelectedSkill(i);
@@ -38,15 +42,17 @@ public class BattleControl {
         }
 
         mouseOverTarget = null;
-        fighters.forEach(fighter -> {
-            if (fighter.isMouseOver()) {
+        mouseOverPos = null;
+        enemyMap.forEach((xy, fighter) -> {
+            if (In.mouse.isMouseWithinGrid(xy)) {
                 mouseOverTarget = fighter;
-            }
-            if (fighter.isClickedOn()) {
-                if (fighter.isEnemy()) {
-                    enemyTarget = fighter;
-                } else {
-                    playerTarget = fighter;
+                mouseOverPos = xy;
+                if (In.mouse.isClicked()) {
+                    if (fighter.isEnemy()) {
+                        enemyTarget = fighter;
+                    } else {
+                        playerTarget = fighter;
+                    }
                 }
             }
         });
