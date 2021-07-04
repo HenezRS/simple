@@ -1,5 +1,5 @@
 package com.henez.simple.skills;
 
 public enum SkillTargetName {
-    SINGLE, SQU, ALL
+    SINGLE, SQUARE4, ALL
 }

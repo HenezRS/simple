@@ -2,6 +2,7 @@ package com.henez.simple.skills;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.henez.simple.skills.skillgroup.SkillGroup;
+import com.henez.simple.skills.skillgroup.impl.SG_All;
 import com.henez.simple.skills.skillgroup.impl.SG_Single;
 import com.henez.simple.skills.skillnamedefinition.SkillNameDefinition;
 import com.henez.simple.skills.skillnamedefinition.SkillNameDefinitionFactory;
@@ -100,6 +101,8 @@ public enum SkillName {
             return new SG_Single(this, skillTarget, SkillComponentName.FLAME);
         case ICE_SPIKE:
             return new SG_Single(this, skillTarget, SkillComponentName.ICE_SPIKE);
+        case FLAME_4:
+            return new SG_All(this, skillTarget, SkillComponentName.FLAME, 1);
         default:
             return new SG_Single(this, skillTarget, SkillComponentName.ERROR);
         }

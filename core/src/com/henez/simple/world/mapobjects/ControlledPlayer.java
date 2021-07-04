@@ -53,7 +53,7 @@ public class ControlledPlayer extends Fighter {
         }
 
         if (chosenSkill != null) {
-            targetBuilder.createTargetWithPrimary(chosenSkill, battleControl.getEnemyTarget());
+            targetBuilder.createTargetWithPrimary(chosenSkill, battleControl.getEnemyTarget(), battleControl.getEnemyTargetPos());
             if (targetBuilder.isTargetsAvailable()) {
                 cast.begin(chosenSkill, targetBuilder.getPreparedTargets(), 1);
                 sprite.getSpriteEffectManager().createBlink(Colors.white.color);

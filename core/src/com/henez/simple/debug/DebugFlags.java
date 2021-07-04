@@ -27,13 +27,13 @@ public class DebugFlags {
 
     public static void override() {
         //canNonLeadersAct = false;
-        //canEnemiesAct = false;
+        canEnemiesAct = false;
         //canPlayersAct = false;
         //canEncounterWithSteps = false;
         //drawPlayerAnimationInfo = true;
         drawEnemyPartyMap = true;
         mulSkillNamePowerPlayer = 0.1f;
         mulSkillNamePowerEnemy = 0.1f;
-        mulBattleSpeed = 1.0f;
+        mulBattleSpeed = 3.0f;
     }
 }

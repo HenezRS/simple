@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Numbers {
 
-    public static Random random = new Random(256);
+    public static Random random = new Random(255);
 
     private Numbers() {
 
@@ -39,6 +39,10 @@ public class Numbers {
     public static float floor(float in) {
         int v = (int) in;
         return (float) v;
+    }
+
+    public static int clamp(int value, int min) {
+        return clamp(value, min, Integer.MAX_VALUE);
     }
 
     public static int clamp(int value, int min, int max) {

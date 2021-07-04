@@ -1,5 +1,6 @@
 package com.henez.simple.skills.skillgroup.impl;
 
+import com.henez.simple.datastructures.Numbers;
 import com.henez.simple.misc.timer.Timer;
 import com.henez.simple.skills.SkillComponentName;
 import com.henez.simple.skills.SkillName;
@@ -25,8 +26,9 @@ public class SG_All extends SkillGroup {
     }
 
     private void init(SkillComponentName skillComponentName, int delay) {
+        delay = Numbers.clamp(delay, 1); //delay of 0 causes error
         targets.forEach(target -> {
-            skillComponentsWaiting.add(skillComponentName.create().with(skillName, source, target,speedMulAnimation,speedMulEffect));
+            skillComponentsWaiting.add(skillComponentName.create().with(skillName, source, target, speedMulAnimation, speedMulEffect));
         });
         executionCount = skillComponentsWaiting.size();
         timer = new Timer(delay);
@@ -35,7 +37,7 @@ public class SG_All extends SkillGroup {
     @Override
     public boolean update() {
         skillComponents.forEach(SkillComponent::update);
-        done = executionCount == skillComponents.size() && skillComponents.stream().allMatch(SkillComponent::isDone);
+        done = (executionCount == skillComponents.size() && skillComponents.stream().allMatch(SkillComponent::isDone));
         if (!skillComponentsWaiting.isEmpty() && timer.update()) {
             timer.reset();
             skillComponents.add(skillComponentsWaiting.first());

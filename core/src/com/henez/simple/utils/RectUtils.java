@@ -18,6 +18,10 @@ public class RectUtils {
         return new Rect(xy.getX() * Global.tilePixelSize, xy.getY() * Global.tilePixelSize, Global.tilePixelSize, Global.tilePixelSize);
     }
 
+    public static Rect get(XY xy, int addGx, int addGy) {
+        return new Rect(xy.getX() * Global.tilePixelSize, xy.getY() * Global.tilePixelSize, Global.tilePixelSize * addGx, Global.tilePixelSize * addGy);
+    }
+
     public static Rect borderLeft(Rect rect) {
         return new Rect(rect.x, rect.y, 1, rect.h);
     }

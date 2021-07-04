@@ -53,6 +53,10 @@ public abstract class SkillComponent {
             return done;
         }
 
+        if (done) {
+            return done; //??
+        }
+
         SkillStep current = steps.get(state);
 
         if (firstUpdate) {

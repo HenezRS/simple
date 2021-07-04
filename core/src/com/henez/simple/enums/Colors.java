@@ -54,6 +54,7 @@ public enum Colors {
     red_50(red.withAlpha(0.5f)),
     blue(new Color(0x77aaffff)),
     yellow(new Color(0xffff77ff)),
+    yellow_50(yellow.withAlpha(0.5f)),
     green(new Color(0xa7ff78ff)),
     green_50(green.withAlpha(0.5f)),
 

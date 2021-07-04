@@ -5,6 +5,7 @@ import com.henez.simple.input.In;
 import com.henez.simple.input.Key;
 import com.henez.simple.misc.XY;
 import com.henez.simple.skills.SkillName;
+import com.henez.simple.utils.XYUtils;
 import com.henez.simple.world.mapobjects.Fighter;
 import lombok.Getter;
 
@@ -17,6 +18,8 @@ public class BattleControl {
     private Fighter controlledPlayer;
     private Fighter enemyTarget;
     private Fighter playerTarget;
+    private XY enemyTargetPos;
+    private XY playerTargetPos;
     private Fighter mouseOverTarget;
     private XY mouseOverPos;
     private SkillName selectedSkill;
@@ -28,6 +31,8 @@ public class BattleControl {
         this.controlledPlayer = controlledPlayer;
         this.playerTarget = firstPlayerTarget;
         this.enemyTarget = firstEnemyTarget;
+        this.enemyTargetPos = XYUtils.from(firstEnemyTarget);
+        this.playerTargetPos = XYUtils.from(firstPlayerTarget);
 
         nextSkillIndex = 0;
         selectedSkill = controlledPlayer.getSkillSheet().getSkills().get(nextSkillIndex);
@@ -50,8 +55,10 @@ public class BattleControl {
                 if (In.mouse.isClicked()) {
                     if (fighter.isEnemy()) {
                         enemyTarget = fighter;
+                        enemyTargetPos = xy;
                     } else {
                         playerTarget = fighter;
+                        playerTargetPos = xy;
                     }
                 }
             }

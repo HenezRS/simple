@@ -80,13 +80,7 @@ public class EncounterService {
     }
 
     private boolean hasFreeNeighbours(XY pos, GameList<XY> positions) {
-        return (int) positions.stream().filter(this::notExcluded).filter(p -> posMatch(pos, p)).count() == 3;
-    }
-
-    private boolean posMatch(XY pos, XY pos2) {
-        return (pos.getX() == pos2.getX() - 1 && pos.getY() == pos2.getY()) ||
-                (pos.getX() == pos2.getX() - 1 && pos.getY() == pos2.getY() - 1) ||
-                (pos.getX() == pos2.getX() && pos.getY() == pos2.getY() - 1);
+        return (int) positions.stream().filter(this::notExcluded).filter(p -> XYUtils.isWithinSquare(pos, p)).count() == 4;
     }
 
     private boolean notExcluded(XY pos) {
@@ -94,8 +88,7 @@ public class EncounterService {
     }
 
     private void addUsedPositions(XY pos, GameList<XY> positions) {
-        usedPositions.addAll(positions.stream().filter(p -> posMatch(pos, p)).collect(Collectors.toList()));
-        usedPositions.add(pos);
+        usedPositions.addAll(positions.stream().filter(p -> XYUtils.isWithinSquare(pos, p)).collect(Collectors.toList()));
     }
 
     private boolean getNextEncounterTile(int gx, int gy, Facing facing, GameMap map) {

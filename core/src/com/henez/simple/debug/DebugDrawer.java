@@ -146,14 +146,14 @@ public class DebugDrawer {
     }
 
     private void drawBattleBatchEnemyPartyMap(Batcher batch, World world) {
-        Map<XY, Fighter> partyMap = world.getBattle().getBattleMembers().getEnemyPartyMap();
+        Map<XY, Fighter> partyMap = world.getBattle().getBattleMembers().getFighterMap();
         partyMap.forEach((xy, fighter) -> {
             batch.draw(fighter.getPortrait(), (xy.getX() + 8) * Global.tilePixelSize, (xy.getY() + 5) * Global.tilePixelSize, Facing.LEFT, Global.tilePixelSize);
         });
     }
 
     private void drawBattleShapeEnemyPartyMap(Shaper shape, World world) {
-        Map<XY, Fighter> partyMap = world.getBattle().getBattleMembers().getEnemyPartyMap();
+        Map<XY, Fighter> partyMap = world.getBattle().getBattleMembers().getFighterMap();
         Rect rect = FighterUtils.getPartyMapRect(partyMap);
         rect.x += (8 * Global.tilePixelSize);
         rect.y += (5 * Global.tilePixelSize);

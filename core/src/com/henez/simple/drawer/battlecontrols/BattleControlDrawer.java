@@ -13,6 +13,7 @@ import com.henez.simple.renderer.ShapeFactory;
 import com.henez.simple.renderer.Shaper;
 import com.henez.simple.skills.SkillName;
 import com.henez.simple.skills.SkillSheet;
+import com.henez.simple.skills.SkillTargetName;
 import com.henez.simple.stats.Cast;
 import com.henez.simple.utils.RectUtils;
 import com.henez.simple.world.World;
@@ -48,8 +49,16 @@ public class BattleControlDrawer {
 
     public void drawTargetShape(World world, Shaper shape) {
         BattleControl control = world.getBattle().getBattleControl();
-        shape.rectOutline(RectUtils.get(control.getEnemyTarget()), Colors.red_50.color);
-        shape.rectOutline(RectUtils.get(control.getPlayerTarget()), Colors.green_50.color);
+        SkillTargetName target = control.getSelectedSkill().getTargetType();
+
+        shape.rectOutline(RectUtils.get(control.getPlayerTargetPos()), Colors.green_50.color);
+
+        if (target == SkillTargetName.SQUARE4) {
+            shape.rectOutline(RectUtils.get(control.getEnemyTargetPos(), 2, 2), Colors.red_50.color);
+        } else {
+            shape.rectOutline(RectUtils.get(control.getEnemyTargetPos()), Colors.red_50.color);
+        }
+
         if (control.getMouseOverTarget() != null) {
             shape.rectOutline(RectUtils.get(control.getMouseOverTarget()), Colors.white_30.color);
         }

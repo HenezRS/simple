@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class BattleMembers {
     private GameList<Fighter> playerParty;
     private GameList<Fighter> enemyParty;
-    private Map<XY, Fighter> enemyPartyMap;
+    private Map<XY, Fighter> fighterMap;
     private GameList<Fighter> fighters;
     private GameList<Fighter> fightersShuffled;
     private GameList<Fighter> fightersWaiting;
@@ -34,11 +34,11 @@ public class BattleMembers {
         this.playerParty = playerParty;
         this.enemyParty = enemyParty;
 
-        enemyPartyMap = FighterUtils.createFighterMap(this.enemyParty);
-
         fighters = new GameList<>();
         fighters.addAll(playerParty);
         fighters.addAll(enemyParty);
+
+        fighterMap = FighterUtils.createFighterMap(fighters);
 
         fightersShuffled = new GameList<>();
         fightersShuffled.addAll(fighters);
@@ -166,6 +166,6 @@ public class BattleMembers {
     }
 
     private SkillTargetBuilder target(Fighter fighterActing) {
-        return new SkillTargetBuilder(fighterActing, fighters);
+        return new SkillTargetBuilder(fighterActing, fighters, fighterMap);
     }
 }
