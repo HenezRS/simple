@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 @Getter
 public enum ClassName {
+    //todo: turn into factory builder like SkillName, supply stats/skills/enemyTypes there
     kni("kni", "knight", ImgSetFighters.class_kni),
     ran("ran", "ranger", ImgSetFighters.class_ran),
     mag("mag", "mage", ImgSetFighters.class_mag),

@@ -53,6 +53,7 @@ public class PlayerMenuDrawer {
         Fighter fighter = menu.getFighterSelected();
 
         batch.drawToCamera(ImgBackground.menu_skills.asTex(), 0, 0);
+        fighter.getSkillInventory().getSlots().forEach(slot -> slot.getButton().draw(batch));
     }
 
     private void drawBatchTree(PlayerMenu menu, Batcher batch) {

@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class SkillSheet {
+    //todo: merge with SkillInventory
     private GameList<SkillName> skills;
 
     public SkillSheet() {

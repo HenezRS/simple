@@ -4,14 +4,7 @@ import com.henez.simple.atlas.imgs.ImgUi;
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.enums.state.PlayerMenuState;
 import com.henez.simple.input.In;
-import com.henez.simple.menu.buttons.BasicButton;
-import com.henez.simple.menu.buttons.Button;
-import com.henez.simple.menu.buttons.ButtonFactory;
-import com.henez.simple.menu.buttons.ButtonGroup;
-import com.henez.simple.menu.buttons.ImageButton;
-import com.henez.simple.menu.buttons.PlayerCardButton;
-import com.henez.simple.menu.buttons.TabButton;
-import com.henez.simple.stats.classes.ClassName;
+import com.henez.simple.menu.buttons.*;
 import com.henez.simple.world.mapobjects.Fighter;
 import lombok.Getter;
 
@@ -34,22 +27,49 @@ public class PlayerMenu {
     public PlayerMenu() {
         tabs = ButtonFactory.createPlayerMenuTabs();
         cards = new ButtonGroup();
-        exit = new BasicButton(435,9, ImgUi.exit.asTex(),ImgUi.exit_hover.asTex());
+        exit = new BasicButton(435, 9, ImgUi.exit.asTex(), ImgUi.exit_hover.asTex());
     }
 
     public void update() {
-        if(showPlayerMenu) {
+        if (showPlayerMenu) {
             updateTabs();
             updateCards();
             updateExit();
-            if(In.c.isPressed() || In.esc.isPressed()) {
+
+            switch (playerMenuState) {
+            case gear:
+                updateMenuGear();
+                break;
+            case skills:
+                updateMenuSkills();
+                break;
+            case tree:
+                updateMenuTree();
+                break;
+            default:
+                break;
+            }
+
+            if (In.c.isPressed() || In.esc.isPressed()) {
                 closePlayerMenu();
             }
         } else {
-            if(In.c.isPressed()) {
+            if (In.c.isPressed()) {
                 openPlayerMenu();
             }
         }
+    }
+
+    private void updateMenuGear() {
+
+    }
+
+    private void updateMenuSkills() {
+        fighterSelected.getSkillInventory().update();
+    }
+
+    private void updateMenuTree() {
+
     }
 
     public void updateParty(GameList<Fighter> fighters) {
@@ -67,7 +87,7 @@ public class PlayerMenu {
         tabs.update();
         tabHover = (TabButton) tabs.getFirstHovered().orElse(null);
         tabs.getClickedButton().ifPresent(button -> {
-            clickTab((TabButton)button);
+            clickTab((TabButton) button);
         });
     }
 
@@ -80,7 +100,7 @@ public class PlayerMenu {
 
     private void updateExit() {
         exit.update();
-        if(exit.isClicked()) {
+        if (exit.isClicked()) {
             closePlayerMenu();
         }
     }
@@ -94,10 +114,17 @@ public class PlayerMenu {
 
     private void openTab(String name) {
         showBag = false;
-        switch(name) {
-        case "gear": playerMenuState = PlayerMenuState.gear; showBag = true; break;
-        case "skills": playerMenuState = PlayerMenuState.skills; break;
-        case "tree": playerMenuState = PlayerMenuState.tree; break;
+        switch (name) {
+        case "gear":
+            playerMenuState = PlayerMenuState.gear;
+            showBag = true;
+            break;
+        case "skills":
+            playerMenuState = PlayerMenuState.skills;
+            break;
+        case "tree":
+            playerMenuState = PlayerMenuState.tree;
+            break;
         }
     }
 

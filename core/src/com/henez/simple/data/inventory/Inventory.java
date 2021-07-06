@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 public class Inventory {
-    private final static int INV_SLOTS = 28;
+    private final static int INV_SLOTS = 24;
     private GameList<InventorySlot> slots;
 
     public Inventory() {

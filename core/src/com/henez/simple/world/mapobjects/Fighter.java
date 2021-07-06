@@ -14,6 +14,7 @@ import com.henez.simple.skills.SkillExecution;
 import com.henez.simple.skills.SkillName;
 import com.henez.simple.skills.SkillSheet;
 import com.henez.simple.skills.SkillTargetBuilder;
+import com.henez.simple.skills.skillInventory.SkillInventory;
 import com.henez.simple.sprite.Sprite;
 import com.henez.simple.stats.Cast;
 import com.henez.simple.stats.StatSheet;
@@ -31,6 +32,7 @@ public class Fighter extends Actor {
     protected String name;
     protected StatSheet statSheet;
     protected SkillSheet skillSheet;
+    protected SkillInventory skillInventory;
     protected SkillExecution skillExecution;
     protected Cast cast;
     protected FighterState fighterState;
@@ -52,6 +54,7 @@ public class Fighter extends Actor {
         this.size = this.isLarge ? Global.tilePixelSize * 2 : Global.tilePixelSize;
         statSheet = new StatSheet();
         skillSheet = new SkillSheet();
+        skillInventory = new SkillInventory();
         skillExecution = new SkillExecution();
         cast = new Cast();
         this.enemyRank = className.getEnemyRank();
