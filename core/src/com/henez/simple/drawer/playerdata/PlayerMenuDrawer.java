@@ -66,11 +66,16 @@ public class PlayerMenuDrawer {
             batch.drawToCamera(ImgUi.tactic.asTex(), 140, 77 + (y.getAndIncrement() * 20));
             tactic.getSkillButton().draw(batch);
             tactic.getOnButton().draw(batch);
+            tactic.getIfButton().draw(batch);
         });
 
         if (tacticInventory.getSelectedButton() != null) {
             batch.drawToCamera(ImgUi.button_active.asTex(), tacticInventory.getSelectedButton().getX() - 2, tacticInventory.getSelectedButton().getY() - 2);
         }
+
+        tacticInventory.getOptions().forEach(option -> {
+            option.getButton().draw(batch);
+        });
     }
 
     private void drawBatchTree(PlayerMenu menu, Batcher batch) {

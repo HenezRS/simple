@@ -54,6 +54,12 @@ public class Text {
         text.draw(batch, str.toString(), x + Static.renderer.getX(), y + Static.renderer.getY());
     }
 
+    public void drawToCamera(Batch batch, CharSequence str, float x, float y, Color color) {
+        text.setColor(color);
+        text.draw(batch, str.toString(), x + Static.renderer.getX(), y + Static.renderer.getY());
+        text.setColor(colorDefault);
+    }
+
     public void drawRight(Batch batch, CharSequence str, float x, float y) {
         text.setColor(colorDefault);
         text.draw(batch, str.toString(), x + 1, y, 0, Align.right, true);

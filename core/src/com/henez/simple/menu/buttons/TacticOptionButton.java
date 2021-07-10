@@ -1,25 +1,29 @@
 package com.henez.simple.menu.buttons;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.henez.simple.Static;
+import com.henez.simple.enums.Colors;
 import com.henez.simple.renderer.Batcher;
-import com.henez.simple.skills.tactics.TacticIfName;
 
 public class TacticOptionButton extends Button {
     private int texAddX;
     private int texAddY;
-    private TacticIfName tacticIfName;
+    private int textX;
+    private int textY;
     private TextureRegion tex;
     private ImageButtonDefinitions group;
 
-    public TacticOptionButton(int x, int y, TacticIfName tacticIfName) {
-        super(tacticIfName.getText(), x, y);
-        this.tex = tacticIfName.getTex();
-        this.tacticIfName = tacticIfName;
+    public TacticOptionButton(String name, int x, int y, TextureRegion tex) {
+        super(name, x, y);
+        this.tex = tex;
         this.group = ImageButtonDefinitions.tactic_option;
         this.w = group.getBack().getRegionWidth();
         this.h = group.getBack().getRegionHeight();
-        this.texAddX = (this.w - tex.getRegionWidth()) / 2;
+        this.texAddX = 1;
         this.texAddY = (this.h - tex.getRegionHeight()) / 2;
+        this.textX = 20;
+        this.textY = 6;
     }
 
     @Override
@@ -28,13 +32,18 @@ public class TacticOptionButton extends Button {
     }
 
     public void drawTo(Batcher batch, int x, int y) {
+        Color c = Colors.text_subtle.color;
         batch.drawToCamera(group.getBack(), x, y);
         if (hover) {
             batch.drawToCamera(group.getHover(), x, y);
         }
-        batch.drawToCamera(tex, x + texAddX, y + texAddY);
+
         if (isActive) {
             batch.drawToCamera(group.getClicked(), x, y);
+            c = Colors.text_default.color;
         }
+
+        batch.drawToCamera(tex, x + texAddX, y + texAddY);
+        Static.text.drawToCamera(batch, name, x + textX, y + textY, c);
     }
 }

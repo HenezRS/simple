@@ -20,6 +20,7 @@ public class Tactic {
 
     private SkillButton skillButton;
     private TacticButton onButton;
+    private TacticButton ifButton;
 
     public Tactic(SkillName skillName) {
         enabled = true;
@@ -30,18 +31,18 @@ public class Tactic {
         if (skillName.isTargetEnemies()) {
             onName = TacticOnName.enemy_any;
         }
-
-        refreshButtons();
     }
 
     public void update() {
         skillButton.update();
         onButton.update();
+        ifButton.update();
     }
 
-    private void refreshButtons() {
+    public void refreshButtons() {
         skillButton = new SkillButton(0, 0, skillName);
-        onButton = new TacticButton(0, 0, onName.getTex());
+        onButton = new TacticButton("on", 0, 0, onName.getTex());
+        ifButton = new TacticButton("if", 0, 0, tacticIf.getTacticIfName().getTex());
     }
 
     public void refreshPos(int pos) {
@@ -49,5 +50,15 @@ public class Tactic {
 
         skillButton.setPos(skillX, skillY + (pos * h));
         onButton.setPos(skillX + (1 * w), skillY + (pos * h));
+        ifButton.setPos(skillX + (2 * w), skillY + (pos * h));
+    }
+
+    public void setOption(TacticOption option) {
+        if (option.getTacticOnName() != null) {
+            onName = option.getTacticOnName();
+        }
+        if (option.getTacticIfName() != null) {
+            tacticIf.setTacticIfName(option.getTacticIfName());
+        }
     }
 }

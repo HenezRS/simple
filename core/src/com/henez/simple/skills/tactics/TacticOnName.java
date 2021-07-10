@@ -7,15 +7,17 @@ import lombok.Getter;
 
 @Getter
 public enum TacticOnName {
-    self(ImgIconTactics.on_self),
-    enemy_any(ImgIconTactics.on_enemy_any),
-    player_any(ImgIconTactics.on_player_any),
-    enemy_focus(ImgIconTactics.on_enemy_focus),
-    player_focus(ImgIconTactics.on_player_focus);
+    self("self", ImgIconTactics.on_self),
+    enemy_any("enemy: any", ImgIconTactics.on_enemy_any),
+    player_any("ally: any", ImgIconTactics.on_player_any),
+    enemy_focus("enemy: focus", ImgIconTactics.on_enemy_focus),
+    player_focus("ally: focus", ImgIconTactics.on_player_focus);
 
+    private String text;
     private TextureRegion tex;
 
-    TacticOnName(ImgIconTactics img) {
+    TacticOnName(String text, ImgIconTactics img) {
+        this.text = text;
         this.tex = Atlas.toTex(img);
     }
 }

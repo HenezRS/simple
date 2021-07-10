@@ -9,8 +9,8 @@ public class TacticButton extends Button {
     private TextureRegion tex;
     private ImageButtonDefinitions group;
 
-    public TacticButton(int x, int y, TextureRegion tex) {
-        super("", x, y);
+    public TacticButton(String name, int x, int y, TextureRegion tex) {
+        super(name, x, y);
         this.tex = tex;
         this.group = ImageButtonDefinitions.inv_slot;
         this.w = group.getBack().getRegionWidth();

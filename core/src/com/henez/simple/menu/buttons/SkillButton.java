@@ -14,7 +14,7 @@ public class SkillButton extends Button {
     private ImageButtonDefinitions group;
 
     public SkillButton(int x, int y, SkillName skillName) {
-        super("", x, y);
+        super("skill", x, y);
         updateSkill(skillName);
         this.group = ImageButtonDefinitions.inv_slot;
         this.w = group.getBack().getRegionWidth();
