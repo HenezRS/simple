@@ -2,13 +2,17 @@ package com.henez.simple.drawer.playerdata;
 
 import com.henez.simple.Static;
 import com.henez.simple.atlas.imgs.ImgBackground;
+import com.henez.simple.atlas.imgs.ImgUi;
 import com.henez.simple.data.playermenu.PlayerMenu;
 import com.henez.simple.datastructures.Rect;
 import com.henez.simple.enums.Colors;
 import com.henez.simple.menu.buttons.TabButton;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.Shaper;
+import com.henez.simple.skills.tactics.TacticInventory;
 import com.henez.simple.world.mapobjects.Fighter;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PlayerMenuDrawer {
     int x = 42;
@@ -51,9 +55,22 @@ public class PlayerMenuDrawer {
 
     private void drawBatchSkills(PlayerMenu menu, Batcher batch) {
         Fighter fighter = menu.getFighterSelected();
+        TacticInventory tacticInventory = fighter.getSkillInventory().getTacticInventory();
 
         batch.drawToCamera(ImgBackground.menu_skills.asTex(), 0, 0);
         fighter.getSkillInventory().getSlots().forEach(slot -> slot.getButton().draw(batch));
+
+        batch.drawToCamera(ImgUi.use_on_if_is.asTex(), 155, 70);
+        AtomicInteger y = new AtomicInteger();
+        tacticInventory.getTactics().forEach(tactic -> {
+            batch.drawToCamera(ImgUi.tactic.asTex(), 140, 77 + (y.getAndIncrement() * 20));
+            tactic.getSkillButton().draw(batch);
+            tactic.getOnButton().draw(batch);
+        });
+
+        if (tacticInventory.getSelectedButton() != null) {
+            batch.drawToCamera(ImgUi.button_active.asTex(), tacticInventory.getSelectedButton().getX() - 2, tacticInventory.getSelectedButton().getY() - 2);
+        }
     }
 
     private void drawBatchTree(PlayerMenu menu, Batcher batch) {

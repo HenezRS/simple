@@ -11,11 +11,12 @@ public enum Colors {
     black_50(black.withAlpha(0.5f)),
 
     text_default(new Color(0xe5c79eff)),
-    text_hover(new Color(0xffffefff)),
+    text_disabled(new Color(0x636157ff)),
+    text_subtle(new Color(0x8c8669ff)),
+    text_hover(new Color(0xe5debbff)),
     text_click(new Color(0xffffefff)),
     text_player(new Color(0x49aac4ff)),
     text_enemy(new Color(0xc46a49ff)),
-    text_faded(new Color(0x8c8669ff)),
 
     ui_back(new Color(0x261c18ff)),
     ui_bar_back(new Color(0x665742ff)),

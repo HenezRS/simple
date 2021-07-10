@@ -15,7 +15,7 @@ public class PlayerCardButton extends Button {
     private Fighter fighter;
     private Rect rect, rectPicture;
 
-    private Color textColorDefault = Colors.text_faded.color;
+    private Color textColorDefault = Colors.text_subtle.color;
     private Color textColorHover = Colors.text_default.color;
     private Color textColorActive = Colors.text_default.color;
     private Color borderColorDefault = Colors.ui_frame_darker.color;

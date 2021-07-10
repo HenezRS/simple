@@ -35,7 +35,7 @@ public class TabButton extends Button {
 
     public void drawBasic(Batcher batch) {
         batch.drawToCamera(inactive, x, y);
-        Static.text.drawToCameraCenter(batch, name, x + textAddX, y + textAddY, Colors.text_faded.color);
+        Static.text.drawToCameraCenter(batch, name, x + textAddX, y + textAddY, Colors.text_subtle.color);
     }
 
     public void drawTo(Batcher batch, int x, int y) {
@@ -52,7 +52,7 @@ public class TabButton extends Button {
             } else {
                 batch.drawToCamera(inactive, x, y);
             }
-            Static.text.drawToCameraCenter(batch, name, x + textAddX, y + textAddY, Colors.text_faded.color);
+            Static.text.drawToCameraCenter(batch, name, x + textAddX, y + textAddY, Colors.text_subtle.color);
         }
     }
 }
