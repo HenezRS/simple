@@ -67,6 +67,7 @@ public class PlayerMenuDrawer {
             tactic.getSkillButton().draw(batch);
             tactic.getOnButton().draw(batch);
             tactic.getIfButton().draw(batch);
+            tactic.getExitButton().draw(batch);
         });
 
         if (tacticInventory.getSelectedButton() != null) {

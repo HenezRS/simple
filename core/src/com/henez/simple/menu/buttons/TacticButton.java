@@ -34,4 +34,8 @@ public class TacticButton extends Button {
             batch.drawToCamera(group.getClicked(), x, y);
         }
     }
+
+    public void setTex(TextureRegion tex) {
+        this.tex = tex;
+    }
 }

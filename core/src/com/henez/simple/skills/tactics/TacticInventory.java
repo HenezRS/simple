@@ -16,6 +16,8 @@ public class TacticInventory {
     private Map<Tactic, GameList<Button>> buttonMap;
     private GameList<TacticOption> options;
     private TacticOption clickedOption;
+    private String clickedOptionName;
+    private String selectedButtonName;
 
     public TacticInventory() {
         tactics = new GameList<>();
@@ -25,24 +27,41 @@ public class TacticInventory {
     }
 
     public void update() {
-        tactics.forEach(Tactic::update);
+
+        int tacticToRemove = -1;
+        int index = 0;
+        for (Tactic tactic : tactics) {
+            tactic.update();
+            if (tactic.getExitButton().isClicked()) {
+                tacticToRemove = index;
+            }
+            index++;
+        }
 
         options.forEach(TacticOption::update);
         clickedOption = options.stream().filter(option -> option.getButton().isClicked()).findAny().orElse(null);
         if (clickedOption != null) {
-            options.forEach(option -> option.getButton().setInactive());
-            clickedOption.getButton().setActive();
-            selectedTactic.setOption(clickedOption);
+            clickedOptionName = clickedOption.getButton().getName();
             refreshAllButtons();
         }
 
         buttonMap.forEach((key, value) -> {
             for (Button button : value) {
                 if (button.isClicked()) {
-                    selectButton(key, button);
+                    if (button.getName().equals(selectedButtonName)) {
+                        unselectButton();
+                    } else {
+                        selectButton(button);
+                    }
                 }
             }
         });
+
+        if (tacticToRemove > -1) {
+            tactics.remove(tacticToRemove);
+            refreshAllButtons();
+            //refreshOptions();
+        }
 
     }
 
@@ -63,12 +82,38 @@ public class TacticInventory {
             list.add(tactic.getIfButton());
             buttonMap.put(tactic, list);
         }
+
+        selectButtonByName(selectedButtonName);
+        refreshOptions();
     }
 
-    private void selectButton(Tactic tactic, Button button) {
-        selectedTactic = tactic;
-        selectedButton = button;
-        refreshOptions();
+    private void selectButton(Button button) {
+        selectedButtonName = button.getName();
+        refreshAllButtons();
+        //refreshOptions();
+    }
+
+    private void selectButtonByName(String buttonName) {
+        selectedButton = null;
+        selectedTactic = null;
+        buttonMap.forEach((key, value) -> {
+            for (Button button : value) {
+                if (button.getName().equalsIgnoreCase(buttonName)) {
+                    selectedTactic = key;
+                    selectedButton = button;
+                }
+            }
+        });
+
+        if (selectedButton == null) {
+            selectedButtonName = null;
+        }
+    }
+
+    private void unselectButton() {
+        selectedButtonName = null;
+        clickedOptionName = null;
+        //refreshOptions();
         refreshAllButtons();
     }
 
@@ -79,24 +124,58 @@ public class TacticInventory {
         int i = 0;
         options = new GameList<>();
 
-        switch (selectedButton.getName()) {
-        case "skill": {
-            break;
-        }
-        case "on": {
-            for (TacticOnName onName : TacticOnName.values()) {
-                options.add(new TacticOption(x, y + (h * (i++)), onName));
+        if (selectedButton != null) {
+            switch (selectedButton.getName2()) {
+            case "skill": {
+                break;
             }
-            break;
-        }
-        case "if": {
-            for (TacticIfName ifName : TacticIfName.values()) {
-                options.add(new TacticOption(x, y + (h * (i++)), ifName));
+            case "on": {
+                for (TacticOnName onName : TacticOnName.values()) {
+                    TacticOption op = new TacticOption(i, x, y + (h * (i++)), onName);
+                    options.add(op);
+                    if (clickedOptionName == null && selectedTactic.getOnName() == onName) {
+                        clickedOption = op;
+                        clickedOption.getButton().setActive();
+                        selectedTactic.setOption(clickedOption);
+                    }
+                }
+                break;
             }
-            break;
+            case "if": {
+                for (TacticIfName ifName : TacticIfName.values()) {
+                    TacticOption op = new TacticOption(i, x, y + (h * (i++)), ifName);
+                    options.add(op);
+                    if (clickedOptionName == null && selectedTactic.getTacticIf().getTacticIfName() == ifName) {
+                        clickedOption = op;
+                        clickedOption.getButton().setActive();
+                        selectedTactic.setOption(clickedOption);
+                    }
+                }
+                break;
+            }
+            default:
+                break;
+            }
         }
-        default:
-            break;
+
+        if (clickedOptionName != null) {
+            options.forEach(option -> {
+                if (option.getButton().getName().equalsIgnoreCase(clickedOptionName)) {
+                    clickedOption = option;
+                    clickedOption.getButton().setActive();
+                    selectedTactic.setOption(clickedOption);
+                    clickedOptionName = null;
+                }
+            });
         }
+    }
+
+    public void setSelectedSkill(SkillName skill) {
+        selectedTactic.setSkillName(skill);
+        refreshAllButtons();
+    }
+
+    public boolean selectedButtonIsSkill() {
+        return selectedButton != null && selectedButton.getName2().equalsIgnoreCase("skill");
     }
 }

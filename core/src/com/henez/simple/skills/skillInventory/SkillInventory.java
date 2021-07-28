@@ -25,7 +25,13 @@ public class SkillInventory {
 
     public void update() {
         slots.forEach(SkillInventorySlot::update);
-        slots.stream().filter(slot -> slot.getButton().isClicked() && slot.getSkill().isPresent()).findFirst().ifPresent(slot -> tacticInventory.addNewTactic(slot.getSkill().get()));
+        slots.stream().filter(slot -> slot.getButton().isClicked() && slot.getSkill().isPresent()).findFirst().ifPresent(slot -> {
+            if (tacticInventory.selectedButtonIsSkill()) {
+                tacticInventory.setSelectedSkill(slot.getSkill().get());
+            } else {
+                tacticInventory.addNewTactic(slot.getSkill().get());
+            }
+        });
         tacticInventory.update();
     }
 

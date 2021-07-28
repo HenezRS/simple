@@ -3,11 +3,14 @@ package com.henez.simple.menu.buttons;
 import com.henez.simple.input.In;
 import com.henez.simple.renderer.Batcher;
 import com.henez.simple.renderer.Shaper;
+import com.henez.simple.world.mapobjects.ActorFactory;
 import lombok.Getter;
 
 @Getter
 public abstract class Button {
+    protected int id;
     protected String name;
+    protected String name2;
     protected int x;
     protected int y;
     protected int w;
@@ -21,6 +24,7 @@ public abstract class Button {
         this.name = name;
         this.x = x;
         this.y = y;
+        id = ActorFactory.getNextIdAndIncrement();
     }
 
     public void update() {
@@ -50,5 +54,9 @@ public abstract class Button {
 
     public void setInactive() {
         isActive = false;
+    }
+
+    public void setName2(String name2) {
+        this.name2 = name2;
     }
 }

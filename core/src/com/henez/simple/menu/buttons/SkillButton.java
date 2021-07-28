@@ -21,6 +21,11 @@ public class SkillButton extends Button {
         this.h = group.getBack().getRegionHeight();
     }
 
+    public SkillButton withName(String name) {
+        this.name = name;
+        return this;
+    }
+
     public void updateSkill(SkillName skillName) {
         this.skillName = skillName;
         this.tex = skillName != null ? skillName.getTex() : null;
