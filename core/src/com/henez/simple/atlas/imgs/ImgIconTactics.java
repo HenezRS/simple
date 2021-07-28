@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public enum ImgIconTactics {
     on_self, on_enemy_any, on_player_any, on_enemy_focus, on_player_focus,
-    if_hp, is, if_mp, if_buff, if_stacks, if_always;
+    if_hp, is, if_mp, if_buff, if_stacks, if_always, if_can_hit_atleast, if_self, if_they;
 
     private final int x;
     private final int y;

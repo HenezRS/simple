@@ -2,6 +2,7 @@ package com.henez.simple.skills.tactics;
 
 import com.henez.simple.datastructures.GameList;
 import com.henez.simple.menu.buttons.Button;
+import com.henez.simple.menu.buttons.RadioTextButton;
 import com.henez.simple.skills.SkillName;
 import lombok.Getter;
 
@@ -18,6 +19,8 @@ public class TacticInventory {
     private TacticOption clickedOption;
     private String clickedOptionName;
     private String selectedButtonName;
+    private RadioTextButton theyButton;
+    private RadioTextButton selfButton;
 
     public TacticInventory() {
         tactics = new GameList<>();
@@ -57,10 +60,25 @@ public class TacticInventory {
             }
         });
 
+        if (selfButton != null) {
+            selfButton.update();
+            if (selfButton.isClicked()) {
+                selectedTactic.getTacticIf().setTacticIfRegardingName(TacticIfRegardingName.self);
+                refreshAllButtons();
+            }
+        }
+
+        if (theyButton != null) {
+            theyButton.update();
+            if (theyButton.isClicked()) {
+                selectedTactic.getTacticIf().setTacticIfRegardingName(TacticIfRegardingName.they);
+                refreshAllButtons();
+            }
+        }
+
         if (tacticToRemove > -1) {
             tactics.remove(tacticToRemove);
             refreshAllButtons();
-            //refreshOptions();
         }
 
     }
@@ -113,7 +131,6 @@ public class TacticInventory {
     private void unselectButton() {
         selectedButtonName = null;
         clickedOptionName = null;
-        //refreshOptions();
         refreshAllButtons();
     }
 
@@ -163,10 +180,39 @@ public class TacticInventory {
                 if (option.getButton().getName().equalsIgnoreCase(clickedOptionName)) {
                     clickedOption = option;
                     clickedOption.getButton().setActive();
+                    if (clickedOption.getTacticIfRegardingName() == TacticIfRegardingName.none) {
+                        selectedTactic.getTacticIf().setTacticIfRegardingName(TacticIfRegardingName.none);
+                    }
                     selectedTactic.setOption(clickedOption);
+                    if (selectedTactic.getTacticIf().getTacticIfRegardingName() == TacticIfRegardingName.none) {
+                        selectedTactic.getTacticIf().defaultTacticIfRegardingName();
+                        selectedTactic.refreshTacticIfTex();
+                    }
                     clickedOptionName = null;
                 }
             });
+        }
+
+        createSelfTheyButtons();
+
+    }
+
+    private void createSelfTheyButtons() {
+        theyButton = null;
+        selfButton = null;
+        if (clickedOption != null && clickedOption.getTacticIfName() != null && clickedOption.getTacticIfName().isChooseRegarding()) {
+            theyButton = new RadioTextButton("check: target", 271, 200);
+            selfButton = new RadioTextButton("check: self", 271 + 96, 200);
+
+            if (selectedTactic.getTacticIf().getTacticIfRegardingName() == TacticIfRegardingName.self) {
+                selfButton.setActive();
+                selectedTactic.getTacticIf().setTacticIfRegardingName(TacticIfRegardingName.self);
+                selectedTactic.refreshTacticIfTex();
+            } else if (selectedTactic.getTacticIf().getTacticIfRegardingName() == TacticIfRegardingName.they) {
+                theyButton.setActive();
+                selectedTactic.getTacticIf().setTacticIfRegardingName(TacticIfRegardingName.they);
+                selectedTactic.refreshTacticIfTex();
+            }
         }
     }
 

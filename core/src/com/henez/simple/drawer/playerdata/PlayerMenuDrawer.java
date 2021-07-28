@@ -77,6 +77,14 @@ public class PlayerMenuDrawer {
         tacticInventory.getOptions().forEach(option -> {
             option.getButton().draw(batch);
         });
+
+        if (tacticInventory.getTheyButton() != null) {
+            tacticInventory.getTheyButton().draw(batch);
+        }
+
+        if (tacticInventory.getSelfButton() != null) {
+            tacticInventory.getSelfButton().draw(batch);
+        }
     }
 
     private void drawBatchTree(PlayerMenu menu, Batcher batch) {

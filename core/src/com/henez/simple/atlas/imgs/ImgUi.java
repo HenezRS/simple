@@ -27,6 +27,8 @@ public enum ImgUi {
     but_tactic_option_hover(0, 107, 168, 16),
     exit_10(0, 123, 10, 10),
     exit_10_hover(10, 123, 10, 10),
+    but_radio(20, 123, 10, 10),
+    but_radio_on(30, 123, 10, 10),
     ;
 
     private final int x;

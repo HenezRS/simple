@@ -7,6 +7,7 @@ public class TacticButton extends Button {
     private int texAddX;
     private int texAddY;
     private TextureRegion tex;
+    private TextureRegion tex2;
     private ImageButtonDefinitions group;
 
     public TacticButton(String name, int x, int y, TextureRegion tex) {
@@ -30,6 +31,9 @@ public class TacticButton extends Button {
             batch.drawToCamera(group.getHover(), x, y);
         }
         batch.drawToCamera(tex, x + texAddX, y + texAddY);
+        if (tex2 != null) {
+            batch.drawToCamera(tex2, x + texAddX, y + texAddY);
+        }
         if (clicked && group.getClicked() != null) {
             batch.drawToCamera(group.getClicked(), x, y);
         }
@@ -37,5 +41,9 @@ public class TacticButton extends Button {
 
     public void setTex(TextureRegion tex) {
         this.tex = tex;
+    }
+
+    public void setTex2(TextureRegion tex2) {
+        this.tex2 = tex2;
     }
 }

@@ -50,6 +50,7 @@ public class Tactic {
         skillButton = new SkillButton(0, 0, skillName).withName("skill_" + pos);
         onButton = new TacticButton("on_" + pos, 0, 0, onName.getTex());
         ifButton = new TacticButton("if_" + pos, 0, 0, tacticIf.getTacticIfName().getTex());
+        ifButton.setTex2(tacticIf.getTacticIfRegardingName().getTex());
         exitButton = new BasicButton(0, 0, ImgUi.exit_10.asTex(), ImgUi.exit_10_hover.asTex());
 
         skillButton.setName2("skill");
@@ -64,6 +65,10 @@ public class Tactic {
         onButton.setPos(skillX + (1 * w), skillY + (pos * h));
         ifButton.setPos(skillX + (2 * w), skillY + (pos * h));
         exitButton.setPos(skillX + (4 * w) - 4, skillY + 3 + (pos * h));
+
+        skillButton.setName("skill_" + pos);
+        onButton.setName("on_" + pos);
+        ifButton.setName("if_" + pos);
     }
 
     public void setOption(TacticOption option) {
@@ -75,5 +80,9 @@ public class Tactic {
             tacticIf.setTacticIfName(option.getTacticIfName());
             ifButton.setTex(tacticIf.getTacticIfName().getTex());
         }
+    }
+
+    public void refreshTacticIfTex() {
+        ifButton.setTex2(tacticIf.getTacticIfRegardingName().getTex());
     }
 }
