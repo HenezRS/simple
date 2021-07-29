@@ -170,6 +170,20 @@ public class TacticInventory {
                 }
                 break;
             }
+            case "is": {
+                if (selectedTactic.getTacticIf().getTacticIfName() != null) {
+                    for (TacticIfName ifName : TacticIfName.values()) {
+                        TacticOption op = new TacticOption(i, x, y + (h * (i++)), ifName);
+                        options.add(op);
+                        if (clickedOptionName == null && selectedTactic.getTacticIf().getTacticIfName() == ifName) {
+                            clickedOption = op;
+                            clickedOption.getButton().setActive();
+                            selectedTactic.setOption(clickedOption);
+                        }
+                    }
+                }
+                break;
+            }
             default:
                 break;
             }

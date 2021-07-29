@@ -21,7 +21,7 @@ public enum ImgUi {
     inv_slot(51, 32, 16, 16),
     inv_slot_hover(51, 48, 16, 16),
     use_on_if_is(67, 54, 82, 5),
-    tactic(67, 59, 116, 16),
+    tactic(67, 59, 118, 16),
     but_tactic_option(0, 75, 168, 16),
     but_tactic_option_select(0, 91, 168, 16),
     but_tactic_option_hover(0, 107, 168, 16),
@@ -29,6 +29,8 @@ public enum ImgUi {
     exit_10_hover(10, 123, 10, 10),
     but_radio(20, 123, 10, 10),
     but_radio_on(30, 123, 10, 10),
+    wide_slot(214, 0, 32, 16),
+    wide_slot_hover(214, 16, 32, 16),
     ;
 
     private final int x;

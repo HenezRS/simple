@@ -60,10 +60,10 @@ public class PlayerMenuDrawer {
         batch.drawToCamera(ImgBackground.menu_skills.asTex(), 0, 0);
         fighter.getSkillInventory().getSlots().forEach(slot -> slot.getButton().draw(batch));
 
-        batch.drawToCamera(ImgUi.use_on_if_is.asTex(), 155, 70);
+        batch.drawToCamera(ImgUi.use_on_if_is.asTex(), 147, 70);
         AtomicInteger y = new AtomicInteger();
         tacticInventory.getTactics().forEach(tactic -> {
-            batch.drawToCamera(ImgUi.tactic.asTex(), 140, 77 + (y.getAndIncrement() * 20));
+            batch.drawToCamera(ImgUi.tactic.asTex(), 132, 77 + (y.getAndIncrement() * 20));
             tactic.getSkillButton().draw(batch);
             tactic.getOnButton().draw(batch);
             tactic.getIfButton().draw(batch);
